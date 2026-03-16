@@ -901,6 +901,86 @@ document.getElementById('btn-send-form').addEventListener('click', function() {
   window.location.href = `mailto:marechal.enzo27@gmail.com?subject=${encodeURIComponent(s)}&body=${encodeURIComponent("De: "+n+" ("+e+")\n\n"+m)}`;
   st.className='f-status ok'; st.textContent='Ouverture de votre application email...';
 });
+
+  @media(max-width:1000px){
+  /* On passe la sidebar en haut */
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 20px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-logo {
+    padding: 0 20px 20px;
+    text-align: center;
+  }
+  .sidebar-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  .nav-item {
+    padding: 8px 15px;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-item.active {
+    border-left-color: transparent;
+    border-bottom-color: var(--accent);
+  }
+  .sidebar-links {
+    display: none; /* On cache les liens secondaires sur petit mobile pour gagner de la place */
+  }
+
+  /* On ajuste le contenu principal */
+  .main {
+    margin-left: 0;
+  }
+  .page {
+    padding: 30px 20px;
+  }
+
+  /* On passe les grilles sur une seule colonne */
+  .hero-layout, .bts-grid, .contact-grid, .veille-cols, .form-grid, .certif-row {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  /* On réduit la taille du nom pour que ça ne dépasse pas */
+  .hero-name {
+    font-size: 40px;
+  }
+  .hero-photo-wrap {
+    order: -1; /* Met la photo au-dessus du texte sur mobile */
+    display: flex;
+    justify-content: center;
+  }
+  .hero-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Optionnel : photo ronde sur mobile pour le style */
+  }
+
+  .stats-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  footer {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  /* On désactive le curseur bleu sur mobile (car il n'y a pas de souris) */
+  .cur, .cur-ring {
+    display: none !important;
+  }
+  body {
+    cursor: auto !important;
+  }
+}
 </script>
 </body>
 </html>
