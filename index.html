@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enzo MARECHAL — Portfolio BTS SIO</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#07090d; --card:#0f1318; --border:#1b2535;
+  --accent:#00d4ff; --green:#00e87a; --orange:#ff9500; --red:#ff4d6d;
+  --text:#dde8f2; --muted:#4d6a82; --grid:rgba(0,212,255,.025);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+/* ========== CURSEUR MASQUÉ SUR TOUT LE SITE ========== */
+body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-toggle {
+  background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;
+  cursor:none !important; /* Masque le curseur par défaut partout */
+}
+
+/* Cursor Animé Bleu */
+.cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 15px var(--accent);opacity:0;transition:opacity .3s;}
+.cur-ring{width:32px;height:32px;border:2px solid rgba(0,212,255,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0;transition:all .15s;animation:pulse-ring 2s ease-in-out infinite;}
+@keyframes pulse-ring{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.4}50%{transform:translate(-50%,-50%) scale(1.3);opacity:.2}}
+
+/* Grid bg */
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+.orb{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;}
+.orb1{width:500px;height:500px;background:var(--accent);opacity:.08;top:-150px;right:-150px;animation:drift 15s ease-in-out infinite alternate;}
+.orb2{width:380px;height:380px;background:#004cff;opacity:.07;bottom:50px;left:-120px;animation:drift 20s ease-in-out infinite alternate-reverse;}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(40px,40px)}}
+
+/* =====================
+   LAYOUT: sidebar + main
+   ===================== */
+.app{display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;
+  width:240px;
+  background:rgba(7,9,13,.97);
+  border-right:1px solid var(--border);
+  z-index:100;
+  display:flex;flex-direction:column;
+  padding:40px 0 30px;
+  backdrop-filter:blur(20px);
+}
+.sidebar-logo{padding:0 28px 36px;border-bottom:1px solid var(--border);}
+.sidebar-logo .initials{
+  font-family:'Space Mono',monospace;font-size:28px;font-weight:700;
+  color:transparent;-webkit-text-stroke:1.5px var(--accent);
+  letter-spacing:-1px;line-height:1;
+}
+.sidebar-logo .name{font-size:13px;font-weight:700;color:var(--text);margin-top:6px;}
+.sidebar-logo .role{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:3px;}
+
+.sidebar-nav{padding:24px 0;flex:1;}
+.nav-item{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 28px;
+  font-size:13px;font-weight:600;letter-spacing:.5px;
+  color:var(--muted);
+  transition:all .2s;border-left:2px solid transparent;
+  position:relative;
+}
+.nav-item:hover{color:var(--text);background:rgba(0,212,255,.04);}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,212,255,.06);}
+.nav-item .nav-icon{font-size:15px;width:18px;text-align:center;flex-shrink:0;}
+.nav-item .nav-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-left:auto;}
+.nav-item.active .nav-num{color:var(--accent);}
+
+.sidebar-links{padding:20px 28px;border-top:1px solid var(--border);}
+.sidebar-links a{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);
+  text-decoration:none;letter-spacing:1px;padding:6px 0;
+  transition:color .2s;
+}
+.sidebar-links a:hover{color:var(--accent);}
+
+/* MAIN CONTENT */
+.main{
+  margin-left:240px;
+  flex:1;
+  position:relative;z-index:1;
+}
+
+/* PAGES */
+.page{
+  display:none;
+  min-height:100vh;
+  padding:60px 64px 80px;
+  animation:pageIn .35s ease;
+}
+.page.active{display:block;}
+@keyframes pageIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+
+/* Page header */
+.page-header{
+  margin-bottom:56px;
+  padding-bottom:28px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.page-header-left .page-tag{
+  font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);
+  letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;
+}
+.page-header-left .page-tag::before{content:'';width:24px;height:1px;background:var(--accent);}
+.page-header-left h1{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;line-height:1;}
+.page-header-right{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-align:right;}
+
+/* REVEAL */
+.rv{opacity:1;transform:none;}
+
+/* =====================
+   ACCUEIL
+   ===================== */
+.hero-layout{display:grid;grid-template-columns:1fr 200px;gap:60px;align-items:start;margin-bottom:64px;}
+.hero-name{font-size:clamp(52px,7vw,88px);font-weight:800;letter-spacing:-3px;line-height:.92;margin-bottom:20px;}
+.hero-name .ln{color:transparent;-webkit-text-stroke:1.5px var(--accent);}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.pill{padding:7px 14px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;transition:all .2s;}
+.pill.hi{border-color:rgba(0,212,255,.4);color:var(--accent);background:rgba(0,212,255,.05);}
+.hero-bio{font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:30px;}
+.hero-bio strong{color:var(--text);}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{padding:11px 24px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:7px;border:none;}
+.btn-p{background:var(--accent);color:var(--bg);clip-path:polygon(0 0,calc(100%-10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100%-10px));}
+.btn-p:hover{background:#fff;}
+.btn-o{border:1px solid var(--border);color:var(--text);background:transparent;}
+.btn-o:hover{border-color:var(--accent);color:var(--accent);}
+
+.hero-photo-wrap{position:relative;}
+.hero-photo-frame{position:relative;}
+.hero-photo-frame::before{content:'';position:absolute;top:-5px;left:-5px;right:5px;bottom:5px;border:1px solid rgba(0,212,255,.2);pointer-events:none;z-index:1;}
+.hero-photo-frame::after{content:'ENZO MARECHAL';position:absolute;bottom:0;left:0;right:0;background:rgba(0,212,255,.9);color:var(--bg);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-align:center;padding:6px;}
+/* IMAGE ENZO.JPG ICI */
+.hero-photo{width:200px;height:260px;object-fit:cover;object-position:center 10%;display:block;transition:filter .3s;}
+
+/* Stats strip */
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:64px;}
+.stat-box{background:var(--card);padding:24px 20px;}
+.stat-val{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:5px;}
+.stat-lbl{font-size:11px;color:var(--muted);letter-spacing:.5px;line-height:1.4;}
+
+/* Formation cards */
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:52px;}
+.fc{background:var(--card);border:1px solid var(--border);padding:22px;transition:border-color .25s;}
+.fc:hover{border-color:rgba(0,212,255,.35);}
+.fc-yr{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:7px;}
+.fc-school{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:7px;}
+.fc-title{font-size:14px;font-weight:700;line-height:1.35;margin-bottom:10px;}
+.fc-badge{display:inline-block;padding:3px 8px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);}
+
+/* Section title */
+.sec-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* Timeline */
+.timeline{position:relative;padding-left:26px;}
+.timeline::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--border);}
+.tl-item{position:relative;padding-bottom:32px;}
+.tl-item::before{content:'';position:absolute;left:-22px;top:5px;width:8px;height:8px;border:2px solid var(--border);border-radius:50%;background:var(--bg);}
+.tl-item.alt::before{border-color:var(--green);}
+.tl-item.stage::before{border-color:var(--orange);}
+.tl-date{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:4px;}
+.tl-title{font-size:15px;font-weight:700;margin-bottom:2px;}
+.tl-co{font-size:12px;font-weight:600;margin-bottom:8px;}
+.tl-co.green{color:var(--green);} .tl-co.orange{color:var(--orange);}
+.tl-ul{font-size:13px;color:var(--muted);line-height:1.7;}
+.tl-ul li{margin-left:14px;margin-bottom:2px;}
+
+/* Certif */
+.certif-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+/* =====================
+   PROJETS
+   ===================== */
+.proj-list{display:flex;flex-direction:column;gap:3px;}
+.proj-card{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:border-color .25s;}
+.proj-card:hover{border-color:rgba(0,212,255,.3);}
+.proj-head{display:flex;align-items:center;gap:16px;padding:28px 32px;}
+.proj-num-badge{font-family:'Space Mono',monospace;font-size:9px;color:var(--bg);background:var(--accent);padding:3px 8px;letter-spacing:2px;flex-shrink:0;}
+.proj-head-text{flex:1;}
+.proj-title{font-size:18px;font-weight:800;letter-spacing:-.5px;margin-bottom:3px;}
+.proj-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;}
+.proj-tags-inline{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto;}
+.tag{padding:3px 9px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.proj-toggle{width:34px;height:34px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:16px;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:12px;}
+.proj-toggle:hover,.proj-toggle.open{border-color:var(--accent);color:var(--accent);}
+.proj-toggle.open{transform:rotate(45deg);}
+
+.proj-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s ease-in-out, padding .3s;
+  border-top:0px solid var(--border);
+  padding:0 32px;
+}
+.proj-body.open{max-height:2500px;padding:28px 32px 36px;border-top-width:1px;}
+.proj-desc{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:20px;}
+.proj-desc strong{color:var(--text);}
+.proj-hl{display:flex;flex-direction:column;gap:9px;margin-bottom:24px;}
+.proj-hl li{display:flex;gap:10px;font-size:13px;color:var(--muted);line-height:1.6;list-style:none;}
+.proj-hl li::before{content:'→';color:var(--accent);font-family:'Space Mono',monospace;font-size:10px;flex-shrink:0;margin-top:2px;}
+.proj-foot{display:flex;gap:10px;padding-top:20px;border-top:1px solid var(--border);}
+.proj-img{width:100%; border:1px solid var(--border); border-radius:8px; margin-top:20px;}
+
+/* =====================
+   COMPETENCES
+   ===================== */
+.comp-intro-box{
+  background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);
+  padding:22px 24px;margin-bottom:40px;font-size:14px;color:var(--muted);line-height:1.85;
+}
+.comp-intro-box strong{color:var(--text);}
+
+.comp-block{margin-bottom:52px;}
+.comp-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.comp-table{width:100%;border-collapse:collapse;}
+.comp-table th{background:var(--card);border:1px solid var(--border);padding:11px 16px;text-align:left;font-size:10px;font-family:'Space Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.comp-table td{border:1px solid var(--border);padding:13px 16px;font-size:13px;vertical-align:top;line-height:1.65;}
+.comp-table tr:hover td{background:rgba(0,212,255,.025);}
+.comp-table td:first-child{font-weight:700;color:var(--text);width:200px;}
+.comp-table td:nth-child(2){color:var(--muted);}
+.comp-table td:last-child{width:110px;}
+
+.bts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;}
+.bts-card{background:var(--card);border:1px solid var(--border);padding:28px;}
+.bts-card h3{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.5px;}
+.bts-card .opt{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:16px;}
+.bts-ul{font-size:13px;color:var(--muted);line-height:1.8;}
+.bts-ul li{margin-left:14px;margin-bottom:3px;}
+.bts-debouches{margin-top:20px; border-top:1px solid var(--border); padding-top:16px;}
+.bts-debouches .label{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.deb-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.deb-tag{padding:4px 10px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px; background: rgba(0,212,255,0.03);}
+
+/* =====================
+   VEILLE
+   ===================== */
+.veille-controls{display:flex;gap:10px;margin-bottom:24px;align-items:center;flex-wrap:wrap;}
+.veille-search{display:flex;gap:0;flex:1;min-width:200px;}
+.veille-search input{flex:1;background:var(--card);border:1px solid var(--border);border-right:0;color:var(--text);font-family:'Space Mono',monospace;font-size:11px;padding:10px 14px;outline:none;transition:border-color .2s;}
+.veille-search input:focus{border-color:var(--accent);}
+.veille-search input::placeholder{color:var(--muted);}
+.veille-search button{padding:10px 18px;background:var(--accent);color:var(--bg);border:1px solid var(--accent);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;transition:background .2s;}
+.veille-search button:hover{background:#fff;border-color:#fff;}
+.veille-cats{display:flex;gap:6px;flex-wrap:wrap;}
+.vcat{padding:8px 14px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;transition:all .2s;}
+.vcat.active,.vcat:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.05);}
+.veille-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.vcol-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.4s infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.rss-feed{display:flex;flex-direction:column;gap:2px;}
+.rss-item{background:var(--card);border:1px solid var(--border);padding:14px 16px;transition:border-color .2s;}
+.rss-item:hover{border-color:rgba(0,212,255,.3);}
+.rss-item a{text-decoration:none;color:inherit;}
+.rss-ttl{font-size:13px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:5px;}
+.rss-meta{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;display:flex;gap:10px;}
+.rss-src{color:var(--accent);}
+.rss-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:18px;text-align:center;border:1px solid var(--border);}
+.veille-ts{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);text-align:right;margin-top:8px;letter-spacing:1px;}
+.add-feed{background:var(--card);border:1px solid var(--border);padding:18px 20px;margin-top:20px;}
+.add-feed-title{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:10px;}
+.add-feed-row{display:flex;gap:6px;flex-wrap:wrap;}
+.add-feed-row input{flex:2;min-width:160px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Space Mono',monospace;font-size:11px;padding:8px 11px;outline:none;transition:border-color .2s;}
+.add-feed-row input:focus{border-color:var(--accent);}
+.add-feed-row select{background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Space Mono',monospace;font-size:11px;padding:8px 10px;outline:none;}
+.add-feed-row button{padding:8px 14px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;transition:all .2s;letter-spacing:1px;}
+.add-feed-row button:hover{border-color:var(--accent);color:var(--accent);}
+
+/* =====================
+   CONTACT
+   ===================== */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.c-big{font-size:clamp(36px,4.5vw,56px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:18px;}
+.c-big span{color:var(--accent);}
+.c-intro{font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:28px;}
+.c-links{display:flex;flex-direction:column;gap:8px;}
+.c-link{display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all .2s;}
+.c-link:hover{border-color:var(--accent);background:rgba(0,212,255,.03);}
+.c-icon{font-size:15px;color:var(--accent);width:20px;text-align:center;flex-shrink:0;}
+.c-link-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;}
+.c-link-val{font-size:13px;font-weight:600;}
+.form-side h3{font-size:17px;font-weight:700;margin-bottom:16px;}
+.fg{margin-bottom:12px;}
+.fg label{display:block;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.fg input,.fg textarea{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:13px;padding:10px 13px;outline:none;transition:border-color .2s;}
+.fg input:focus,.fg textarea:focus{border-color:var(--accent);}
+.fg textarea{resize:vertical;min-height:100px;}
+.f-status{font-family:'Space Mono',monospace;font-size:11px;padding:10px;margin-top:8px;display:none;}
+.f-status.ok{color:var(--green);border:1px solid var(--green);display:block;}
+.f-status.err{color:var(--orange);border:1px solid var(--orange);display:block;}
+
+/* Footer */
+footer{margin-left:240px;border-top:1px solid var(--border);padding:20px 64px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;}
+footer span{color:var(--accent);}
+
+@media(max-width:1000px){
+  .sidebar{width:100%;height:auto;position:relative;flex-direction:row;flex-wrap:wrap;padding:12px 0 0;border-right:none;border-bottom:1px solid var(--border);}
+  .sidebar-logo{padding:0 16px 12px;border-bottom:none;}
+  .sidebar-nav{padding:0;display:flex;flex-wrap:wrap;}
+  .nav-item{padding:10px 14px;}
+  .sidebar-links{padding:8px 16px;border-top:none;display:flex;gap:12px;}
+  .main,.footer{margin-left:0;}
+  .page{padding:30px 20px 60px;}
+  .hero-layout,.bts-grid,.contact-grid,.veille-cols,.form-grid,.certif-row{grid-template-columns:1fr;}
+  .hero-photo-wrap{order:-1;}
+  .stats-strip{grid-template-columns:1fr 1fr;}
+  footer{margin-left:0;flex-direction:column;gap:6px;padding:16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<div class="app">
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="initials">EM</div>
+    <div class="name">Enzo MARECHAL</div>
+    <div class="role">BTS SIO · SISR</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-item active" data-page="accueil">
+      <span class="nav-icon">⌂</span> Accueil <span class="nav-num">01</span>
+    </div>
+    <div class="nav-item" data-page="projets">
+      <span class="nav-icon">◈</span> Projets E6 <span class="nav-num">02</span>
+    </div>
+    <div class="nav-item" data-page="competences">
+      <span class="nav-icon">◉</span> Compétences <span class="nav-num">03</span>
+    </div>
+    <div class="nav-item" data-page="veille">
+      <span class="nav-icon">⊕</span> Veille <span class="nav-num">04</span>
+    </div>
+    <div class="nav-item" data-page="documents">
+      <span class="nav-icon">📄</span> Documents <span class="nav-num">05</span>
+    </div>
+    <div class="nav-item" data-page="contact">
+      <span class="nav-icon">✉</span> Contact <span class="nav-num">06</span>
+    </div>
+  </nav>
+  <div class="sidebar-links">
+    <a href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261/" target="_blank">in LinkedIn ↗</a>
+    <a href="https://github.com/B2ZO0" target="_blank">⬡ GitHub ↗</a>
+    <a href="https://www.root-me.org/B2ZO?lang=fr#44c0f8d76977a97ee797b86f1e0d489f" target="_blank">⚑ Root-Me ↗</a>
+  </div>
+</aside>
+
+<div class="main">
+
+<div id="page-accueil" class="page active">
+  <div class="page-header rv">
+    <div class="page-header-left">
+      <div class="page-tag">Portfolio E5 / E6 · BTS SIO SISR</div>
+      <h1>Accueil</h1>
+    </div>
+    <div class="page-header-right">AFTEC · Caen<br>2024 — 2026</div>
+  </div>
+
+  <div class="hero-layout rv">
+    <div>
+      <div class="hero-name">Enzo<br><span class="ln">MARECHAL</span></div>
+      <div class="hero-pills">
+        <span class="pill hi">Réseaux & Systèmes</span>
+        <span class="pill hi">Administration Windows</span>
+        <span class="pill hi">Linux</span>
+        <span class="pill">Virtualisation</span>
+        <span class="pill">Supervision</span>
+        <span class="pill">Automatisation</span>
+        <span class="pill">Cybersécurité</span>
+      </div>
+      <p class="hero-bio">
+        <strong>Technicien informatique en alternance</strong> · 20 ans · Caen, Normandie<br>
+        BTS SIO option SISR à l'AFTEC Caen — 2ème année<br>
+        En alternance chez <strong>Armatis</strong> depuis août 2024<br>
+        Recherche alternance <strong>Bachelor Cybersécurité & Administration Réseau</strong>
+      </p>
+      <div class="hero-btns">
+        <span class="btn btn-p" data-page="projets">Projets E6 →</span>
+        <span class="btn btn-o" data-page="contact">Contact</span>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <img src="enzo.jpg" alt="Enzo MARECHAL" class="hero-photo">
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-strip rv">
+    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Projets E6<br>réalisés</div></div>
+    <div class="stat-box"><div class="stat-val">5+</div><div class="stat-lbl">Expériences<br>professionnelles</div></div>
+    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Certifications<br>(PIX + Azure)</div></div>
+    <div class="stat-box"><div class="stat-val">5</div><div class="stat-lbl">Années de<br>formation IT</div></div>
+  </div>
+
+  <div class="sec-title rv">Formation</div>
+  <div class="form-grid rv">
+    <div class="fc">
+      <div class="fc-yr">2026 — 2027</div>
+      <div class="fc-school">My Digital School · Caen</div>
+      <div class="fc-title">Bachelor Cybersécurité & Administrateur Réseaux</div>
+      <span class="fc-badge">À venir</span>
+    </div>
+    <div class="fc">
+      <div class="fc-yr">2024 — 2026</div>
+      <div class="fc-school">AFTEC · Caen</div>
+      <div class="fc-title">BTS SIO option SISR</div>
+      <span class="fc-badge" style="border-color:var(--green);color:var(--green);">En cours · 2ème année</span>
+    </div>
+    <div class="fc">
+      <div class="fc-yr">2020 — 2023</div>
+      <div class="fc-school">Lycée Charles Tellier · Condé-sur-Noireau</div>
+      <div class="fc-title">Bac Pro SN option RISC</div>
+      <span class="fc-badge" style="border-color:var(--accent);color:var(--accent);">Obtenu 2023</span>
+    </div>
+  </div>
+
+  <div class="sec-title rv">Expériences professionnelles</div>
+  <div class="timeline rv">
+    <div class="tl-item alt">
+      <div class="tl-date">AOÛT 2024 — AUJOURD'HUI · ALTERNANCE</div>
+      <div class="tl-title">Technicien Informatique</div>
+      <div class="tl-co green">Armatis · Caen</div>
+      <ul class="tl-ul">
+        <li>Support utilisateur N1 & N2, gestion de tickets, assistance sur site et à distance</li>
+        <li>Déploiement & configuration de postes Windows 11 et outils métiers</li>
+        <li>Diagnostic d'incidents matériels, logiciels et réseau (LAN, Wi-Fi, VLAN)</li>
+        <li>Gestion des comptes Active Directory : droits, groupes, GPO</li>
+        <li>Brassage réseau, vérification de connectivité, interventions sur switches</li>
+      </ul>
+    </div>
+    <div class="tl-item stage">
+      <div class="tl-date">MARS — AVRIL 2023 · STAGE 2 MOIS</div>
+      <div class="tl-title">Stagiaire Informatique</div>
+      <div class="tl-co orange">Chauvin-Arnoux Group · Reux</div>
+      <ul class="tl-ul">
+        <li>Chiffrage et sécurisation de disques, mise en route d'un RAID</li>
+        <li>Déploiement automatisé de postes via MDT, routage et config switches (VLAN)</li>
+        <li>Support informatique N1 & N2, micro-informatique</li>
+      </ul>
+    </div>
+    <div class="tl-item stage">
+      <div class="tl-date">NOV. — DÉC. 2022 · STAGE 2 MOIS</div>
+      <div class="tl-title">Stagiaire Informatique</div>
+      <div class="tl-co orange">Communauté de Communes Coeur Côte Fleurie · Deauville</div>
+      <ul class="tl-ul">
+        <li>Installation de postes de travail, brassage de prises réseau</li>
+        <li>Installation et configuration de Zabbix (supervision réseau & équipements)</li>
+      </ul>
+    </div>
+    <div class="tl-item stage">
+      <div class="tl-date">MAI — JUIL. 2022 · STAGE 3 MOIS</div>
+      <div class="tl-title">Stagiaire Informatique</div>
+      <div class="tl-co orange">Ville de Cabourg — FabLab · Cabourg</div>
+      <ul class="tl-ul"><li>Programmation JS, modélisation 2D/3D, découpe laser, accueil public</li></ul>
+    </div>
+    <div class="tl-item stage">
+      <div class="tl-date">JANV. — FÉV. 2022 · STAGE 2 MOIS</div>
+      <div class="tl-title">Stagiaire Informatique</div>
+      <div class="tl-co orange">LISI MEDICAL · Hérouville-Saint-Clair</div>
+      <ul class="tl-ul"><li>Résolution de problèmes réseau, configuration de switches</li></ul>
+    </div>
+  </div>
+
+  <div class="sec-title rv" style="margin-top:44px;">Certifications</div>
+  <div class="certif-row rv">
+    <div class="fc">
+      <div class="fc-yr">2023</div>
+      <div class="fc-school">Certification officielle</div>
+      <div class="fc-title">PIX — Compétences numériques</div>
+      <span class="fc-badge" style="border-color:var(--accent);color:var(--accent);">Obtenu</span>
+    </div>
+    <div class="fc">
+      <div class="fc-yr">2025 — En cours</div>
+      <div class="fc-school">Microsoft</div>
+      <div class="fc-title">Certification Admin Azure</div>
+      <span class="fc-badge" style="border-color:var(--orange);color:var(--orange);">En préparation</span>
+    </div>
+  </div>
+</div>
+
+<div id="page-projets" class="page">
+  <div class="page-header rv">
+    <div class="page-header-left">
+      <div class="page-tag">Épreuve E6 · BTS SIO SISR</div>
+      <h1>Projets</h1>
+    </div>
+    <div class="page-header-right">2 réalisations<br>professionnelles</div>
+  </div>
+
+  <div class="proj-list">
+    <div class="proj-card rv">
+      <div class="proj-head" data-toggle="proj">
+        <span class="proj-num-badge">E6 · 01</span>
+        <div class="proj-head-text">
+          <div class="proj-title">Automatisation infrastructure micro-services</div>
+          <div class="proj-sub">Ansible × Proxmox VE</div>
+        </div>
+        <div class="proj-tags-inline">
+          <span class="tag">Ansible</span><span class="tag">Proxmox</span><span class="tag">Linux</span><span class="tag">IaC</span>
+        </div>
+        <button class="proj-toggle">+</button>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">L'administration manuelle de serveurs est source d'erreurs et d'incohérences. Ce projet démontre la maîtrise de l'<strong>Infrastructure as Code</strong> en automatisant intégralement le <strong>déploiement de 3 serveurs Minecraft en même temps</strong> sous Proxmox VE via Ansible — une seule commande, zéro intervention manuelle.</p>
+        <ul class="proj-hl">
+          <li>Déploiement en cluster de 3 serveurs Minecraft simultanés via playbook Ansible.</li>
+          <li>Principe d'idempotence : même résultat garanti après N exécutions du playbook.</li>
+          <li>Inventaire YAML, modules Ansible (apt, user, copy, systemd), SSH sans agent cible.</li>
+          <li>Session tmux persistante, utilisateur système dédié, JVM configurée.</li>
+        </ul>
+        <img src="ansible-playbook.png" alt="Exécution du playbook Ansible" class="proj-img" onerror="this.parentElement.innerHTML+='<p style=color:var(--red)>[Image ansible-playbook.png introuvable]</p>'; this.style.display='none';">
+        <div class="proj-foot">
+          <a href="https://github.com/B2ZO0/Projet-ServeurMC-Ansible" target="_blank" class="btn btn-o">⬡ Voir sur GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card rv">
+      <div class="proj-head" data-toggle="proj">
+        <span class="proj-num-badge">E6 · 02</span>
+        <div class="proj-head-text">
+          <div class="proj-title">Serveur de supervision Zabbix + Grafana</div>
+          <div class="proj-sub">Zabbix 7.0 × Grafana OSS × Debian 12</div>
+        </div>
+        <div class="proj-tags-inline">
+          <span class="tag">Zabbix</span><span class="tag">Grafana</span><span class="tag">MariaDB</span><span class="tag">Debian</span>
+        </div>
+        <button class="proj-toggle">+</button>
+      </div>
+      <div class="proj-body">
+        <p class="proj-desc">Besoin réel rencontré en stage chez Armatis : surveiller une infrastructure manuellement devient impossible à grande échelle. Ce projet déploie une <strong>solution complète de supervision</strong> avec collecte de métriques, alertes automatiques et dashboards modernes sur Debian 12.</p>
+        <ul class="proj-hl">
+          <li>Zabbix 7.0 installé sur Debian 12 avec MariaDB pour le stockage des métriques.</li>
+          <li>Agents Zabbix sur serveurs distants : collecte CPU, RAM, disque, réseau en temps réel.</li>
+          <li>Couplage Grafana OSS via API Zabbix — dashboards interactifs et personnalisés.</li>
+          <li>Architecture complète : Zabbix Server + Frontend PHP + Agent + MariaDB + Apache2.</li>
+        </ul>
+        <img src="grafana-dashboard.png" alt="Dashboard de supervision Grafana" class="proj-img" onerror="this.parentElement.innerHTML+='<p style=color:var(--red)>[Image grafana-dashboard.png introuvable]</p>'; this.style.display='none';">
+        <div class="proj-foot">
+          <a href="https://github.com/B2ZO0" target="_blank" class="btn btn-o">⬡ GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-competences" class="page">
+  <div class="page-header rv">
+    <div class="page-header-left">
+      <div class="page-tag">Référentiel BTS SIO</div>
+      <h1>Compétences</h1>
+    </div>
+    <div class="page-header-right">Épreuve E5<br>BTS SIO SISR</div>
+  </div>
+
+  <div class="comp-block rv">
+    <div class="comp-sub">Tronc Commun — Bloc B1</div>
+    <div class="comp-intro-box" style="margin-bottom:40px;">
+      <p style="margin-bottom:15px; color:var(--text); font-weight:700;">Support et mise à disposition de services informatiques (Commun SISR et SLAM)</p>
+      <ul style="margin-left:20px;">
+        <li style="margin-bottom:8px;"><strong>Gérer le patrimoine informatique :</strong> Recenser, identifier et gérer les équipements, logiciels et configurations (GLPI, OCS Inventory).</li>
+        <li style="margin-bottom:8px;"><strong>Répondre aux incidents :</strong> Traiter les demandes d'assistance, diagnostiquer les pannes matérielles/logicielles et assurer le support utilisateur N1/N2.</li>
+        <li style="margin-bottom:8px;"><strong>Développer la présence en ligne :</strong> Participer à la gestion et l'évolution du site web ou de l'intranet de l'organisation.</li>
+        <li style="margin-bottom:8px;"><strong>Travailler en mode projet :</strong> Planifier, analyser et participer activement au développement d'une solution informatique en équipe.</li>
+        <li style="margin-bottom:8px;"><strong>Mettre à disposition des services :</strong> Installer, tester et déployer un nouveau poste, serveur ou logiciel pour les utilisateurs.</li>
+        <li><strong>Organiser son développement professionnel :</strong> Mettre en place une veille technologique et sécuritaire (flux RSS) et développer ses compétences.</li>
+      </ul>
+    </div>
+
+    <div class="comp-sub">Spécialisations du BTS SIO</div>
+    <div class="bts-grid">
+      <div class="bts-card" style="border-top: 3px solid var(--accent);">
+        <h3>SISR (Mon option)</h3>
+        <div class="opt">Solutions d'Infrastructure, Systèmes et Réseaux</div>
+        <p style="font-size:13px; color:var(--text); margin-bottom:12px;">Cette spécialité forme des professionnels capables d'installer, configurer et gérer les équipements et réseaux informatiques.</p>
+        <ul class="bts-ul">
+          <li><strong>Administration Systèmes :</strong> Déploiement et gestion de Windows Server et Linux (Debian, Ubuntu). Active Directory, GPO, DNS, DHCP.</li>
+          <li><strong>Gestion Réseau :</strong> Configuration de switches, routeurs, pare-feux. Création de VLANs et routage.</li>
+          <li><strong>Virtualisation :</strong> Maîtrise des environnements virtuels (Proxmox VE, VMware ESXi, Hyper-V).</li>
+          <li><strong>Supervision :</strong> Monitoring en temps réel des serveurs et réseaux (Zabbix, Grafana, Centreon).</li>
+          <li><strong>Cybersécurité :</strong> Sécurisation des accès, mise en place de VPN, sauvegardes et plan de reprise d'activité (PRA).</li>
+          <li><strong>Automatisation :</strong> Déploiement automatisé (Ansible, scripts PowerShell, Bash).</li>
+        </ul>
+        <div class="bts-debouches">
+          <div class="label">Métiers visés</div>
+          <div class="deb-tags">
+            <span class="deb-tag">Administrateur Systèmes & Réseaux</span>
+            <span class="deb-tag">Technicien Support Informatique N2/N3</span>
+            <span class="deb-tag">Technicien Infrastructure</span>
+            <span class="deb-tag">Analyste Cybersécurité Junior</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bts-card">
+        <h3>SLAM</h3>
+        <div class="opt">Solutions Logicielles et Applications Métiers</div>
+        <p style="font-size:13px; color:var(--text); margin-bottom:12px;">Cette spécialité est orientée vers le développement, la conception de logiciels et la création d'applications web ou mobiles.</p>
+        <ul class="bts-ul">
+          <li><strong>Développement Web :</strong> Création de sites et interfaces (HTML, CSS, JS, PHP, frameworks).</li>
+          <li><strong>Développement Objet :</strong> Programmation d'applications logicielles (Java, Python, C#).</li>
+          <li><strong>Bases de données :</strong> Modélisation (MCD/MLD) et requêtes SQL (MySQL, PostgreSQL).</li>
+          <li><strong>Gestion de projet :</strong> Utilisation des méthodes Agiles (Scrum) et du versioning (Git/GitHub).</li>
+          <li><strong>Maintenance :</strong> Correction de bugs et ajout de nouvelles fonctionnalités sur des logiciels existants.</li>
+        </ul>
+        <div class="bts-debouches">
+          <div class="label">Métiers visés</div>
+          <div class="deb-tags">
+            <span class="deb-tag">Développeur Web / Full-Stack</span>
+            <span class="deb-tag">Développeur d'Applications Mobiles</span>
+            <span class="deb-tag">Analyste Programmeur</span>
+            <span class="deb-tag">Concepteur Logiciel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-sub">Poursuites d'études</div>
+    <div style="font-size:14px; color:var(--muted); line-height:1.8;">
+      Après l'obtention du BTS SIO, plusieurs voies sont possibles pour se spécialiser (souvent en alternance) :
+      <ul style="margin-top:10px; margin-left:20px; color:var(--text);">
+        <li><strong>Licence Professionnelle :</strong> Métiers des Réseaux Informatiques et Télécommunications, Sécurité des Systèmes d'Information.</li>
+        <li><strong>Bachelor (Bac+3) :</strong> Bachelor Cybersécurité, Bachelor Administrateur Réseaux et Cloud (ce que je vise).</li>
+        <li><strong>Diplôme d'Ingénieur (Bac+5) :</strong> Écoles d'ingénieurs en informatique (CESI, ENI, CNAM) pour devenir Architecte Réseau ou Expert Cybersécurité.</li>
+        <li><strong>Master / Mastère (Bac+5) :</strong> Management des Systèmes d'Information, Sécurité Informatique.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="page-veille" class="page">
+  <div class="page-header rv">
+    <div class="page-header-left">
+      <div class="page-tag">Flux RSS en temps réel</div>
+      <h1>Veille Techno.</h1>
+    </div>
+    <div class="page-header-right">Sources officielles<br>Mise à jour auto</div>
+  </div>
+  <div class="veille-controls rv">
+    <div class="veille-search">
+      <input type="text" id="vs-input" placeholder="Rechercher dans les flux...">
+      <button id="btn-search-rss">↵</button>
+    </div>
+    <div class="veille-cats">
+      <span class="vcat active" data-cat="all">Tout</span>
+      <span class="vcat" data-cat="cyber">Cybersécurité</span>
+      <span class="vcat" data-cat="admin">Sysadmin & Windows</span>
+    </div>
+  </div>
+  <div class="veille-cols">
+    <div id="col-cyber" class="rv">
+      <div class="vcol-title"><div class="live-dot"></div>Cybersécurité</div>
+      <div id="feed-cyber" class="rss-feed"><div class="rss-msg">Chargement des flux...</div></div>
+      <div class="veille-ts" id="ts-cyber"></div>
+    </div>
+    <div id="col-admin" class="rv">
+      <div class="vcol-title"><div class="live-dot"></div>Sysadmin & Windows</div>
+      <div id="feed-admin" class="rss-feed"><div class="rss-msg">Chargement des flux...</div></div>
+      <div class="veille-ts" id="ts-admin"></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-documents" class="page">
+  <div class="page-header rv">
+    <div class="page-header-left">
+      <div class="page-tag">CV & Ressources</div>
+      <h1>Documents</h1>
+    </div>
+    <div class="page-header-right">Téléchargements</div>
+  </div>
+
+  <div class="sec-title rv">Documents téléchargeables</div>
+  <div style="display:flex; gap:20px; justify-content:center; margin:32px 0; flex-wrap:wrap;">
+    <a href="CV_Enzo_MARECHAL.pdf" download class="btn btn-p" style="padding:16px 32px;">⬇ Télécharger mon CV (PDF)</a>
+    <a href="Tableaudecompetence.xlsx" download class="btn btn-o" style="padding:16px 32px; background:var(--card);">⬇ Tableau de Compétences (Excel)</a>
+  </div>
+</div>
+
+<div id="page-contact" class="page">
+  <div class="page-header rv">
+    <div class="page-header-left">
+      <div class="page-tag">Disponible · Caen, Normandie</div>
+      <h1>Contact</h1>
+    </div>
+  </div>
+  <div class="contact-grid">
+    <div class="rv">
+      <div class="c-big">Travaillons<br><span>ensemble.</span></div>
+      <p class="c-intro">Disponible pour une alternance Bachelor Cybersécurité & Administration Réseau à partir de 2026. N'hésitez pas à me contacter directement.</p>
+      <div class="c-links">
+        <a href="mailto:marechal.enzo27@gmail.com" class="c-link">
+          <span class="c-icon">✉</span>
+          <div><div class="c-link-lbl">Email</div><div class="c-link-val">marechal.enzo27@gmail.com</div></div>
+        </a>
+        <a href="tel:+33782165772" class="c-link">
+          <span class="c-icon">☎</span>
+          <div><div class="c-link-lbl">Téléphone</div><div class="c-link-val">07 82 16 57 72</div></div>
+        </a>
+        <a href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261/" target="_blank" class="c-link">
+          <span class="c-icon">in</span>
+          <div><div class="c-link-lbl">LinkedIn</div><div class="c-link-val">marechal-enzo-7b9ba9261</div></div>
+        </a>
+        <a href="https://github.com/B2ZO0" target="_blank" class="c-link">
+          <span class="c-icon">⬡</span>
+          <div><div class="c-link-lbl">GitHub</div><div class="c-link-val">github.com/B2ZO0</div></div>
+        </a>
+        <a href="https://www.root-me.org/B2ZO?lang=fr#44c0f8d76977a97ee797b86f1e0d489f" target="_blank" class="c-link">
+          <span class="c-icon">⚑</span>
+          <div><div class="c-link-lbl">Root-Me</div><div class="c-link-val">root-me.org/B2ZO</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="form-side rv">
+      <h3>Envoyer un message</h3>
+      <div class="fg"><label>Votre nom</label><input type="text" id="f-name" placeholder="Jean Dupont"></div>
+      <div class="fg"><label>Email</label><input type="email" id="f-email" placeholder="jean@exemple.com"></div>
+      <div class="fg"><label>Objet</label><input type="text" id="f-subject" placeholder="Proposition d'alternance"></div>
+      <div class="fg"><label>Message</label><textarea id="f-msg" placeholder="Bonjour Enzo..."></textarea></div>
+      <button id="btn-send-form" class="btn btn-p" style="width:100%;justify-content:center;">Envoyer →</button>
+      <div class="f-status" id="f-status"></div>
+    </div>
+  </div>
+</div>
+
+</div></div><footer>
+  <p>© 2026 <span>Enzo MARECHAL</span> — BTS SIO SISR · AFTEC Caen</p>
+</footer>
+
+<script>
+// ========== 1. CURSEUR ANIMÉ ==========
+(function() {
+  const cursor = document.getElementById('cur');
+  const cursorRing = document.getElementById('curRing');
+  let mouseX = 0, mouseY = 0;
+  let curX = 0, curY = 0;
+  let ringX = 0, ringY = 0;
+
+  // On écoute le mouvement pour mettre à jour les coordonnées
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.opacity = '1';
+    cursorRing.style.opacity = '1';
+  });
+  
+  // Si la souris sort de la fenêtre, on cache le curseur bleu
+  document.addEventListener('mouseleave', () => {
+    cursor.style.opacity = '0';
+    cursorRing.style.opacity = '0';
+  });
+
+  // Boucle d'animation fluide
+  function animateCursor() {
+    curX += (mouseX - curX) * 0.15;
+    curY += (mouseY - curY) * 0.15;
+    cursor.style.left = curX + 'px';
+    cursor.style.top = curY + 'px';
+
+    ringX += (mouseX - ringX) * 0.08;
+    ringY += (mouseY - ringY) * 0.08;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+})();
+
+// ========== 2. NAVIGATION DES ONGLETS ==========
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  
+  document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${pageId}"]`).classList.add('active');
+  
+  document.querySelector('.main').scrollTop = 0;
+  window.scrollTo(0,0);
+
+  if(pageId === 'veille') loadRSS();
+}
+
+document.querySelectorAll('[data-page]').forEach(btn => {
+  btn.addEventListener('click', function() {
+    showPage(this.getAttribute('data-page'));
+  });
+});
+
+// ========== 3. OUVERTURE/FERMETURE DES PROJETS ==========
+document.querySelectorAll('.proj-head').forEach(head => {
+  head.addEventListener('click', function() {
+    const card = this.closest('.proj-card');
+    const body = card.querySelector('.proj-body');
+    const btn = this.querySelector('.proj-toggle');
+    const isOpen = body.classList.contains('open');
+    
+    document.querySelectorAll('.proj-body').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.proj-toggle').forEach(t => t.textContent = '+');
+    
+    if (!isOpen) {
+      body.classList.add('open');
+      btn.textContent = 'x';
+    }
+  });
+});
+
+// ========== 4. VEILLE RSS (API RSS2JSON SÉCURISÉE) ==========
+let rssLoaded = false;
+const CYBER = [
+  {url:'https://www.cert.ssi.gouv.fr/feed/',name:'ANSSI CERT-FR'},
+  {url:'https://feeds.feedburner.com/TheHackersNews',name:'The Hacker News'}
+];
+const ADMIN = [
+  {url:'https://www.it-connect.fr/feed/',name:'IT-Connect.fr'},
+  {url:'https://windowsreport.com/feed/',name:'Windows Report'}
+];
+
+async function loadRSS() {
+  if (rssLoaded) return;
+  rssLoaded = true;
+  // Utilise Promise.all pour charger les deux colonnes en même temps
+  await Promise.all([
+    fetchFeeds(CYBER, 'feed-cyber', 'ts-cyber'),
+    fetchFeeds(ADMIN, 'feed-admin', 'ts-admin')
+  ]);
+}
+
+async function fetchFeeds(feeds, cid, tsid) {
+  const el = document.getElementById(cid);
+  el.innerHTML = '<div class="rss-msg">Chargement des flux en cours...</div>';
+  let items = [];
+  
+  for (const f of feeds) {
+    try {
+      // rss2json convertit le flux RSS compliqué en JSON propre
+      const r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f.url));
+      const d = await r.json();
+      
+      if (d.status === 'ok') {
+        d.items.forEach(it => {
+          const title = it.title || '';
+          const link = it.link || '#';
+          const pub = it.pubDate || '';
+          const date = pub ? new Date(pub).toLocaleDateString('fr-FR') : '';
+          if (title) items.push({title, link, date, src: f.name});
+        });
+      }
+    } catch(e) {
+      console.error("Erreur avec le flux :", f.name);
+    }
+  }
+  
+  if (!items.length) { 
+    el.innerHTML = '<div class="rss-msg" style="color:var(--orange);">! Impossible de charger les flux. Vérifiez votre connexion.</div>'; 
+    return; 
+  }
+  
+  // Afficher les 10 articles les plus récents
+  el.innerHTML = items.slice(0, 10).map(i => 
+    `<div class="rss-item" data-t="${i.title.toLowerCase()}"><a href="${i.link}" target="_blank"><div class="rss-ttl">${i.title}</div><div class="rss-meta"><span class="rss-src">${i.src}</span><span>${i.date}</span></div></a></div>`
+  ).join('');
+  
+  document.getElementById(tsid).textContent = 'Dernière MAJ : ' + new Date().toLocaleTimeString('fr-FR');
+}
+
+// Filtres de recherche RSS
+document.querySelectorAll('.vcat').forEach(catBtn => {
+  catBtn.addEventListener('click', function() {
+    document.querySelectorAll('.vcat').forEach(c => c.classList.remove('active'));
+    this.classList.add('active');
+    const cat = this.getAttribute('data-cat');
+    document.getElementById('col-cyber').style.display = (cat === 'admin') ? 'none' : '';
+    document.getElementById('col-admin').style.display = (cat === 'cyber') ? 'none' : '';
+  });
+});
+
+// ========== 5. FORMULAIRE ==========
+document.getElementById('btn-send-form').addEventListener('click', function() {
+  const n = document.getElementById('f-name').value.trim();
+  const e = document.getElementById('f-email').value.trim();
+  const s = document.getElementById('f-subject').value.trim();
+  const m = document.getElementById('f-msg').value.trim();
+  const st = document.getElementById('f-status');
+  if(!n || !e || !m){ st.className='f-status err'; st.textContent='Remplissez tous les champs.'; return; }
+  window.location.href = `mailto:marechal.enzo27@gmail.com?subject=${encodeURIComponent(s)}&body=${encodeURIComponent("De: "+n+" ("+e+")\n\n"+m)}`;
+  st.className='f-status ok'; st.textContent='Ouverture de votre application email...';
+});
+</script>
+</body>
+</html>
