@@ -14,30 +14,23 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 
-/* ========== CURSEUR MASQUÉ SUR TOUT LE SITE ========== */
 body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-toggle {
   background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;
-  cursor:none !important; /* Masque le curseur par défaut partout */
+  cursor:none !important;
 }
 
-/* Cursor Animé Bleu */
 .cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 15px var(--accent);opacity:0;transition:opacity .3s;}
 .cur-ring{width:32px;height:32px;border:2px solid rgba(0,212,255,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0;transition:all .15s;animation:pulse-ring 2s ease-in-out infinite;}
 @keyframes pulse-ring{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.4}50%{transform:translate(-50%,-50%) scale(1.3);opacity:.2}}
 
-/* Grid bg */
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
 .orb{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;}
 .orb1{width:500px;height:500px;background:var(--accent);opacity:.08;top:-150px;right:-150px;animation:drift 15s ease-in-out infinite alternate;}
 .orb2{width:380px;height:380px;background:#004cff;opacity:.07;bottom:50px;left:-120px;animation:drift 20s ease-in-out infinite alternate-reverse;}
 @keyframes drift{from{transform:translate(0,0)}to{transform:translate(40px,40px)}}
 
-/* =====================
-   LAYOUT: sidebar + main
-   ===================== */
 .app{display:flex;min-height:100vh;}
 
-/* SIDEBAR */
 .sidebar{
   position:fixed;top:0;left:0;bottom:0;
   width:240px;
@@ -49,23 +42,12 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   backdrop-filter:blur(20px);
 }
 .sidebar-logo{padding:0 28px 36px;border-bottom:1px solid var(--border);}
-.sidebar-logo .initials{
-  font-family:'Space Mono',monospace;font-size:28px;font-weight:700;
-  color:transparent;-webkit-text-stroke:1.5px var(--accent);
-  letter-spacing:-1px;line-height:1;
-}
+.sidebar-logo .initials{font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:transparent;-webkit-text-stroke:1.5px var(--accent);letter-spacing:-1px;line-height:1;}
 .sidebar-logo .name{font-size:13px;font-weight:700;color:var(--text);margin-top:6px;}
 .sidebar-logo .role{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:3px;}
 
 .sidebar-nav{padding:24px 0;flex:1;}
-.nav-item{
-  display:flex;align-items:center;gap:12px;
-  padding:13px 28px;
-  font-size:13px;font-weight:600;letter-spacing:.5px;
-  color:var(--muted);
-  transition:all .2s;border-left:2px solid transparent;
-  position:relative;
-}
+.nav-item{display:flex;align-items:center;gap:12px;padding:13px 28px;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--muted);transition:all .2s;border-left:2px solid transparent;position:relative;}
 .nav-item:hover{color:var(--text);background:rgba(0,212,255,.04);}
 .nav-item.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,212,255,.06);}
 .nav-item .nav-icon{font-size:15px;width:18px;text-align:center;flex-shrink:0;}
@@ -73,52 +55,24 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .nav-item.active .nav-num{color:var(--accent);}
 
 .sidebar-links{padding:20px 28px;border-top:1px solid var(--border);}
-.sidebar-links a{
-  display:flex;align-items:center;gap:8px;
-  font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);
-  text-decoration:none;letter-spacing:1px;padding:6px 0;
-  transition:color .2s;
-}
+.sidebar-links a{display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:1px;padding:6px 0;transition:color .2s;}
 .sidebar-links a:hover{color:var(--accent);}
 
-/* MAIN CONTENT */
-.main{
-  margin-left:240px;
-  flex:1;
-  position:relative;z-index:1;
-}
+.main{margin-left:240px;flex:1;position:relative;z-index:1;}
 
-/* PAGES */
-.page{
-  display:none;
-  min-height:100vh;
-  padding:60px 64px 80px;
-  animation:pageIn .35s ease;
-}
+.page{display:none;min-height:100vh;padding:60px 64px 80px;animation:pageIn .35s ease;}
 .page.active{display:block;}
 @keyframes pageIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
 
-/* Page header */
-.page-header{
-  margin-bottom:56px;
-  padding-bottom:28px;
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:flex-end;justify-content:space-between;
-}
-.page-header-left .page-tag{
-  font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);
-  letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;
-}
+.page-header{margin-bottom:56px;padding-bottom:28px;border-bottom:1px solid var(--border);display:flex;align-items:flex-end;justify-content:space-between;}
+.page-header-left .page-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
 .page-header-left .page-tag::before{content:'';width:24px;height:1px;background:var(--accent);}
 .page-header-left h1{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;line-height:1;}
 .page-header-right{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-align:right;}
 
-/* REVEAL */
 .rv{opacity:1;transform:none;}
 
-/* =====================
-   ACCUEIL
-   ===================== */
+/* ===================== ACCUEIL ===================== */
 .hero-layout{display:grid;grid-template-columns:1fr 200px;gap:60px;align-items:start;margin-bottom:64px;}
 .hero-name{font-size:clamp(52px,7vw,88px);font-weight:800;letter-spacing:-3px;line-height:.92;margin-bottom:20px;}
 .hero-name .ln{color:transparent;-webkit-text-stroke:1.5px var(--accent);}
@@ -138,16 +92,13 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .hero-photo-frame{position:relative;}
 .hero-photo-frame::before{content:'';position:absolute;top:-5px;left:-5px;right:5px;bottom:5px;border:1px solid rgba(0,212,255,.2);pointer-events:none;z-index:1;}
 .hero-photo-frame::after{content:'ENZO MARECHAL';position:absolute;bottom:0;left:0;right:0;background:rgba(0,212,255,.9);color:var(--bg);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-align:center;padding:6px;}
-/* IMAGE ENZO.JPG ICI */
 .hero-photo{width:200px;height:260px;object-fit:cover;object-position:center 10%;display:block;transition:filter .3s;}
 
-/* Stats strip */
 .stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:64px;}
 .stat-box{background:var(--card);padding:24px 20px;}
 .stat-val{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:5px;}
 .stat-lbl{font-size:11px;color:var(--muted);letter-spacing:.5px;line-height:1.4;}
 
-/* Formation cards */
 .form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:52px;}
 .fc{background:var(--card);border:1px solid var(--border);padding:22px;transition:border-color .25s;}
 .fc:hover{border-color:rgba(0,212,255,.35);}
@@ -156,11 +107,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .fc-title{font-size:14px;font-weight:700;line-height:1.35;margin-bottom:10px;}
 .fc-badge{display:inline-block;padding:3px 8px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);}
 
-/* Section title */
 .sec-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px;}
 .sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
 
-/* Timeline */
 .timeline{position:relative;padding-left:26px;}
 .timeline::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--border);}
 .tl-item{position:relative;padding-bottom:32px;}
@@ -174,12 +123,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .tl-ul{font-size:13px;color:var(--muted);line-height:1.7;}
 .tl-ul li{margin-left:14px;margin-bottom:2px;}
 
-/* Certif */
 .certif-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 
-/* =====================
-   PROJETS
-   ===================== */
+/* ===================== PROJETS ===================== */
 .proj-list{display:flex;flex-direction:column;gap:3px;}
 .proj-card{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:border-color .25s;}
 .proj-card:hover{border-color:rgba(0,212,255,.3);}
@@ -194,12 +140,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .proj-toggle:hover,.proj-toggle.open{border-color:var(--accent);color:var(--accent);}
 .proj-toggle.open{transform:rotate(45deg);}
 
-.proj-body{
-  max-height:0;overflow:hidden;
-  transition:max-height .5s ease-in-out, padding .3s;
-  border-top:0px solid var(--border);
-  padding:0 32px;
-}
+.proj-body{max-height:0;overflow:hidden;transition:max-height .5s ease-in-out, padding .3s;border-top:0px solid var(--border);padding:0 32px;}
 .proj-body.open{max-height:2500px;padding:28px 32px 36px;border-top-width:1px;}
 .proj-desc{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:20px;}
 .proj-desc strong{color:var(--text);}
@@ -209,25 +150,11 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .proj-foot{display:flex;gap:10px;padding-top:20px;border-top:1px solid var(--border);}
 .proj-img{width:100%; border:1px solid var(--border); border-radius:8px; margin-top:20px;}
 
-/* =====================
-   COMPETENCES
-   ===================== */
-.comp-intro-box{
-  background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);
-  padding:22px 24px;margin-bottom:40px;font-size:14px;color:var(--muted);line-height:1.85;
-}
+/* ===================== COMPETENCES ===================== */
+.comp-intro-box{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);padding:22px 24px;margin-bottom:40px;font-size:14px;color:var(--muted);line-height:1.85;}
 .comp-intro-box strong{color:var(--text);}
-
 .comp-block{margin-bottom:52px;}
 .comp-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
-.comp-table{width:100%;border-collapse:collapse;}
-.comp-table th{background:var(--card);border:1px solid var(--border);padding:11px 16px;text-align:left;font-size:10px;font-family:'Space Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-.comp-table td{border:1px solid var(--border);padding:13px 16px;font-size:13px;vertical-align:top;line-height:1.65;}
-.comp-table tr:hover td{background:rgba(0,212,255,.025);}
-.comp-table td:first-child{font-weight:700;color:var(--text);width:200px;}
-.comp-table td:nth-child(2){color:var(--muted);}
-.comp-table td:last-child{width:110px;}
-
 .bts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;}
 .bts-card{background:var(--card);border:1px solid var(--border);padding:28px;}
 .bts-card h3{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.5px;}
@@ -239,9 +166,49 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .deb-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .deb-tag{padding:4px 10px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px; background: rgba(0,212,255,0.03);}
 
-/* =====================
-   VEILLE
-   ===================== */
+/* ===================== ARMATIS ===================== */
+.armatis-hero{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;margin-bottom:52px;}
+.armatis-photo{width:100%;height:220px;object-fit:cover;border:1px solid var(--border);display:block;}
+.armatis-photo-placeholder{width:100%;height:220px;background:var(--card);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+.armatis-photo-placeholder .ph-icon{font-size:36px;opacity:.3;}
+.armatis-photo-placeholder p{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-align:center;}
+.armatis-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.3);font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px;margin-bottom:16px;}
+.armatis-kv{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:32px;}
+.armatis-kv-item{background:var(--card);padding:16px 18px;}
+.armatis-kv-item .kv-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.armatis-kv-item .kv-val{font-size:13px;font-weight:700;color:var(--text);}
+
+.task-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:40px;}
+.task-card{background:var(--card);border:1px solid var(--border);padding:22px;transition:border-color .25s;}
+.task-card:hover{border-color:rgba(0,212,255,.3);}
+.task-icon{font-size:20px;margin-bottom:12px;}
+.task-title{font-size:14px;font-weight:800;margin-bottom:8px;letter-spacing:-.3px;}
+.task-desc{font-size:12px;color:var(--muted);line-height:1.75;}
+.task-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+
+.env-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:40px;}
+.env-box{background:var(--card);padding:18px 20px;}
+.env-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:8px;}
+.env-items{display:flex;flex-wrap:wrap;gap:5px;}
+.env-item{padding:3px 9px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:1px;}
+
+.quote-box{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--green);padding:22px 26px;font-size:14px;color:var(--muted);line-height:1.85;font-style:italic;}
+.quote-box strong{color:var(--text);font-style:normal;}
+
+/* ===================== VEILLE ===================== */
+.veille-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px;}
+.veille-domain-card{background:var(--card);border:1px solid var(--border);padding:28px;transition:border-color .25s;}
+.veille-domain-card:hover{border-color:rgba(0,212,255,.3);}
+.vd-icon{font-size:28px;margin-bottom:14px;}
+.vd-title{font-size:18px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px;}
+.vd-subtitle{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:14px;}
+.vd-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.vd-topics{display:flex;flex-wrap:wrap;gap:5px;}
+.vd-topic{padding:4px 10px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.5px;}
+
+.veille-why{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--orange);padding:22px 24px;margin-bottom:40px;font-size:13px;color:var(--muted);line-height:1.85;}
+.veille-why strong{color:var(--text);}
+
 .veille-controls{display:flex;gap:10px;margin-bottom:24px;align-items:center;flex-wrap:wrap;}
 .veille-search{display:flex;gap:0;flex:1;min-width:200px;}
 .veille-search input{flex:1;background:var(--card);border:1px solid var(--border);border-right:0;color:var(--text);font-family:'Space Mono',monospace;font-size:11px;padding:10px 14px;outline:none;transition:border-color .2s;}
@@ -265,18 +232,8 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .rss-src{color:var(--accent);}
 .rss-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:18px;text-align:center;border:1px solid var(--border);}
 .veille-ts{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);text-align:right;margin-top:8px;letter-spacing:1px;}
-.add-feed{background:var(--card);border:1px solid var(--border);padding:18px 20px;margin-top:20px;}
-.add-feed-title{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:10px;}
-.add-feed-row{display:flex;gap:6px;flex-wrap:wrap;}
-.add-feed-row input{flex:2;min-width:160px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Space Mono',monospace;font-size:11px;padding:8px 11px;outline:none;transition:border-color .2s;}
-.add-feed-row input:focus{border-color:var(--accent);}
-.add-feed-row select{background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Space Mono',monospace;font-size:11px;padding:8px 10px;outline:none;}
-.add-feed-row button{padding:8px 14px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;transition:all .2s;letter-spacing:1px;}
-.add-feed-row button:hover{border-color:var(--accent);color:var(--accent);}
 
-/* =====================
-   CONTACT
-   ===================== */
+/* ===================== CONTACT ===================== */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
 .c-big{font-size:clamp(36px,4.5vw,56px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:18px;}
 .c-big span{color:var(--accent);}
@@ -297,93 +254,30 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .f-status.ok{color:var(--green);border:1px solid var(--green);display:block;}
 .f-status.err{color:var(--orange);border:1px solid var(--orange);display:block;}
 
-/* Footer */
 footer{margin-left:240px;border-top:1px solid var(--border);padding:20px 64px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
 footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;}
 footer span{color:var(--accent);}
 
-/* ========== MODE MOBILE / RESPONSIVE ========== */
+/* ===================== RESPONSIVE ===================== */
 @media(max-width:1000px){
-  /* Désactive le curseur masqué sur mobile car il n'y a pas de souris */
-  body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-toggle {
-    cursor: auto !important;
-  }
-  .cur, .cur-ring {
-    display: none !important;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    padding: 20px 0;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-  .sidebar-logo {
-    padding: 0 20px 20px;
-    text-align: center;
-  }
-  .sidebar-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 10px 0;
-  }
-  .nav-item {
-    padding: 8px 15px;
-    border-left: none;
-    border-bottom: 2px solid transparent;
-  }
-  .nav-item.active {
-    border-left-color: transparent;
-    border-bottom-color: var(--accent);
-  }
-  .sidebar-links {
-    display: none; 
-  }
-
-  .main {
-    margin-left: 0;
-  }
-  .page {
-    padding: 30px 20px;
-  }
-
-  .hero-layout, .bts-grid, .contact-grid, .veille-cols, .form-grid, .certif-row {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-  
-  .hero-name {
-    font-size: 40px;
-    text-align: center;
-  }
-  .hero-bio {
-    text-align: center;
-  }
-  .hero-btns {
-    justify-content: center;
-  }
-  .hero-photo-wrap {
-    order: -1; 
-    display: flex;
-    justify-content: center;
-  }
-  .hero-photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%; 
-  }
-
-  .stats-strip {
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  footer {
-    margin-left: 0;
-    text-align: center;
-  }
+  body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-toggle {cursor: auto !important;}
+  .cur, .cur-ring {display: none !important;}
+  .sidebar {width: 100%;height: auto;position: relative;padding: 20px 0;border-right: none;border-bottom: 1px solid var(--border);}
+  .sidebar-logo {padding: 0 20px 20px;text-align: center;}
+  .sidebar-nav {display: flex;flex-wrap: wrap;justify-content: center;padding: 10px 0;}
+  .nav-item {padding: 8px 15px;border-left: none;border-bottom: 2px solid transparent;}
+  .nav-item.active {border-left-color: transparent;border-bottom-color: var(--accent);}
+  .sidebar-links {display: none;}
+  .main {margin-left: 0;}
+  .page {padding: 30px 20px;}
+  .hero-layout,.bts-grid,.contact-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
+  .hero-name {font-size: 40px;text-align: center;}
+  .hero-bio {text-align: center;}
+  .hero-btns {justify-content: center;}
+  .hero-photo-wrap {order: -1;display: flex;justify-content: center;}
+  .hero-photo {width: 150px;height: 150px;border-radius: 50%;}
+  .stats-strip {grid-template-columns: 1fr 1fr;}
+  footer {margin-left: 0;text-align: center;}
 }
 </style>
 </head>
@@ -415,11 +309,14 @@ footer span{color:var(--accent);}
     <div class="nav-item" data-page="veille">
       <span class="nav-icon">⊕</span> Veille <span class="nav-num">04</span>
     </div>
+    <div class="nav-item" data-page="armatis">
+      <span class="nav-icon">🏢</span> Armatis <span class="nav-num">05</span>
+    </div>
     <div class="nav-item" data-page="documents">
-      <span class="nav-icon">📄</span> Documents <span class="nav-num">05</span>
+      <span class="nav-icon">📄</span> Documents <span class="nav-num">06</span>
     </div>
     <div class="nav-item" data-page="contact">
-      <span class="nav-icon">✉</span> Contact <span class="nav-num">06</span>
+      <span class="nav-icon">✉</span> Contact <span class="nav-num">07</span>
     </div>
   </nav>
   <div class="sidebar-links">
@@ -431,6 +328,7 @@ footer span{color:var(--accent);}
 
 <div class="main">
 
+<!-- ========== PAGE ACCUEIL ========== -->
 <div id="page-accueil" class="page active">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -460,6 +358,7 @@ footer span{color:var(--accent);}
       </p>
       <div class="hero-btns">
         <span class="btn btn-p" data-page="projets">Projets E6 →</span>
+        <span class="btn btn-o" data-page="armatis">Mon alternance</span>
         <span class="btn btn-o" data-page="contact">Contact</span>
       </div>
     </div>
@@ -563,6 +462,7 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
+<!-- ========== PAGE PROJETS ========== -->
 <div id="page-projets" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -593,7 +493,7 @@ footer span{color:var(--accent);}
           <li>Inventaire YAML, modules Ansible (apt, user, copy, systemd), SSH sans agent cible.</li>
           <li>Session tmux persistante, utilisateur système dédié, JVM configurée.</li>
         </ul>
-        <img src="ansible-playbook.png" alt="Exécution du playbook Ansible" class="proj-img" onerror="this.parentElement.innerHTML+='<p style=color:var(--red)>[Image ansible-playbook.png introuvable]</p>'; this.style.display='none';">
+        <img src="ansible-playbook.png" alt="Exécution du playbook Ansible" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
           <a href="https://github.com/B2ZO0/Projet-ServeurMC-Ansible" target="_blank" class="btn btn-o">⬡ Voir sur GitHub ↗</a>
         </div>
@@ -620,7 +520,7 @@ footer span{color:var(--accent);}
           <li>Couplage Grafana OSS via API Zabbix — dashboards interactifs et personnalisés.</li>
           <li>Architecture complète : Zabbix Server + Frontend PHP + Agent + MariaDB + Apache2.</li>
         </ul>
-        <img src="grafana-dashboard.png" alt="Dashboard de supervision Grafana" class="proj-img" onerror="this.parentElement.innerHTML+='<p style=color:var(--red)>[Image grafana-dashboard.png introuvable]</p>'; this.style.display='none';">
+        <img src="grafana-dashboard.png" alt="Dashboard de supervision Grafana" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
           <a href="https://github.com/B2ZO0" target="_blank" class="btn btn-o">⬡ GitHub ↗</a>
         </div>
@@ -629,6 +529,7 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
+<!-- ========== PAGE COMPETENCES ========== -->
 <div id="page-competences" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -676,7 +577,6 @@ footer span{color:var(--accent);}
           </div>
         </div>
       </div>
-      
       <div class="bts-card">
         <h3>SLAM</h3>
         <div class="opt">Solutions Logicielles et Applications Métiers</div>
@@ -713,14 +613,73 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
+<!-- ========== PAGE VEILLE ========== -->
 <div id="page-veille" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
-      <div class="page-tag">Flux RSS en temps réel</div>
+      <div class="page-tag">Technologie & Sécurité</div>
       <h1>Veille Techno.</h1>
     </div>
     <div class="page-header-right">Sources officielles<br>Mise à jour auto</div>
   </div>
+
+  <!-- Présentation des domaines -->
+  <div class="sec-title rv">Les domaines surveillés</div>
+  <div class="veille-intro-grid rv">
+    <div class="veille-domain-card">
+      <div class="vd-icon">🛡️</div>
+      <div class="vd-title">Cybersécurité</div>
+      <div class="vd-subtitle">C'est quoi concrètement ?</div>
+      <div class="vd-desc">
+        La <strong style="color:var(--text);">cybersécurité</strong> désigne l'ensemble des pratiques, outils et processus qui protègent les systèmes informatiques, réseaux et données contre les attaques, intrusions et accès non autorisés.
+        <br><br>
+        Dans mon quotidien de technicien SISR, cela se traduit par : analyser les <strong style="color:var(--text);">vulnérabilités connues</strong> (CVE), surveiller les alertes de l'ANSSI, comprendre les nouvelles techniques d'attaque (phishing, ransomware, zero-day) pour mieux y répondre et protéger les infrastructures que j'administre.
+        <br><br>
+        Je pratique aussi sur <strong style="color:var(--text);">Root-Me</strong> pour développer mes compétences en pentest de manière légale et encadrée.
+      </div>
+      <div class="vd-topics">
+        <span class="vd-topic">Vulnérabilités (CVE)</span>
+        <span class="vd-topic">Ransomwares</span>
+        <span class="vd-topic">Phishing</span>
+        <span class="vd-topic">Zero-day</span>
+        <span class="vd-topic">Pentest</span>
+        <span class="vd-topic">ANSSI / CERT-FR</span>
+        <span class="vd-topic">SIEM / SOC</span>
+        <span class="vd-topic">VPN & chiffrement</span>
+      </div>
+    </div>
+    <div class="veille-domain-card">
+      <div class="vd-icon">🖥️</div>
+      <div class="vd-title">Sysadmin & Windows</div>
+      <div class="vd-subtitle">C'est quoi concrètement ?</div>
+      <div class="vd-desc">
+        L'<strong style="color:var(--text);">administration système</strong> (sysadmin) consiste à installer, configurer, maintenir et optimiser les serveurs et postes de travail d'une organisation. C'est le cœur du métier SISR.
+        <br><br>
+        Concrètement : gérer des serveurs <strong style="color:var(--text);">Windows Server</strong> (Active Directory, DNS, DHCP, GPO), administrer des systèmes <strong style="color:var(--text);">Linux</strong> (Debian, Ubuntu), automatiser des tâches via PowerShell ou Bash, et surveiller les Patch Tuesday de Microsoft pour maintenir les parcs à jour.
+        <br><br>
+        C'est ce que je pratique quotidiennement chez <strong style="color:var(--text);">Armatis</strong> et dans mes projets personnels sous Proxmox.
+      </div>
+      <div class="vd-topics">
+        <span class="vd-topic">Windows Server</span>
+        <span class="vd-topic">Active Directory</span>
+        <span class="vd-topic">PowerShell</span>
+        <span class="vd-topic">Linux / Debian</span>
+        <span class="vd-topic">Patch Tuesday</span>
+        <span class="vd-topic">Virtualisation</span>
+        <span class="vd-topic">Cloud Azure</span>
+        <span class="vd-topic">Automatisation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pourquoi faire de la veille -->
+  <div class="veille-why rv">
+    <strong>Pourquoi faire de la veille technologique ?</strong><br>
+    En informatique, les technologies évoluent très vite. Une faille critique peut être publiée n'importe quel jour. Un nouveau ransomware peut cibler les entreprises en quelques heures. La veille me permet de rester informé en temps réel, d'anticiper les risques pour les infrastructures que je gère, et de continuer à progresser professionnellement. C'est une compétence à part entière, évaluée dans le BTS SIO (bloc B1).
+  </div>
+
+  <!-- Flux RSS en direct -->
+  <div class="sec-title rv">Flux RSS en temps réel</div>
   <div class="veille-controls rv">
     <div class="veille-search">
       <input type="text" id="vs-input" placeholder="Rechercher dans les flux...">
@@ -734,7 +693,7 @@ footer span{color:var(--accent);}
   </div>
   <div class="veille-cols">
     <div id="col-cyber" class="rv">
-      <div class="vcol-title"><div class="live-dot"></div>Cybersécurité</div>
+      <div class="vcol-title"><div class="live-dot"></div>Cybersécurité — Sources officielles</div>
       <div id="feed-cyber" class="rss-feed"><div class="rss-msg">Chargement des flux...</div></div>
       <div class="veille-ts" id="ts-cyber"></div>
     </div>
@@ -746,6 +705,136 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
+<!-- ========== PAGE ARMATIS ========== -->
+<div id="page-armatis" class="page">
+  <div class="page-header rv">
+    <div class="page-header-left">
+      <div class="page-tag">Alternance · Août 2024 — Aujourd'hui</div>
+      <h1>Armatis</h1>
+    </div>
+    <div class="page-header-right">Caen, Normandie<br>Technicien Informatique</div>
+  </div>
+
+  <!-- Présentation entreprise -->
+  <div class="armatis-hero rv">
+    <div>
+      <div class="armatis-badge"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;"></span> En alternance · Depuis août 2024</div>
+      <h2 style="font-size:32px;font-weight:800;letter-spacing:-1.5px;margin-bottom:14px;">Armatis</h2>
+      <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:20px;">
+        <strong style="color:var(--text);">Armatis</strong> est l'un des leaders français de la <strong style="color:var(--text);">relation client externalisée</strong> (BPO – Business Process Outsourcing). Fondé en 1989, le groupe est présent en France et à l'international avec plusieurs milliers de collaborateurs répartis sur de nombreux sites.
+        <br><br>
+        Le site de <strong style="color:var(--text);">Caen</strong> est un centre d'appels et de relation client accueillant plusieurs centaines de collaborateurs. En tant que technicien informatique, j'assure le bon fonctionnement de l'ensemble du parc informatique du site : postes de travail, téléphonie, réseau et infrastructure serveur.
+      </p>
+      <div class="armatis-kv">
+        <div class="armatis-kv-item"><div class="kv-label">Secteur</div><div class="kv-val">Relation client / BPO</div></div>
+        <div class="armatis-kv-item"><div class="kv-label">Localisation</div><div class="kv-val">Caen, Normandie</div></div>
+        <div class="armatis-kv-item"><div class="kv-label">Taille du site</div><div class="kv-val">500+ collaborateurs</div></div>
+        <div class="armatis-kv-item"><div class="kv-label">Mon poste</div><div class="kv-val">Technicien IT N1/N2</div></div>
+      </div>
+    </div>
+    <div>
+      <!-- Remplacer armatis-site.jpg par une vraie photo si disponible -->
+      <img src="armatis-site.jpg" alt="Site Armatis Caen" class="armatis-photo" onerror="this.style.display='none'; document.getElementById('armatis-placeholder').style.display='flex';">
+      <div id="armatis-placeholder" class="armatis-photo-placeholder" style="display:none;">
+        <div class="ph-icon">🏢</div>
+        <p>Photo du site<br>à ajouter<br><span style="color:var(--accent);">armatis-site.jpg</span></p>
+      </div>
+      <script>
+        // Afficher le placeholder si l'image ne charge pas
+        document.addEventListener('DOMContentLoaded', function() {
+          var img = document.querySelector('img[src="armatis-site.jpg"]');
+          if (img) {
+            img.addEventListener('error', function() {
+              this.style.display = 'none';
+              document.getElementById('armatis-placeholder').style.display = 'flex';
+            });
+          }
+        });
+      </script>
+    </div>
+  </div>
+
+  <!-- Environnement technique -->
+  <div class="sec-title rv">Environnement technique</div>
+  <div class="env-strip rv">
+    <div class="env-box">
+      <div class="env-label">Systèmes</div>
+      <div class="env-items">
+        <span class="env-item">Windows 11</span>
+        <span class="env-item">Windows Server</span>
+        <span class="env-item">Active Directory</span>
+      </div>
+    </div>
+    <div class="env-box">
+      <div class="env-label">Réseau</div>
+      <div class="env-items">
+        <span class="env-item">VLAN</span>
+        <span class="env-item">LAN / Wi-Fi</span>
+        <span class="env-item">Switches</span>
+        <span class="env-item">Câblage RJ45</span>
+      </div>
+    </div>
+    <div class="env-box">
+      <div class="env-label">Outils & ITSM</div>
+      <div class="env-items">
+        <span class="env-item">Tickets ITSM</span>
+        <span class="env-item">GPO</span>
+        <span class="env-item">Téléphonie IP</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tâches effectuées -->
+  <div class="sec-title rv">Tâches effectuées au quotidien</div>
+  <div class="task-grid rv">
+    <div class="task-card">
+      <div class="task-icon">🎫</div>
+      <div class="task-title">Support utilisateur N1 & N2</div>
+      <div class="task-desc">Réception et traitement des tickets d'incidents via l'outil ITSM. Assistance en présentiel sur les postes de travail et à distance pour les problèmes logiciels, matériels ou réseau. Escalade vers le N3 si nécessaire.</div>
+      <div class="task-tags"><span class="tag">Tickets</span><span class="tag">Diagnostic</span><span class="tag">Assistance</span></div>
+    </div>
+    <div class="task-card">
+      <div class="task-icon">💻</div>
+      <div class="task-title">Déploiement de postes Windows 11</div>
+      <div class="task-desc">Préparation, configuration et déploiement de postes de travail Windows 11 pour les nouveaux arrivants ou en remplacement. Installation des outils métiers (téléphonie, CRM, suites bureautiques) et jonction au domaine.</div>
+      <div class="task-tags"><span class="tag">Windows 11</span><span class="tag">MDT</span><span class="tag">Déploiement</span></div>
+    </div>
+    <div class="task-card">
+      <div class="task-icon">👤</div>
+      <div class="task-title">Gestion Active Directory</div>
+      <div class="task-desc">Création, modification et suppression de comptes utilisateurs dans Active Directory. Gestion des groupes de sécurité, affectation des droits d'accès aux ressources partagées et application des stratégies de groupe (GPO).</div>
+      <div class="task-tags"><span class="tag">Active Directory</span><span class="tag">GPO</span><span class="tag">Droits</span></div>
+    </div>
+    <div class="task-card">
+      <div class="task-icon">🌐</div>
+      <div class="task-title">Réseau & infrastructure</div>
+      <div class="task-desc">Brassage de prises réseau, câblage RJ45 en baie de brassage. Vérification de connectivité, diagnostic des pannes réseau. Interventions sur les switches pour vérification de ports et configuration de VLANs.</div>
+      <div class="task-tags"><span class="tag">LAN</span><span class="tag">VLAN</span><span class="tag">Switches</span><span class="tag">Câblage</span></div>
+    </div>
+    <div class="task-card">
+      <div class="task-icon">📞</div>
+      <div class="task-title">Téléphonie & outils métiers</div>
+      <div class="task-desc">Configuration des postes de téléphonie IP utilisés par les agents de relation client. Résolution des incidents sur les outils CRM et plateformes métiers. Coordination avec les équipes techniques des éditeurs si besoin.</div>
+      <div class="task-tags"><span class="tag">Téléphonie IP</span><span class="tag">CRM</span><span class="tag">Outils métiers</span></div>
+    </div>
+    <div class="task-card">
+      <div class="task-icon">🔧</div>
+      <div class="task-title">Maintenance matérielle</div>
+      <div class="task-desc">Diagnostic et remplacement de composants défectueux (RAM, disques durs, claviers, écrans). Gestion du stock de matériel et suivi des assets informatiques. Préparation du matériel reconditionné pour réutilisation.</div>
+      <div class="task-tags"><span class="tag">Hardware</span><span class="tag">Maintenance</span><span class="tag">Asset</span></div>
+    </div>
+  </div>
+
+  <!-- Citation / apprentissages -->
+  <div class="sec-title rv">Ce que cette alternance m'apporte</div>
+  <div class="quote-box rv">
+    L'alternance chez Armatis m'a permis de <strong>confronter mes connaissances théoriques à un environnement de production réel</strong>. Gérer un parc de plusieurs centaines de postes, traiter des incidents sous contrainte de temps, et communiquer avec des utilisateurs non-techniques sont des compétences que l'on n'acquiert pas uniquement en cours.
+    <br><br>
+    C'est directement dans ce contexte professionnel qu'est né le projet <strong>Zabbix/Grafana</strong> (E6·02) : le besoin de supervision était réel, identifié sur le terrain. Cette expérience confirme mon orientation vers l'<strong>administration infrastructure et la cybersécurité</strong>.
+  </div>
+</div>
+
+<!-- ========== PAGE DOCUMENTS ========== -->
 <div id="page-documents" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -762,6 +851,7 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
+<!-- ========== PAGE CONTACT ========== -->
 <div id="page-contact" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -808,7 +898,9 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
-</div></div><footer>
+</div></div>
+
+<footer>
   <p>© 2026 <span>Enzo MARECHAL</span> — BTS SIO SISR · AFTEC Caen</p>
 </footer>
 
@@ -817,80 +909,52 @@ footer span{color:var(--accent);}
 (function() {
   const cursor = document.getElementById('cur');
   const cursorRing = document.getElementById('curRing');
-  let mouseX = 0, mouseY = 0;
-  let curX = 0, curY = 0;
-  let ringX = 0, ringY = 0;
-
-  // On écoute le mouvement pour mettre à jour les coordonnées
+  let mouseX = 0, mouseY = 0, curX = 0, curY = 0, ringX = 0, ringY = 0;
   document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursor.style.opacity = '1';
-    cursorRing.style.opacity = '1';
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.opacity = '1'; cursorRing.style.opacity = '1';
   });
-  
-  // Si la souris sort de la fenêtre, on cache le curseur bleu
   document.addEventListener('mouseleave', () => {
-    cursor.style.opacity = '0';
-    cursorRing.style.opacity = '0';
+    cursor.style.opacity = '0'; cursorRing.style.opacity = '0';
   });
-
-  // Boucle d'animation fluide
   function animateCursor() {
-    curX += (mouseX - curX) * 0.15;
-    curY += (mouseY - curY) * 0.15;
-    cursor.style.left = curX + 'px';
-    cursor.style.top = curY + 'px';
-
-    ringX += (mouseX - ringX) * 0.08;
-    ringY += (mouseY - ringY) * 0.08;
-    cursorRing.style.left = ringX + 'px';
-    cursorRing.style.top = ringY + 'px';
-
+    curX += (mouseX - curX) * 0.15; curY += (mouseY - curY) * 0.15;
+    cursor.style.left = curX + 'px'; cursor.style.top = curY + 'px';
+    ringX += (mouseX - ringX) * 0.08; ringY += (mouseY - ringY) * 0.08;
+    cursorRing.style.left = ringX + 'px'; cursorRing.style.top = ringY + 'px';
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
 })();
 
-// ========== 2. NAVIGATION DES ONGLETS ==========
+// ========== 2. NAVIGATION ==========
 function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + pageId).classList.add('active');
-  
-  document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.querySelector(`.nav-item[data-page="${pageId}"]`).classList.add('active');
-  
   document.querySelector('.main').scrollTop = 0;
   window.scrollTo(0,0);
-
   if(pageId === 'veille') loadRSS();
 }
-
 document.querySelectorAll('[data-page]').forEach(btn => {
-  btn.addEventListener('click', function() {
-    showPage(this.getAttribute('data-page'));
-  });
+  btn.addEventListener('click', function() { showPage(this.getAttribute('data-page')); });
 });
 
-// ========== 3. OUVERTURE/FERMETURE DES PROJETS ==========
+// ========== 3. PROJETS ACCORDION ==========
 document.querySelectorAll('.proj-head').forEach(head => {
   head.addEventListener('click', function() {
     const card = this.closest('.proj-card');
     const body = card.querySelector('.proj-body');
     const btn = this.querySelector('.proj-toggle');
     const isOpen = body.classList.contains('open');
-    
     document.querySelectorAll('.proj-body').forEach(b => b.classList.remove('open'));
-    document.querySelectorAll('.proj-toggle').forEach(t => t.textContent = '+');
-    
-    if (!isOpen) {
-      body.classList.add('open');
-      btn.textContent = 'x';
-    }
+    document.querySelectorAll('.proj-toggle').forEach(t => { t.textContent = '+'; t.classList.remove('open'); });
+    if (!isOpen) { body.classList.add('open'); btn.textContent = 'x'; btn.classList.add('open'); }
   });
 });
 
-// ========== 4. VEILLE RSS (API RSS2JSON SÉCURISÉE) ==========
+// ========== 4. VEILLE RSS ==========
 let rssLoaded = false;
 const CYBER = [
   {url:'https://www.cert.ssi.gouv.fr/feed/',name:'ANSSI CERT-FR'},
@@ -904,7 +968,6 @@ const ADMIN = [
 async function loadRSS() {
   if (rssLoaded) return;
   rssLoaded = true;
-  // Utilise Promise.all pour charger les deux colonnes en même temps
   await Promise.all([
     fetchFeeds(CYBER, 'feed-cyber', 'ts-cyber'),
     fetchFeeds(ADMIN, 'feed-admin', 'ts-admin')
@@ -915,13 +978,10 @@ async function fetchFeeds(feeds, cid, tsid) {
   const el = document.getElementById(cid);
   el.innerHTML = '<div class="rss-msg">Chargement des flux en cours...</div>';
   let items = [];
-  
   for (const f of feeds) {
     try {
-      // rss2json convertit le flux RSS compliqué en JSON propre
       const r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f.url));
       const d = await r.json();
-      
       if (d.status === 'ok') {
         d.items.forEach(it => {
           const title = it.title || '';
@@ -931,25 +991,18 @@ async function fetchFeeds(feeds, cid, tsid) {
           if (title) items.push({title, link, date, src: f.name});
         });
       }
-    } catch(e) {
-      console.error("Erreur avec le flux :", f.name);
-    }
+    } catch(e) { console.error("Erreur flux :", f.name); }
   }
-  
-  if (!items.length) { 
-    el.innerHTML = '<div class="rss-msg" style="color:var(--orange);">! Impossible de charger les flux. Vérifiez votre connexion.</div>'; 
-    return; 
+  if (!items.length) {
+    el.innerHTML = '<div class="rss-msg" style="color:var(--orange);">! Impossible de charger les flux.</div>';
+    return;
   }
-  
-  // Afficher les 10 articles les plus récents
-  el.innerHTML = items.slice(0, 10).map(i => 
-    `<div class="rss-item" data-t="${i.title.toLowerCase()}"><a href="${i.link}" target="_blank"><div class="rss-ttl">${i.title}</div><div class="rss-meta"><span class="rss-src">${i.src}</span><span>${i.date}</span></div></a></div>`
+  el.innerHTML = items.slice(0, 10).map(i =>
+    `<div class="rss-item"><a href="${i.link}" target="_blank"><div class="rss-ttl">${i.title}</div><div class="rss-meta"><span class="rss-src">${i.src}</span><span>${i.date}</span></div></a></div>`
   ).join('');
-  
   document.getElementById(tsid).textContent = 'Dernière MAJ : ' + new Date().toLocaleTimeString('fr-FR');
 }
 
-// Filtres de recherche RSS
 document.querySelectorAll('.vcat').forEach(catBtn => {
   catBtn.addEventListener('click', function() {
     document.querySelectorAll('.vcat').forEach(c => c.classList.remove('active'));
@@ -970,6 +1023,16 @@ document.getElementById('btn-send-form').addEventListener('click', function() {
   if(!n || !e || !m){ st.className='f-status err'; st.textContent='Remplissez tous les champs.'; return; }
   window.location.href = `mailto:marechal.enzo27@gmail.com?subject=${encodeURIComponent(s)}&body=${encodeURIComponent("De: "+n+" ("+e+")\n\n"+m)}`;
   st.className='f-status ok'; st.textContent='Ouverture de votre application email...';
+});
+
+// Afficher placeholder si image armatis ne charge pas
+window.addEventListener('load', function() {
+  var img = document.querySelector('img[src="armatis-site.jpg"]');
+  if(img && !img.complete) {
+    img.style.display='none';
+    var ph = document.getElementById('armatis-placeholder');
+    if(ph) ph.style.display='flex';
+  }
 });
 </script>
 </body>
