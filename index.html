@@ -77,14 +77,7 @@ body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-to
 .rv{opacity:1;transform:none;}
 
 /* ===================== ACCUEIL ===================== */
-.hero-layout{
-  display:grid;
-  /* La largeur de la colonne photo passe à 300px (+50%) */
-  grid-template-columns:300px 1fr;
-  gap:60px;
-  align-items:start;
-  margin-bottom:64px;
-}
+.hero-layout{display:grid;grid-template-columns:1fr 250px;gap:60px;align-items:start;margin-bottom:64px;}
 .hero-name{font-size:clamp(52px,7vw,88px);font-weight:800;letter-spacing:-3px;line-height:.92;margin-bottom:20px;}
 .hero-name .ln{color:transparent;-webkit-text-stroke:1.5px var(--accent);}
 .hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
@@ -101,8 +94,8 @@ body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-to
 
 /* Décalage de la photo d'1cm (environ 38px) vers la gauche */
 .hero-photo-wrap{position:relative; transform: translateX(-1cm);}
-/* Photo agrandie de 50% (300x390 au lieu de 200x260) */
-.hero-photo{width:300px;height:390px;object-fit:cover;object-position:center 10%;display:block;transition:filter .3s;}
+.hero-photo-frame{position:relative;}
+.hero-photo{width:250px;height:325px;object-fit:cover;object-position:center 10%;display:block;transition:filter .3s;}
 
 .stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:64px;}
 .stat-box{background:rgba(15,19,24,0.85);padding:24px 20px;}
@@ -275,22 +268,12 @@ footer span{color:var(--accent);}
   .sidebar-links {display: none;}
   .main {margin-left: 0;}
   .page {padding: 30px 20px;}
-  .hero-layout{
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .hero-photo-wrap {
-    order: -1;
-    display: flex;
-    justify-content: center;
-    transform: translateX(0); /* Reset de la translation sur mobile pour la garder centrée */
-  }
-  .bts-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
+  .hero-layout,.bts-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
   .hero-name {font-size: 40px;text-align: center;}
   .hero-bio {text-align: center;}
   .hero-btns {justify-content: center;}
-  /* Agrandissement de 50% sur mobile également : de 150px à 225px */
-  .hero-photo {width: 225px;height: 225px;border-radius: 50%;}
+  .hero-photo-wrap {order: -1;display: flex;justify-content: center; transform: translateX(0);}
+  .hero-photo {width: 150px;height: 150px;border-radius: 50%;}
   .stats-strip {grid-template-columns: 1fr 1fr;}
   footer {margin-left: 0;text-align: center;}
 }
@@ -353,10 +336,6 @@ footer span{color:var(--accent);}
   </div>
 
   <div class="hero-layout rv">
-    <div class="hero-photo-wrap">
-      <img src="enzo.jpg" alt="Enzo MARECHAL" class="hero-photo">
-    </div>
-    
     <div>
       <div class="hero-name">Enzo<br><span class="ln">MARECHAL</span></div>
       <div class="hero-pills">
@@ -378,6 +357,11 @@ footer span{color:var(--accent);}
         <span class="btn btn-p" data-page="projets">Projets E6 →</span>
         <span class="btn btn-o" data-page="armatis">Mon alternance</span>
         <span class="btn btn-o" data-page="contact">Contact</span>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <img src="enzo.jpg" alt="Enzo MARECHAL" class="hero-photo">
       </div>
     </div>
   </div>
