@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enzo MARECHAL — Portfolio BTS SIO</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -147,7 +148,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .proj-hl{display:flex;flex-direction:column;gap:9px;margin-bottom:24px;}
 .proj-hl li{display:flex;gap:10px;font-size:13px;color:var(--muted);line-height:1.6;list-style:none;}
 .proj-hl li::before{content:'→';color:var(--accent);font-family:'Space Mono',monospace;font-size:10px;flex-shrink:0;margin-top:2px;}
-.proj-foot{display:flex;gap:10px;padding-top:20px;border-top:1px solid var(--border);}
+.proj-foot{display:flex;gap:10px;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;}
 .proj-img{width:100%; border:1px solid var(--border); border-radius:8px; margin-top:20px;}
 
 /* ===================== COMPETENCES ===================== */
@@ -292,7 +293,7 @@ footer span{color:var(--accent);}
       <span class="nav-icon">⌂</span> Accueil <span class="nav-num">01</span>
     </div>
     <div class="nav-item" data-page="projets">
-      <span class="nav-icon">◈</span> Projets <span class="nav-num">02</span>
+      <span class="nav-icon">◈</span> Projets E6 <span class="nav-num">02</span>
     </div>
     <div class="nav-item" data-page="competences">
       <span class="nav-icon">◉</span> Compétences <span class="nav-num">03</span>
@@ -347,7 +348,7 @@ footer span{color:var(--accent);}
         Recherche alternance <strong>Bachelor Cybersécurité & Administration Réseau</strong>
       </p>
       <div class="hero-btns">
-        <span class="btn btn-p" data-page="projets">Projets →</span>
+        <span class="btn btn-p" data-page="projets">Projets E6 →</span>
         <span class="btn btn-o" data-page="armatis">Mon alternance</span>
         <span class="btn btn-o" data-page="contact">Contact</span>
       </div>
@@ -494,6 +495,8 @@ footer span{color:var(--accent);}
         <img src="ansible-playbook.png" alt="Exécution du playbook Ansible" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
           <a href="https://github.com/B2ZO0/Projet-ServeurMC-Ansible" target="_blank" class="btn btn-o">⬡ Voir sur GitHub ↗</a>
+          <a href="fiche_e6_1.pdf" target="_blank" class="btn btn-o">📄 Fiche descriptive</a>
+          <a href="dossier_pro_e6_1.pdf" target="_blank" class="btn btn-o">📁 Dossier pro</a>
         </div>
       </div>
     </div>
@@ -529,7 +532,8 @@ footer span{color:var(--accent);}
 
         <img src="grafana-dashboard.png" alt="Dashboard de supervision Grafana" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
-          <a href="https://github.com/B2ZO0" target="_blank" class="btn btn-o">⬡ GitHub ↗</a>
+          <a href="fiche_e6_2.pdf" target="_blank" class="btn btn-o">📄 Fiche descriptive</a>
+          <a href="dossier_pro_e6_2.pdf" target="_blank" class="btn btn-o">📁 Dossier pro</a>
         </div>
       </div>
     </div>
@@ -781,7 +785,7 @@ footer span{color:var(--accent);}
     <div class="task-card">
       <div class="task-icon">💻</div>
       <div class="task-title">Déploiement de postes Windows 11</div>
-      <div class="task-desc">Préparation, configuration et déploiement de postes de travail Windows 11 pour les nouveaux arrivals ou en remplacement. Installation des outils métiers (téléphonie, CRM, suites bureautiques) et jonction au domaine.</div>
+      <div class="task-desc">Préparation, configuration et déploiement de postes de travail Windows 11 pour les nouveaux arrivants ou en remplacement. Installation des outils métiers (téléphonie, CRM, suites bureautiques) et jonction au domaine.</div>
       <div class="task-tags"><span class="tag">Windows 11</span><span class="tag">MDT</span><span class="tag">Déploiement</span></div>
     </div>
     <div class="task-card">
@@ -814,7 +818,7 @@ footer span{color:var(--accent);}
   <div class="quote-box rv">
     L'alternance chez Armatis m'a permis de <strong>confronter mes connaissances théoriques à un environnement de production réel</strong>. Gérer un parc de plusieurs centaines de postes, traiter des incidents sous contrainte de temps, et communiquer avec des utilisateurs non-techniques sont des compétences que l'on n'acquiert pas uniquement en cours.
     <br><br>
-    C'est directement dans ce contexte professionnel qu'est né le projet <strong>Zabbix/Grafana</strong> (E5·02) : le besoin de supervision était réel, identifié sur le terrain. Cette expérience confirme mon orientation vers l'<strong>administration infrastructure et la cybersécurité</strong>.
+    C'est directement dans ce contexte professionnel qu'est né le projet <strong>Zabbix/Grafana</strong> (E6·02) : le besoin de supervision était réel, identifié sur le terrain. Cette expérience confirme mon orientation vers l'<strong>administration infrastructure et la cybersécurité</strong>.
   </div>
 </div>
 
@@ -833,16 +837,16 @@ footer span{color:var(--accent);}
     <a href="Tableaudecompetence.xlsx" download class="btn btn-o" style="padding:16px 32px; background:var(--card);">⬇ Tableau de Compétences (Excel)</a>
   </div>
 
-  <div class="sec-title rv">Projet 1 (Épreuve E5)</div>
+  <div class="sec-title rv">Projet 1 : Automatisation infrastructure micro-services</div>
   <div class="certif-row" style="margin-bottom:48px;">
-    <a href="fiche_e5_1.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive E5</a>
-    <a href="dossier_pro_e5_1.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel E5</a>
+    <a href="fiche_e6_1.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive (E6)</a>
+    <a href="dossier_pro_e6_1.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
   </div>
 
-  <div class="sec-title rv">Projet 2 (Épreuve E6)</div>
+  <div class="sec-title rv">Projet 2 : Serveur de supervision Zabbix + Grafana</div>
   <div class="certif-row">
-    <a href="fiche_e6_2.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive E6</a>
-    <a href="dossier_pro_e6_2.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel E6</a>
+    <a href="fiche_e6_2.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive (E6)</a>
+    <a href="dossier_pro_e6_2.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
   </div>
 </div>
 
@@ -934,8 +938,6 @@ document.querySelectorAll('.proj-head').forEach(head => {
     const body = card.querySelector('.proj-body');
     const btn = this.querySelector('.proj-toggle');
     
-    // On bascule l'état ouvert/fermé uniquement de l'élément cliqué
-    // Cela permet de garder d'autres projets ouverts en même temps
     body.classList.toggle('open');
     btn.classList.toggle('open');
     btn.textContent = body.classList.contains('open') ? 'x' : '+';
