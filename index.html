@@ -15,7 +15,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 
-/* Canvas de fond animé */
+/* Canvas de fond animé plexus */
 #bg-canvas {
   position: fixed;
   top: 0; left: 0;
@@ -76,8 +76,15 @@ body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-to
 
 .rv{opacity:1;transform:none;}
 
-/* ===================== ACCUEIL ===================== */
-.hero-layout{display:grid;grid-template-columns:1fr 200px;gap:60px;align-items:start;margin-bottom:64px;}
+/* ===================== ACCUEIL MODIFIÉ ===================== */
+.hero-layout{
+  display:grid;
+  /* Modification ici : photo à gauche (200px) et texte à droite (1fr) */
+  grid-template-columns:200px 1fr;
+  gap:60px;
+  align-items:start;
+  margin-bottom:64px;
+}
 .hero-name{font-size:clamp(52px,7vw,88px);font-weight:800;letter-spacing:-3px;line-height:.92;margin-bottom:20px;}
 .hero-name .ln{color:transparent;-webkit-text-stroke:1.5px var(--accent);}
 .hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
@@ -269,11 +276,20 @@ footer span{color:var(--accent);}
   .sidebar-links {display: none;}
   .main {margin-left: 0;}
   .page {padding: 30px 20px;}
-  .hero-layout,.bts-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
+  .hero-layout{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  /* Modifié ici pour garder la photo en haut au centre sur mobile */
+  .hero-photo-wrap {
+    order: -1;
+    display: flex;
+    justify-content: center;
+  }
+  .bts-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
   .hero-name {font-size: 40px;text-align: center;}
   .hero-bio {text-align: center;}
   .hero-btns {justify-content: center;}
-  .hero-photo-wrap {order: -1;display: flex;justify-content: center;}
   .hero-photo {width: 150px;height: 150px;border-radius: 50%;}
   .stats-strip {grid-template-columns: 1fr 1fr;}
   footer {margin-left: 0;text-align: center;}
@@ -303,7 +319,7 @@ footer span{color:var(--accent);}
       <span class="nav-icon">◈</span> Projets E6 <span class="nav-num">02</span>
     </div>
     <div class="nav-item" data-page="competences">
-      <span class="nav-icon">◉</span> Compétences <span class="nav-num">03</span>
+      <span class="nav-icon">◉</span> Compétences E5 <span class="nav-num">03</span>
     </div>
     <div class="nav-item" data-page="veille">
       <span class="nav-icon">⊕</span> Veille <span class="nav-num">04</span>
@@ -337,6 +353,12 @@ footer span{color:var(--accent);}
   </div>
 
   <div class="hero-layout rv">
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <img src="enzo.jpg" alt="Enzo MARECHAL" class="hero-photo">
+      </div>
+    </div>
+    
     <div>
       <div class="hero-name">Enzo<br><span class="ln">MARECHAL</span></div>
       <div class="hero-pills">
@@ -358,11 +380,6 @@ footer span{color:var(--accent);}
         <span class="btn btn-p" data-page="projets">Projets E6 →</span>
         <span class="btn btn-o" data-page="armatis">Mon alternance</span>
         <span class="btn btn-o" data-page="contact">Contact</span>
-      </div>
-    </div>
-    <div class="hero-photo-wrap">
-      <div class="hero-photo-frame">
-        <img src="enzo.jpeg" alt="Enzo MARECHAL" class="hero-photo">
       </div>
     </div>
   </div>
@@ -502,7 +519,6 @@ footer span{color:var(--accent);}
         <img src="ansible-playbook.png" alt="Exécution du playbook Ansible" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
           <a href="https://github.com/B2ZO0/Projet-ServeurMC-Ansible" target="_blank" class="btn btn-o">⬡ Voir sur GitHub ↗</a>
-          <a href="Fiches missions professionnelles Epreuve E6-SISR-Ansible.docx" download class="btn btn-o">📄 Fiche descriptive</a>
           <a href="Ansible_E6.docx" download class="btn btn-o">📁 Dossier pro</a>
         </div>
       </div>
@@ -539,7 +555,6 @@ footer span{color:var(--accent);}
 
         <img src="grafana-dashboard.png" alt="Dashboard de supervision Grafana" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
-          <a href="Fiches missions professionnelles Epreuve E6-SISR-Zabbix_Grafna.docx" download class="btn btn-o">📄 Fiche descriptive</a>
           <a href="Grafana-Zabbix_E6.docx" download class="btn btn-o">📁 Dossier pro</a>
         </div>
       </div>
@@ -590,7 +605,7 @@ footer span{color:var(--accent);}
             <span class="deb-tag">Administrateur Systèmes & Réseaux</span>
             <span class="deb-tag">Technicien Support Informatique N2/N3</span>
             <span class="deb-tag">Technicien Infrastructure</span>
-            <span class="deb-tag">Analyste Cybersécurité Junior</span>
+            <span class="deb-tag">Analyse Cybersécurité Junior</span>
           </div>
         </div>
       </div>
@@ -792,7 +807,7 @@ footer span{color:var(--accent);}
     <div class="task-card">
       <div class="task-icon">💻</div>
       <div class="task-title">Déploiement de postes Windows 11</div>
-      <div class="task-desc">Préparation, configuration et déploiement de postes de travail Windows 11 pour les nouveaux arrivants ou en remplacement. Installation des outils métiers (téléphonie, CRM, suites bureautiques) et jonction au domaine.</div>
+      <div class="task-desc">Préparation, configuration et déploiement de postes de travail Windows 11 pour les nouveaux arrivals ou en remplacement. Installation des outils métiers (téléphonie, CRM, suites bureautiques) et jonction au domaine.</div>
       <div class="task-tags"><span class="tag">Windows 11</span><span class="tag">MDT</span><span class="tag">Déploiement</span></div>
     </div>
     <div class="task-card">
@@ -825,7 +840,7 @@ footer span{color:var(--accent);}
   <div class="quote-box rv">
     L'alternance chez Armatis m'a permis de <strong>confronter mes connaissances théoriques à un environnement de production réel</strong>. Gérer un parc de plusieurs centaines de postes, traiter des incidents sous contrainte de temps, et communiquer avec des utilisateurs non-techniques sont des compétences que l'on n'acquiert pas uniquement en cours.
     <br><br>
-    C'est directement dans ce contexte professionnel qu'est né le projet <strong>Zabbix/Grafana</strong> (E6·02) : le besoin de supervision était réel, identifié sur le terrain. Cette expérience confirme mon orientation vers l'<strong>administration infrastructure et la cybersécurité</strong>.
+    C'est directement dans ce contexte professionnel qu'est né le projet <strong>Zabbix/Grafana</strong> (E5·02) : le besoin de supervision était réel, identifié sur le terrain. Cette expérience confirme mon orientation vers l'<strong>administration infrastructure et la cybersécurité</strong>.
   </div>
 </div>
 
@@ -846,14 +861,12 @@ footer span{color:var(--accent);}
 
   <div class="sec-title rv">Projet 1 : Automatisation infrastructure micro-services</div>
   <div class="certif-row" style="margin-bottom:48px;">
-    <a href="Fiches missions professionnelles Epreuve E6-SISR-Ansible.docx" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive (E6)</a>
-    <a href="Ansible_E6.docx" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
+    <a href="dossier_pro_e6_1.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
   </div>
 
   <div class="sec-title rv">Projet 2 : Serveur de supervision Zabbix + Grafana</div>
   <div class="certif-row">
-    <a href="Fiches missions professionnelles Epreuve E6-SISR-Zabbix_Grafna.docx" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive (E6)</a>
-    <a href="Grafana-Zabbix_E6.docx" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
+    <a href="dossier_pro_e6_2.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
   </div>
 </div>
 
