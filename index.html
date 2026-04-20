@@ -147,7 +147,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .proj-hl{display:flex;flex-direction:column;gap:9px;margin-bottom:24px;}
 .proj-hl li{display:flex;gap:10px;font-size:13px;color:var(--muted);line-height:1.6;list-style:none;}
 .proj-hl li::before{content:'→';color:var(--accent);font-family:'Space Mono',monospace;font-size:10px;flex-shrink:0;margin-top:2px;}
-.proj-foot{display:flex;gap:10px;padding-top:20px;border-top:1px solid var(--border);}
+.proj-foot{display:flex;gap:10px;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;}
 .proj-img{width:100%; border:1px solid var(--border); border-radius:8px; margin-top:20px;}
 
 /* ===================== COMPETENCES ===================== */
@@ -293,7 +293,7 @@ footer span{color:var(--accent);}
       <span class="nav-icon">⌂</span> Accueil <span class="nav-num">01</span>
     </div>
     <div class="nav-item" data-page="projets">
-      <span class="nav-icon">◈</span> Projets <span class="nav-num">02</span>
+      <span class="nav-icon">◈</span> Projets E6 <span class="nav-num">02</span>
     </div>
     <div class="nav-item" data-page="competences">
       <span class="nav-icon">◉</span> Compétences <span class="nav-num">03</span>
@@ -323,7 +323,7 @@ footer span{color:var(--accent);}
 <div id="page-accueil" class="page active">
   <div class="page-header rv">
     <div class="page-header-left">
-      <div class="page-tag">Portfolio E4 / E5 · BTS SIO SISR</div>
+      <div class="page-tag">Portfolio E5 / E6 · BTS SIO SISR</div>
       <h1>Accueil</h1>
     </div>
     <div class="page-header-right">AFTEC · Caen<br>2024 — 2026</div>
@@ -348,7 +348,7 @@ footer span{color:var(--accent);}
         Recherche alternance <strong>Bachelor Cybersécurité & Administration Réseau</strong>
       </p>
       <div class="hero-btns">
-        <span class="btn btn-p" data-page="projets">Projets →</span>
+        <span class="btn btn-p" data-page="projets">Projets E6 →</span>
         <span class="btn btn-o" data-page="armatis">Mon alternance</span>
         <span class="btn btn-o" data-page="contact">Contact</span>
       </div>
@@ -361,7 +361,7 @@ footer span{color:var(--accent);}
   </div>
 
   <div class="stats-strip rv">
-    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Projets<br>réalisés</div></div>
+    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Projets E6<br>réalisés</div></div>
     <div class="stat-box"><div class="stat-val">5+</div><div class="stat-lbl">Expériences<br>professionnelles</div></div>
     <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Certifications<br>(PIX + Azure)</div></div>
     <div class="stat-box"><div class="stat-val">5</div><div class="stat-lbl">Années de<br>formation IT</div></div>
@@ -456,7 +456,7 @@ footer span{color:var(--accent);}
 <div id="page-projets" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
-      <div class="page-tag">Épreuves E5 & E6 · BTS SIO SISR</div>
+      <div class="page-tag">Épreuve E6 · BTS SIO SISR</div>
       <h1>Projets</h1>
     </div>
     <div class="page-header-right">2 réalisations<br>professionnelles</div>
@@ -465,7 +465,7 @@ footer span{color:var(--accent);}
   <div class="proj-list">
     <div class="proj-card rv">
       <div class="proj-head" data-toggle="proj">
-        <span class="proj-num-badge">E5 · 01</span>
+        <span class="proj-num-badge">E6 · 01</span>
         <div class="proj-head-text">
           <div class="proj-title">Automatisation infrastructure micro-services</div>
           <div class="proj-sub">Ansible × Proxmox VE</div>
@@ -495,6 +495,8 @@ footer span{color:var(--accent);}
         <img src="ansible-playbook.png" alt="Exécution du playbook Ansible" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
           <a href="https://github.com/B2ZO0/Projet-ServeurMC-Ansible" target="_blank" class="btn btn-o">⬡ Voir sur GitHub ↗</a>
+          <a href="fiche_e6_1.pdf" target="_blank" class="btn btn-o">📄 Fiche descriptive</a>
+          <a href="dossier_pro_e6_1.pdf" target="_blank" class="btn btn-o">📁 Dossier pro</a>
         </div>
       </div>
     </div>
@@ -530,7 +532,8 @@ footer span{color:var(--accent);}
 
         <img src="grafana-dashboard.png" alt="Dashboard de supervision Grafana" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
-          <a href="https://github.com/B2ZO0" target="_blank" class="btn btn-o">⬡ GitHub ↗</a>
+          <a href="fiche_e6_2.pdf" target="_blank" class="btn btn-o">📄 Fiche descriptive</a>
+          <a href="dossier_pro_e6_2.pdf" target="_blank" class="btn btn-o">📁 Dossier pro</a>
         </div>
       </div>
     </div>
@@ -543,7 +546,7 @@ footer span{color:var(--accent);}
       <div class="page-tag">Référentiel BTS SIO</div>
       <h1>Compétences</h1>
     </div>
-    <div class="page-header-right">Épreuve E4<br>BTS SIO SISR</div>
+    <div class="page-header-right">Épreuve E5<br>BTS SIO SISR</div>
   </div>
 
   <div class="comp-block rv">
@@ -834,16 +837,16 @@ footer span{color:var(--accent);}
     <a href="Tableaudecompetence.xlsx" download class="btn btn-o" style="padding:16px 32px; background:var(--card);">⬇ Tableau de Compétences (Excel)</a>
   </div>
 
-  <div class="sec-title rv">Projet 1 (Épreuve E5)</div>
+  <div class="sec-title rv">Projet 1 : Automatisation infrastructure micro-services</div>
   <div class="certif-row" style="margin-bottom:48px;">
-    <a href="fiche_e5.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive E5</a>
-    <a href="dossier_pro_e5.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel E5</a>
+    <a href="fiche_e6_1.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive (E6)</a>
+    <a href="dossier_pro_e6_1.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
   </div>
 
-  <div class="sec-title rv">Projet 2 (Épreuve E6)</div>
+  <div class="sec-title rv">Projet 2 : Serveur de supervision Zabbix + Grafana</div>
   <div class="certif-row">
-    <a href="fiche_e6.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive E6</a>
-    <a href="dossier_pro_e6.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel E6</a>
+    <a href="fiche_e6_2.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive (E6)</a>
+    <a href="dossier_pro_e6_2.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
   </div>
 </div>
 
@@ -935,8 +938,6 @@ document.querySelectorAll('.proj-head').forEach(head => {
     const body = card.querySelector('.proj-body');
     const btn = this.querySelector('.proj-toggle');
     
-    // On bascule l'état ouvert/fermé uniquement de l'élément cliqué
-    // Cela permet de garder d'autres projets ouverts en même temps
     body.classList.toggle('open');
     btn.classList.toggle('open');
     btn.textContent = body.classList.contains('open') ? 'x' : '+';
