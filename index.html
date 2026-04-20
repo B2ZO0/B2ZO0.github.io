@@ -234,7 +234,8 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .veille-ts{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);text-align:right;margin-top:8px;letter-spacing:1px;}
 
 /* ===================== CONTACT ===================== */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+/* Modification de la grille pour supprimer le formulaire */
+.contact-grid{display:block; max-width: 600px;}
 .c-big{font-size:clamp(36px,4.5vw,56px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:18px;}
 .c-big span{color:var(--accent);}
 .c-intro{font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:28px;}
@@ -244,15 +245,6 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .c-icon{font-size:15px;color:var(--accent);width:20px;text-align:center;flex-shrink:0;}
 .c-link-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;}
 .c-link-val{font-size:13px;font-weight:600;}
-.form-side h3{font-size:17px;font-weight:700;margin-bottom:16px;}
-.fg{margin-bottom:12px;}
-.fg label{display:block;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-.fg input,.fg textarea{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:13px;padding:10px 13px;outline:none;transition:border-color .2s;}
-.fg input:focus,.fg textarea:focus{border-color:var(--accent);}
-.fg textarea{resize:vertical;min-height:100px;}
-.f-status{font-family:'Space Mono',monospace;font-size:11px;padding:10px;margin-top:8px;display:none;}
-.f-status.ok{color:var(--green);border:1px solid var(--green);display:block;}
-.f-status.err{color:var(--orange);border:1px solid var(--orange);display:block;}
 
 footer{margin-left:240px;border-top:1px solid var(--border);padding:20px 64px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
 footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;}
@@ -270,7 +262,7 @@ footer span{color:var(--accent);}
   .sidebar-links {display: none;}
   .main {margin-left: 0;}
   .page {padding: 30px 20px;}
-  .hero-layout,.bts-grid,.contact-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
+  .hero-layout,.bts-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
   .hero-name {font-size: 40px;text-align: center;}
   .hero-bio {text-align: center;}
   .hero-btns {justify-content: center;}
@@ -301,7 +293,7 @@ footer span{color:var(--accent);}
       <span class="nav-icon">⌂</span> Accueil <span class="nav-num">01</span>
     </div>
     <div class="nav-item" data-page="projets">
-      <span class="nav-icon">◈</span> Projets E5 <span class="nav-num">02</span>
+      <span class="nav-icon">◈</span> Projets <span class="nav-num">02</span>
     </div>
     <div class="nav-item" data-page="competences">
       <span class="nav-icon">◉</span> Compétences <span class="nav-num">03</span>
@@ -328,7 +320,6 @@ footer span{color:var(--accent);}
 
 <div class="main">
 
-<!-- ========== PAGE ACCUEIL ========== -->
 <div id="page-accueil" class="page active">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -357,7 +348,7 @@ footer span{color:var(--accent);}
         Recherche alternance <strong>Bachelor Cybersécurité & Administration Réseau</strong>
       </p>
       <div class="hero-btns">
-        <span class="btn btn-p" data-page="projets">Projets E5 →</span>
+        <span class="btn btn-p" data-page="projets">Projets →</span>
         <span class="btn btn-o" data-page="armatis">Mon alternance</span>
         <span class="btn btn-o" data-page="contact">Contact</span>
       </div>
@@ -370,7 +361,7 @@ footer span{color:var(--accent);}
   </div>
 
   <div class="stats-strip rv">
-    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Projets E5<br>réalisés</div></div>
+    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Projets<br>réalisés</div></div>
     <div class="stat-box"><div class="stat-val">5+</div><div class="stat-lbl">Expériences<br>professionnelles</div></div>
     <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Certifications<br>(PIX + Azure)</div></div>
     <div class="stat-box"><div class="stat-val">5</div><div class="stat-lbl">Années de<br>formation IT</div></div>
@@ -462,11 +453,10 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
-<!-- ========== PAGE PROJETS ========== -->
 <div id="page-projets" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
-      <div class="page-tag">Épreuve E5 · BTS SIO SISR</div>
+      <div class="page-tag">Épreuves E5 & E6 · BTS SIO SISR</div>
       <h1>Projets</h1>
     </div>
     <div class="page-header-right">2 réalisations<br>professionnelles</div>
@@ -493,6 +483,15 @@ footer span{color:var(--accent);}
           <li>Inventaire YAML, modules Ansible (apt, user, copy, systemd), SSH sans agent cible.</li>
           <li>Session tmux persistante, utilisateur système dédié, JVM configurée.</li>
         </ul>
+        
+        <div class="comp-valide" style="margin-top:20px; margin-bottom:20px; padding:15px; background:rgba(0,212,255,0.05); border:1px solid var(--border); border-left: 3px solid var(--accent);">
+          <div style="font-family:'Space Mono', monospace; font-size:10px; color:var(--accent); margin-bottom:8px; letter-spacing: 1px; text-transform: uppercase;">Compétences Bloc B1 validées</div>
+          <ul style="font-size:13px; color:var(--text); margin-left:16px; line-height: 1.6;">
+            <li><strong>Mettre à disposition des services informatiques :</strong> Déploiement de services de manière automatisée.</li>
+            <li><strong>Travailler en mode projet :</strong> Planification et exécution d'une architecture serveur.</li>
+          </ul>
+        </div>
+
         <img src="ansible-playbook.png" alt="Exécution du playbook Ansible" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
           <a href="https://github.com/B2ZO0/Projet-ServeurMC-Ansible" target="_blank" class="btn btn-o">⬡ Voir sur GitHub ↗</a>
@@ -502,7 +501,7 @@ footer span{color:var(--accent);}
 
     <div class="proj-card rv">
       <div class="proj-head" data-toggle="proj">
-        <span class="proj-num-badge">E5 · 02</span>
+        <span class="proj-num-badge">E6 · 02</span>
         <div class="proj-head-text">
           <div class="proj-title">Serveur de supervision Zabbix + Grafana</div>
           <div class="proj-sub">Zabbix 7.0 × Grafana OSS × Debian 12</div>
@@ -520,6 +519,15 @@ footer span{color:var(--accent);}
           <li>Couplage Grafana OSS via API Zabbix — dashboards interactifs et personnalisés.</li>
           <li>Architecture complète : Zabbix Server + Frontend PHP + Agent + MariaDB + Apache2.</li>
         </ul>
+
+        <div class="comp-valide" style="margin-top:20px; margin-bottom:20px; padding:15px; background:rgba(0,212,255,0.05); border:1px solid var(--border); border-left: 3px solid var(--accent);">
+          <div style="font-family:'Space Mono', monospace; font-size:10px; color:var(--accent); margin-bottom:8px; letter-spacing: 1px; text-transform: uppercase;">Compétences Bloc B1 validées</div>
+          <ul style="font-size:13px; color:var(--text); margin-left:16px; line-height: 1.6;">
+            <li><strong>Gérer le patrimoine informatique :</strong> Surveillance active de l'état des équipements du réseau.</li>
+            <li><strong>Répondre aux incidents :</strong> Création d'alertes permettant d'être proactif avant une panne.</li>
+          </ul>
+        </div>
+
         <img src="grafana-dashboard.png" alt="Dashboard de supervision Grafana" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
           <a href="https://github.com/B2ZO0" target="_blank" class="btn btn-o">⬡ GitHub ↗</a>
@@ -529,7 +537,6 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
-<!-- ========== PAGE COMPETENCES ========== -->
 <div id="page-competences" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -613,7 +620,6 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
-<!-- ========== PAGE VEILLE ========== -->
 <div id="page-veille" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -623,7 +629,6 @@ footer span{color:var(--accent);}
     <div class="page-header-right">Sources officielles<br>Mise à jour auto</div>
   </div>
 
-  <!-- Présentation des domaines -->
   <div class="sec-title rv">Les domaines surveillés</div>
   <div class="veille-intro-grid rv">
     <div class="veille-domain-card">
@@ -672,13 +677,11 @@ footer span{color:var(--accent);}
     </div>
   </div>
 
-  <!-- Pourquoi faire de la veille -->
   <div class="veille-why rv">
     <strong>Pourquoi faire de la veille technologique ?</strong><br>
     En informatique, les technologies évoluent très vite. Une faille critique peut être publiée n'importe quel jour. Un nouveau ransomware peut cibler les entreprises en quelques heures. La veille me permet de rester informé en temps réel, d'anticiper les risques pour les infrastructures que je gère, et de continuer à progresser professionnellement. C'est une compétence à part entière, évaluée dans le BTS SIO (bloc B1).
   </div>
 
-  <!-- Flux RSS en direct -->
   <div class="sec-title rv">Flux RSS en temps réel</div>
   <div class="veille-controls rv">
     <div class="veille-search">
@@ -705,7 +708,6 @@ footer span{color:var(--accent);}
   </div>
 </div>
 
-<!-- ========== PAGE ARMATIS ========== -->
 <div id="page-armatis" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -715,7 +717,6 @@ footer span{color:var(--accent);}
     <div class="page-header-right">Caen, Normandie<br>Technicien Informatique</div>
   </div>
 
-  <!-- Présentation entreprise -->
   <div class="armatis-hero rv">
     <div>
       <div class="armatis-badge"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;"></span> En alternance · Depuis août 2024</div>
@@ -733,28 +734,14 @@ footer span{color:var(--accent);}
       </div>
     </div>
     <div>
-      <!-- Remplacer armatis-site.jpg par une vraie photo si disponible -->
       <img src="armatis-site.jpg" alt="Site Armatis Caen" class="armatis-photo" onerror="this.style.display='none'; document.getElementById('armatis-placeholder').style.display='flex';">
       <div id="armatis-placeholder" class="armatis-photo-placeholder" style="display:none;">
         <div class="ph-icon">🏢</div>
         <p>Photo du site<br>à ajouter<br><span style="color:var(--accent);">armatis-site.jpg</span></p>
       </div>
-      <script>
-        // Afficher le placeholder si l'image ne charge pas
-        document.addEventListener('DOMContentLoaded', function() {
-          var img = document.querySelector('img[src="armatis-site.jpg"]');
-          if (img) {
-            img.addEventListener('error', function() {
-              this.style.display = 'none';
-              document.getElementById('armatis-placeholder').style.display = 'flex';
-            });
-          }
-        });
-      </script>
     </div>
   </div>
 
-  <!-- Environnement technique -->
   <div class="sec-title rv">Environnement technique</div>
   <div class="env-strip rv">
     <div class="env-box">
@@ -784,7 +771,6 @@ footer span{color:var(--accent);}
     </div>
   </div>
 
-  <!-- Tâches effectuées -->
   <div class="sec-title rv">Tâches effectuées au quotidien</div>
   <div class="task-grid rv">
     <div class="task-card">
@@ -825,33 +811,42 @@ footer span{color:var(--accent);}
     </div>
   </div>
 
-  <!-- Citation / apprentissages -->
   <div class="sec-title rv">Ce que cette alternance m'apporte</div>
   <div class="quote-box rv">
     L'alternance chez Armatis m'a permis de <strong>confronter mes connaissances théoriques à un environnement de production réel</strong>. Gérer un parc de plusieurs centaines de postes, traiter des incidents sous contrainte de temps, et communiquer avec des utilisateurs non-techniques sont des compétences que l'on n'acquiert pas uniquement en cours.
     <br><br>
-    C'est directement dans ce contexte professionnel qu'est né le projet <strong>Zabbix/Grafana</strong> (E5·02) : le besoin de supervision était réel, identifié sur le terrain. Cette expérience confirme mon orientation vers l'<strong>administration infrastructure et la cybersécurité</strong>.
+    C'est directement dans ce contexte professionnel qu'est né le projet <strong>Zabbix/Grafana</strong> (E6·02) : le besoin de supervision était réel, identifié sur le terrain. Cette expérience confirme mon orientation vers l'<strong>administration infrastructure et la cybersécurité</strong>.
   </div>
 </div>
 
-<!-- ========== PAGE DOCUMENTS ========== -->
 <div id="page-documents" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
-      <div class="page-tag">CV & Ressources</div>
+      <div class="page-tag">Ressources & Fichiers</div>
       <h1>Documents</h1>
     </div>
     <div class="page-header-right">Téléchargements</div>
   </div>
 
-  <div class="sec-title rv">Documents téléchargeables</div>
-  <div style="display:flex; gap:20px; justify-content:center; margin:32px 0; flex-wrap:wrap;">
+  <div class="sec-title rv">Documents Généraux</div>
+  <div style="display:flex; gap:20px; margin:24px 0 48px; flex-wrap:wrap;">
     <a href="CV_Enzo_MARECHAL.pdf" download class="btn btn-p" style="padding:16px 32px;">⬇ Télécharger mon CV (PDF)</a>
     <a href="Tableaudecompetence.xlsx" download class="btn btn-o" style="padding:16px 32px; background:var(--card);">⬇ Tableau de Compétences (Excel)</a>
   </div>
+
+  <div class="sec-title rv">Projet 1 (Épreuve E5)</div>
+  <div class="certif-row" style="margin-bottom:48px;">
+    <a href="fiche_e5.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive E5</a>
+    <a href="dossier_pro_e5.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel E5</a>
+  </div>
+
+  <div class="sec-title rv">Projet 2 (Épreuve E6)</div>
+  <div class="certif-row">
+    <a href="fiche_e6.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive E6</a>
+    <a href="dossier_pro_e6.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel E6</a>
+  </div>
 </div>
 
-<!-- ========== PAGE CONTACT ========== -->
 <div id="page-contact" class="page">
   <div class="page-header rv">
     <div class="page-header-left">
@@ -859,6 +854,7 @@ footer span{color:var(--accent);}
       <h1>Contact</h1>
     </div>
   </div>
+  
   <div class="contact-grid">
     <div class="rv">
       <div class="c-big">Travaillons<br><span>ensemble.</span></div>
@@ -885,15 +881,6 @@ footer span{color:var(--accent);}
           <div><div class="c-link-lbl">Root-Me</div><div class="c-link-val">root-me.org/B2ZO</div></div>
         </a>
       </div>
-    </div>
-    <div class="form-side rv">
-      <h3>Envoyer un message</h3>
-      <div class="fg"><label>Votre nom</label><input type="text" id="f-name" placeholder="Jean Dupont"></div>
-      <div class="fg"><label>Email</label><input type="email" id="f-email" placeholder="jean@exemple.com"></div>
-      <div class="fg"><label>Objet</label><input type="text" id="f-subject" placeholder="Proposition d'alternance"></div>
-      <div class="fg"><label>Message</label><textarea id="f-msg" placeholder="Bonjour Enzo..."></textarea></div>
-      <button id="btn-send-form" class="btn btn-p" style="width:100%;justify-content:center;">Envoyer →</button>
-      <div class="f-status" id="f-status"></div>
     </div>
   </div>
 </div>
@@ -941,16 +928,18 @@ document.querySelectorAll('[data-page]').forEach(btn => {
   btn.addEventListener('click', function() { showPage(this.getAttribute('data-page')); });
 });
 
-// ========== 3. PROJETS ACCORDION ==========
+// ========== 3. PROJETS ACCORDION MODIFIÉ ==========
 document.querySelectorAll('.proj-head').forEach(head => {
   head.addEventListener('click', function() {
     const card = this.closest('.proj-card');
     const body = card.querySelector('.proj-body');
     const btn = this.querySelector('.proj-toggle');
-    const isOpen = body.classList.contains('open');
-    document.querySelectorAll('.proj-body').forEach(b => b.classList.remove('open'));
-    document.querySelectorAll('.proj-toggle').forEach(t => { t.textContent = '+'; t.classList.remove('open'); });
-    if (!isOpen) { body.classList.add('open'); btn.textContent = 'x'; btn.classList.add('open'); }
+    
+    // On bascule l'état ouvert/fermé uniquement de l'élément cliqué
+    // Cela permet de garder d'autres projets ouverts en même temps
+    body.classList.toggle('open');
+    btn.classList.toggle('open');
+    btn.textContent = body.classList.contains('open') ? 'x' : '+';
   });
 });
 
@@ -1011,18 +1000,6 @@ document.querySelectorAll('.vcat').forEach(catBtn => {
     document.getElementById('col-cyber').style.display = (cat === 'admin') ? 'none' : '';
     document.getElementById('col-admin').style.display = (cat === 'cyber') ? 'none' : '';
   });
-});
-
-// ========== 5. FORMULAIRE ==========
-document.getElementById('btn-send-form').addEventListener('click', function() {
-  const n = document.getElementById('f-name').value.trim();
-  const e = document.getElementById('f-email').value.trim();
-  const s = document.getElementById('f-subject').value.trim();
-  const m = document.getElementById('f-msg').value.trim();
-  const st = document.getElementById('f-status');
-  if(!n || !e || !m){ st.className='f-status err'; st.textContent='Remplissez tous les champs.'; return; }
-  window.location.href = `mailto:marechal.enzo27@gmail.com?subject=${encodeURIComponent(s)}&body=${encodeURIComponent("De: "+n+" ("+e+")\n\n"+m)}`;
-  st.className='f-status ok'; st.textContent='Ouverture de votre application email...';
 });
 
 // Afficher placeholder si image armatis ne charge pas
