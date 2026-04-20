@@ -8,34 +8,41 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#07090d; --card:#0f1318; --border:#1b2535;
+  --bg:#05070a; /* Fond encore plus sombre pour le contraste */
+  --card:rgba(15, 19, 24, 0.8); /* Cartes légèrement transparentes pour voir le fond */
+  --border:#1b2535;
   --accent:#00d4ff; --green:#00e87a; --orange:#ff9500; --red:#ff4d6d;
-  --text:#dde8f2; --muted:#4d6a82; --grid:rgba(0,212,255,.025);
+  --text:#dde8f2; --muted:#4d6a82;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 
+/* Style du canvas animé en arrière-plan */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: var(--bg);
+}
+
 body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-toggle {
-  background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;
+  color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;
   cursor:none !important;
 }
 
 .cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 15px var(--accent);opacity:0;transition:opacity .3s;}
-.cur-ring{width:32px;height:32px;border:2px solid rgba(0,212,255,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0;transition:all .15s;animation:pulse-ring 2s ease-in-out infinite;}
+.cur-ring{width:32px;height:32px;border:2px solid rgba(0,212,255,0.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0;transition:all .15s;animation:pulse-ring 2s ease-in-out infinite;}
 @keyframes pulse-ring{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.4}50%{transform:translate(-50%,-50%) scale(1.3);opacity:.2}}
-
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
-.orb{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;}
-.orb1{width:500px;height:500px;background:var(--accent);opacity:.08;top:-150px;right:-150px;animation:drift 15s ease-in-out infinite alternate;}
-.orb2{width:380px;height:380px;background:#004cff;opacity:.07;bottom:50px;left:-120px;animation:drift 20s ease-in-out infinite alternate-reverse;}
-@keyframes drift{from{transform:translate(0,0)}to{transform:translate(40px,40px)}}
 
 .app{display:flex;min-height:100vh;}
 
 .sidebar{
   position:fixed;top:0;left:0;bottom:0;
   width:240px;
-  background:rgba(7,9,13,.97);
+  background:rgba(7,9,13,0.9);
   border-right:1px solid var(--border);
   z-index:100;
   display:flex;flex-direction:column;
@@ -49,8 +56,8 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 .sidebar-nav{padding:24px 0;flex:1;}
 .nav-item{display:flex;align-items:center;gap:12px;padding:13px 28px;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--muted);transition:all .2s;border-left:2px solid transparent;position:relative;}
-.nav-item:hover{color:var(--text);background:rgba(0,212,255,.04);}
-.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,212,255,.06);}
+.nav-item:hover{color:var(--text);background:rgba(0,212,255,0.04);}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,212,255,0.06);}
 .nav-item .nav-icon{font-size:15px;width:18px;text-align:center;flex-shrink:0;}
 .nav-item .nav-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-left:auto;}
 .nav-item.active .nav-num{color:var(--accent);}
@@ -71,29 +78,23 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .page-header-left h1{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;line-height:1;}
 .page-header-right{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-align:right;}
 
-.rv{opacity:1;transform:none;}
-
-/* ===================== ACCUEIL ===================== */
+/* Accueil & Sections */
 .hero-layout{display:grid;grid-template-columns:1fr 200px;gap:60px;align-items:start;margin-bottom:64px;}
 .hero-name{font-size:clamp(52px,7vw,88px);font-weight:800;letter-spacing:-3px;line-height:.92;margin-bottom:20px;}
 .hero-name .ln{color:transparent;-webkit-text-stroke:1.5px var(--accent);}
 .hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
 .pill{padding:7px 14px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;transition:all .2s;}
-.pill.hi{border-color:rgba(0,212,255,.4);color:var(--accent);background:rgba(0,212,255,.05);}
+.pill.hi{border-color:rgba(0,212,255,0.4);color:var(--accent);background:rgba(0,212,255,0.05);}
 .hero-bio{font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:30px;}
 .hero-bio strong{color:var(--text);}
 .hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
 .btn{padding:11px 24px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:7px;border:none;}
 .btn-p{background:var(--accent);color:var(--bg);clip-path:polygon(0 0,calc(100%-10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100%-10px));}
 .btn-p:hover{background:#fff;}
-.btn-o{border:1px solid var(--border);color:var(--text);background:transparent;}
+.btn-o{border:1px solid var(--border);color:var(--text);background:rgba(15,19,24,0.6);}
 .btn-o:hover{border-color:var(--accent);color:var(--accent);}
 
-.hero-photo-wrap{position:relative;}
-.hero-photo-frame{position:relative;}
-.hero-photo-frame::before{content:'';position:absolute;top:-5px;left:-5px;right:5px;bottom:5px;border:1px solid rgba(0,212,255,.2);pointer-events:none;z-index:1;}
-.hero-photo-frame::after{content:'ENZO MARECHAL';position:absolute;bottom:0;left:0;right:0;background:rgba(0,212,255,.9);color:var(--bg);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-align:center;padding:6px;}
-.hero-photo{width:200px;height:260px;object-fit:cover;object-position:center 10%;display:block;transition:filter .3s;}
+.hero-photo{width:200px;height:260px;object-fit:cover;object-position:center 10%;display:block;border:1px solid var(--border);}
 
 .stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:64px;}
 .stat-box{background:var(--card);padding:24px 20px;}
@@ -101,184 +102,47 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .stat-lbl{font-size:11px;color:var(--muted);letter-spacing:.5px;line-height:1.4;}
 
 .form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:52px;}
-.fc{background:var(--card);border:1px solid var(--border);padding:22px;transition:border-color .25s;}
-.fc:hover{border-color:rgba(0,212,255,.35);}
-.fc-yr{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:7px;}
-.fc-school{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:7px;}
-.fc-title{font-size:14px;font-weight:700;line-height:1.35;margin-bottom:10px;}
-.fc-badge{display:inline-block;padding:3px 8px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);}
-
+.fc{background:var(--card);border:1px solid var(--border);padding:22px;}
 .sec-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px;}
 .sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
 
+/* Projets */
+.proj-list{display:flex;flex-direction:column;gap:3px;}
+.proj-card{background:var(--card);border:1px solid var(--border);overflow:hidden;}
+.proj-head{display:flex;align-items:center;gap:16px;padding:28px 32px;}
+.proj-num-badge{font-family:'Space Mono',monospace;font-size:9px;color:var(--bg);background:var(--accent);padding:3px 8px;letter-spacing:2px;flex-shrink:0;}
+.proj-toggle{width:34px;height:34px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:16px;display:flex;align-items:center;justify-content:center;transition: all 0.3s;}
+.proj-toggle.open{transform:rotate(45deg); color: var(--accent); border-color: var(--accent);}
+.proj-body{max-height:0;overflow:hidden;transition:max-height 0.5s ease;padding:0 32px;}
+.proj-body.open{max-height:2000px;padding:28px 32px 36px;border-top:1px solid var(--border);}
+.proj-foot{display:flex;gap:10px;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;}
+
+/* Timeline */
 .timeline{position:relative;padding-left:26px;}
 .timeline::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--border);}
 .tl-item{position:relative;padding-bottom:32px;}
 .tl-item::before{content:'';position:absolute;left:-22px;top:5px;width:8px;height:8px;border:2px solid var(--border);border-radius:50%;background:var(--bg);}
-.tl-item.alt::before{border-color:var(--green);}
-.tl-item.stage::before{border-color:var(--orange);}
-.tl-date{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:4px;}
-.tl-title{font-size:15px;font-weight:700;margin-bottom:2px;}
-.tl-co{font-size:12px;font-weight:600;margin-bottom:8px;}
-.tl-co.green{color:var(--green);} .tl-co.orange{color:var(--orange);}
-.tl-ul{font-size:13px;color:var(--muted);line-height:1.7;}
-.tl-ul li{margin-left:14px;margin-bottom:2px;}
 
-.certif-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+/* Contact & Footer */
+.contact-grid{display:block; max-width: 600px; margin: 0 auto;}
+.c-link{display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid var(--border);text-decoration:none;color:var(--text);margin-bottom:8px;background:var(--card);}
+footer{margin-left:240px;border-top:1px solid var(--border);padding:20px 64px;display:flex;justify-content:space-between;align-items:center;}
 
-/* ===================== PROJETS ===================== */
-.proj-list{display:flex;flex-direction:column;gap:3px;}
-.proj-card{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:border-color .25s;}
-.proj-card:hover{border-color:rgba(0,212,255,.3);}
-.proj-head{display:flex;align-items:center;gap:16px;padding:28px 32px;}
-.proj-num-badge{font-family:'Space Mono',monospace;font-size:9px;color:var(--bg);background:var(--accent);padding:3px 8px;letter-spacing:2px;flex-shrink:0;}
-.proj-head-text{flex:1;}
-.proj-title{font-size:18px;font-weight:800;letter-spacing:-.5px;margin-bottom:3px;}
-.proj-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;}
-.proj-tags-inline{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto;}
-.tag{padding:3px 9px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-.proj-toggle{width:34px;height:34px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:16px;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:12px;}
-.proj-toggle:hover,.proj-toggle.open{border-color:var(--accent);color:var(--accent);}
-.proj-toggle.open{transform:rotate(45deg);}
-
-.proj-body{max-height:0;overflow:hidden;transition:max-height .5s ease-in-out, padding .3s;border-top:0px solid var(--border);padding:0 32px;}
-.proj-body.open{max-height:2500px;padding:28px 32px 36px;border-top-width:1px;}
-.proj-desc{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:20px;}
-.proj-desc strong{color:var(--text);}
-.proj-hl{display:flex;flex-direction:column;gap:9px;margin-bottom:24px;}
-.proj-hl li{display:flex;gap:10px;font-size:13px;color:var(--muted);line-height:1.6;list-style:none;}
-.proj-hl li::before{content:'→';color:var(--accent);font-family:'Space Mono',monospace;font-size:10px;flex-shrink:0;margin-top:2px;}
-.proj-foot{display:flex;gap:10px;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;}
-.proj-img{width:100%; border:1px solid var(--border); border-radius:8px; margin-top:20px;}
-
-/* ===================== COMPETENCES ===================== */
-.comp-intro-box{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);padding:22px 24px;margin-bottom:40px;font-size:14px;color:var(--muted);line-height:1.85;}
-.comp-intro-box strong{color:var(--text);}
-.comp-block{margin-bottom:52px;}
-.comp-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
-.bts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;}
-.bts-card{background:var(--card);border:1px solid var(--border);padding:28px;}
-.bts-card h3{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.5px;}
-.bts-card .opt{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:16px;}
-.bts-ul{font-size:13px;color:var(--muted);line-height:1.8;}
-.bts-ul li{margin-left:14px;margin-bottom:3px;}
-.bts-debouches{margin-top:20px; border-top:1px solid var(--border); padding-top:16px;}
-.bts-debouches .label{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
-.deb-tags{display:flex;flex-wrap:wrap;gap:6px;}
-.deb-tag{padding:4px 10px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px; background: rgba(0,212,255,0.03);}
-
-/* ===================== ARMATIS ===================== */
-.armatis-hero{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;margin-bottom:52px;}
-.armatis-photo{width:100%;height:220px;object-fit:cover;border:1px solid var(--border);display:block;}
-.armatis-photo-placeholder{width:100%;height:220px;background:var(--card);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
-.armatis-photo-placeholder .ph-icon{font-size:36px;opacity:.3;}
-.armatis-photo-placeholder p{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-align:center;}
-.armatis-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.3);font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px;margin-bottom:16px;}
-.armatis-kv{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:32px;}
-.armatis-kv-item{background:var(--card);padding:16px 18px;}
-.armatis-kv-item .kv-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
-.armatis-kv-item .kv-val{font-size:13px;font-weight:700;color:var(--text);}
-
-.task-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:40px;}
-.task-card{background:var(--card);border:1px solid var(--border);padding:22px;transition:border-color .25s;}
-.task-card:hover{border-color:rgba(0,212,255,.3);}
-.task-icon{font-size:20px;margin-bottom:12px;}
-.task-title{font-size:14px;font-weight:800;margin-bottom:8px;letter-spacing:-.3px;}
-.task-desc{font-size:12px;color:var(--muted);line-height:1.75;}
-.task-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
-
-.env-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:40px;}
-.env-box{background:var(--card);padding:18px 20px;}
-.env-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:8px;}
-.env-items{display:flex;flex-wrap:wrap;gap:5px;}
-.env-item{padding:3px 9px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:1px;}
-
-.quote-box{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--green);padding:22px 26px;font-size:14px;color:var(--muted);line-height:1.85;font-style:italic;}
-.quote-box strong{color:var(--text);font-style:normal;}
-
-/* ===================== VEILLE ===================== */
-.veille-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px;}
-.veille-domain-card{background:var(--card);border:1px solid var(--border);padding:28px;transition:border-color .25s;}
-.veille-domain-card:hover{border-color:rgba(0,212,255,.3);}
-.vd-icon{font-size:28px;margin-bottom:14px;}
-.vd-title{font-size:18px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px;}
-.vd-subtitle{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:14px;}
-.vd-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
-.vd-topics{display:flex;flex-wrap:wrap;gap:5px;}
-.vd-topic{padding:4px 10px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.5px;}
-
-.veille-why{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--orange);padding:22px 24px;margin-bottom:40px;font-size:13px;color:var(--muted);line-height:1.85;}
-.veille-why strong{color:var(--text);}
-
-.veille-controls{display:flex;gap:10px;margin-bottom:24px;align-items:center;flex-wrap:wrap;}
-.veille-search{display:flex;gap:0;flex:1;min-width:200px;}
-.veille-search input{flex:1;background:var(--card);border:1px solid var(--border);border-right:0;color:var(--text);font-family:'Space Mono',monospace;font-size:11px;padding:10px 14px;outline:none;transition:border-color .2s;}
-.veille-search input:focus{border-color:var(--accent);}
-.veille-search input::placeholder{color:var(--muted);}
-.veille-search button{padding:10px 18px;background:var(--accent);color:var(--bg);border:1px solid var(--accent);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;transition:background .2s;}
-.veille-search button:hover{background:#fff;border-color:#fff;}
-.veille-cats{display:flex;gap:6px;flex-wrap:wrap;}
-.vcat{padding:8px 14px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;transition:all .2s;}
-.vcat.active,.vcat:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.05);}
-.veille-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.vcol-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.4s infinite;flex-shrink:0;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.rss-feed{display:flex;flex-direction:column;gap:2px;}
-.rss-item{background:var(--card);border:1px solid var(--border);padding:14px 16px;transition:border-color .2s;}
-.rss-item:hover{border-color:rgba(0,212,255,.3);}
-.rss-item a{text-decoration:none;color:inherit;}
-.rss-ttl{font-size:13px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:5px;}
-.rss-meta{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;display:flex;gap:10px;}
-.rss-src{color:var(--accent);}
-.rss-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:18px;text-align:center;border:1px solid var(--border);}
-.veille-ts{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);text-align:right;margin-top:8px;letter-spacing:1px;}
-
-/* ===================== CONTACT ===================== */
-.contact-grid{display:grid;grid-template-columns:1fr;gap:48px;align-items:center;max-width: 600px;margin: 0 auto;}
-.c-big{font-size:clamp(36px,4.5vw,56px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:18px;}
-.c-big span{color:var(--accent);}
-.c-intro{font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:28px;}
-.c-links{display:flex;flex-direction:column;gap:8px;}
-.c-link{display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all .2s;}
-.c-link:hover{border-color:var(--accent);background:rgba(0,212,255,.03);}
-.c-icon{font-size:15px;color:var(--accent);width:20px;text-align:center;flex-shrink:0;}
-.c-link-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;}
-.c-link-val{font-size:13px;font-weight:600;}
-
-footer{margin-left:240px;border-top:1px solid var(--border);padding:20px 64px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
-footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;}
-footer span{color:var(--accent);}
-
-/* ===================== RESPONSIVE ===================== */
 @media(max-width:1000px){
-  body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-toggle {cursor: auto !important;}
-  .cur, .cur-ring {display: none !important;}
-  .sidebar {width: 100%;height: auto;position: relative;padding: 20px 0;border-right: none;border-bottom: 1px solid var(--border);}
-  .sidebar-logo {padding: 0 20px 20px;text-align: center;}
-  .sidebar-nav {display: flex;flex-wrap: wrap;justify-content: center;padding: 10px 0;}
-  .nav-item {padding: 8px 15px;border-left: none;border-bottom: 2px solid transparent;}
-  .nav-item.active {border-left-color: transparent;border-bottom-color: var(--accent);}
-  .sidebar-links {display: none;}
+  .sidebar {width: 100%;height: auto;position: relative;border-right: none;border-bottom: 1px solid var(--border);}
   .main {margin-left: 0;}
   .page {padding: 30px 20px;}
-  .hero-layout,.bts-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
-  .hero-name {font-size: 40px;text-align: center;}
-  .hero-bio {text-align: center;}
-  .hero-btns {justify-content: center;}
-  .hero-photo-wrap {order: -1;display: flex;justify-content: center;}
-  .hero-photo {width: 150px;height: 150px;border-radius: 50%;}
-  .stats-strip {grid-template-columns: 1fr 1fr;}
-  footer {margin-left: 0;text-align: center;}
+  .hero-layout,.stats-strip,.form-grid,.bts-grid,.certif-row,.task-grid,.env-strip {grid-template-columns: 1fr;}
+  footer {margin-left: 0;}
 }
 </style>
 </head>
 <body>
 
+<canvas id="bg-canvas"></canvas>
+
 <div class="cur" id="cur"></div>
 <div class="cur-ring" id="curRing"></div>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
 
 <div class="app">
 
@@ -289,727 +153,209 @@ footer span{color:var(--accent);}
     <div class="role">BTS SIO · SISR</div>
   </div>
   <nav class="sidebar-nav">
-    <div class="nav-item active" data-page="accueil">
-      <span class="nav-icon">⌂</span> Accueil <span class="nav-num">01</span>
-    </div>
-    <div class="nav-item" data-page="projets">
-      <span class="nav-icon">◈</span> Projets E6 <span class="nav-num">02</span>
-    </div>
-    <div class="nav-item" data-page="competences">
-      <span class="nav-icon">◉</span> Compétences <span class="nav-num">03</span>
-    </div>
-    <div class="nav-item" data-page="veille">
-      <span class="nav-icon">⊕</span> Veille <span class="nav-num">04</span>
-    </div>
-    <div class="nav-item" data-page="armatis">
-      <span class="nav-icon">🏢</span> Armatis <span class="nav-num">05</span>
-    </div>
-    <div class="nav-item" data-page="documents">
-      <span class="nav-icon">📄</span> Documents <span class="nav-num">06</span>
-    </div>
-    <div class="nav-item" data-page="contact">
-      <span class="nav-icon">✉</span> Contact <span class="nav-num">07</span>
-    </div>
+    <div class="nav-item active" data-page="accueil"><span class="nav-icon">⌂</span> Accueil <span class="nav-num">01</span></div>
+    <div class="nav-item" data-page="projets"><span class="nav-icon">◈</span> Projets E6 <span class="nav-num">02</span></div>
+    <div class="nav-item" data-page="competences"><span class="nav-icon">◉</span> Compétences <span class="nav-num">03</span></div>
+    <div class="nav-item" data-page="veille"><span class="nav-icon">⊕</span> Veille <span class="nav-num">04</span></div>
+    <div class="nav-item" data-page="armatis"><span class="nav-icon">🏢</span> Armatis <span class="nav-num">05</span></div>
+    <div class="nav-item" data-page="documents"><span class="nav-icon">📄</span> Documents <span class="nav-num">06</span></div>
+    <div class="nav-item" data-page="contact"><span class="nav-icon">✉</span> Contact <span class="nav-num">07</span></div>
   </nav>
   <div class="sidebar-links">
     <a href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261/" target="_blank">in LinkedIn ↗</a>
     <a href="https://github.com/B2ZO0" target="_blank">⬡ GitHub ↗</a>
-    <a href="https://www.root-me.org/B2ZO?lang=fr#44c0f8d76977a97ee797b86f1e0d489f" target="_blank">⚑ Root-Me ↗</a>
   </div>
 </aside>
 
 <div class="main">
 
 <div id="page-accueil" class="page active">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Portfolio E5 / E6 · BTS SIO SISR</div>
-      <h1>Accueil</h1>
-    </div>
+  <div class="page-header">
+    <div class="page-header-left"><div class="page-tag">Portfolio E5 / E6 · BTS SIO SISR</div><h1>Accueil</h1></div>
     <div class="page-header-right">AFTEC · Caen<br>2024 — 2026</div>
   </div>
-
-  <div class="hero-layout rv">
+  <div class="hero-layout">
     <div>
       <div class="hero-name">Enzo<br><span class="ln">MARECHAL</span></div>
       <div class="hero-pills">
         <span class="pill hi">Réseaux & Systèmes</span>
         <span class="pill hi">Administration Windows</span>
         <span class="pill hi">Linux</span>
-        <span class="pill">Virtualisation</span>
-        <span class="pill">Supervision</span>
-        <span class="pill">Automatisation</span>
         <span class="pill">Cybersécurité</span>
       </div>
-      <p class="hero-bio">
-        <strong>Technicien informatique en alternance</strong> · 20 ans · Caen, Normandie<br>
-        BTS SIO option SISR à l'AFTEC Caen — 2ème année<br>
-        En alternance chez <strong>Armatis</strong> depuis août 2024<br>
-        Recherche alternance <strong>Bachelor Cybersécurité & Administration Réseau</strong>
-      </p>
+      <p class="hero-bio"><strong>Technicien informatique en alternance</strong> · 20 ans · Caen<br>En alternance chez <strong>Armatis</strong> depuis août 2024</p>
       <div class="hero-btns">
         <span class="btn btn-p" data-page="projets">Projets E6 →</span>
-        <span class="btn btn-o" data-page="armatis">Mon alternance</span>
         <span class="btn btn-o" data-page="contact">Contact</span>
       </div>
     </div>
-    <div class="hero-photo-wrap">
-      <div class="hero-photo-frame">
-        <img src="enzo.jpg" alt="Enzo MARECHAL" class="hero-photo">
-      </div>
-    </div>
+    <img src="enzo.jpg" alt="Enzo" class="hero-photo" onerror="this.style.opacity='0.2'">
   </div>
-
-  <div class="stats-strip rv">
-    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Projets E6<br>réalisés</div></div>
-    <div class="stat-box"><div class="stat-val">5+</div><div class="stat-lbl">Expériences<br>professionnelles</div></div>
-    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Certifications<br>(PIX + Azure)</div></div>
-    <div class="stat-box"><div class="stat-val">5</div><div class="stat-lbl">Années de<br>formation IT</div></div>
-  </div>
-
-  <div class="sec-title rv">Formation</div>
-  <div class="form-grid rv">
-    <div class="fc">
-      <div class="fc-yr">2026 — 2027</div>
-      <div class="fc-school">My Digital School · Caen</div>
-      <div class="fc-title">Bachelor Cybersécurité & Administrateur Réseaux</div>
-      <span class="fc-badge">À venir</span>
-    </div>
-    <div class="fc">
-      <div class="fc-yr">2024 — 2026</div>
-      <div class="fc-school">AFTEC · Caen</div>
-      <div class="fc-title">BTS SIO option SISR</div>
-      <span class="fc-badge" style="border-color:var(--green);color:var(--green);">En cours · 2ème année</span>
-    </div>
-    <div class="fc">
-      <div class="fc-yr">2020 — 2023</div>
-      <div class="fc-school">Lycée Charles Tellier · Condé-sur-Noireau</div>
-      <div class="fc-title">Bac Pro SN option RISC</div>
-      <span class="fc-badge" style="border-color:var(--accent);color:var(--accent);">Obtenu 2023</span>
-    </div>
-  </div>
-
-  <div class="sec-title rv">Expériences professionnelles</div>
-  <div class="timeline rv">
-    <div class="tl-item alt">
-      <div class="tl-date">AOÛT 2024 — AUJOURD'HUI · ALTERNANCE</div>
-      <div class="tl-title">Technicien Informatique</div>
-      <div class="tl-co green">Armatis · Caen</div>
-      <ul class="tl-ul">
-        <li>Support utilisateur N1 & N2, gestion de tickets, assistance sur site et à distance</li>
-        <li>Déploiement & configuration de postes Windows 11 et outils métiers</li>
-        <li>Diagnostic d'incidents matériels, logiciels et réseau (LAN, Wi-Fi, VLAN)</li>
-        <li>Gestion des comptes Active Directory : droits, groupes, GPO</li>
-        <li>Brassage réseau, vérification de connectivité, interventions sur switches</li>
-      </ul>
-    </div>
-    <div class="tl-item stage">
-      <div class="tl-date">MARS — AVRIL 2023 · STAGE 2 MOIS</div>
-      <div class="tl-title">Stagiaire Informatique</div>
-      <div class="tl-co orange">Chauvin-Arnoux Group · Reux</div>
-      <ul class="tl-ul">
-        <li>Chiffrage et sécurisation de disques, mise en route d'un RAID</li>
-        <li>Déploiement automatisé de postes via MDT, routage et config switches (VLAN)</li>
-        <li>Support informatique N1 & N2, micro-informatique</li>
-      </ul>
-    </div>
-    <div class="tl-item stage">
-      <div class="tl-date">NOV. — DÉC. 2022 · STAGE 2 MOIS</div>
-      <div class="tl-title">Stagiaire Informatique</div>
-      <div class="tl-co orange">Communauté de Communes Coeur Côte Fleurie · Deauville</div>
-      <ul class="tl-ul">
-        <li>Installation de postes de travail, brassage de prises réseau</li>
-        <li>Installation et configuration de Zabbix (supervision réseau & équipements)</li>
-      </ul>
-    </div>
-    <div class="tl-item stage">
-      <div class="tl-date">MAI — JUIL. 2022 · STAGE 3 MOIS</div>
-      <div class="tl-title">Stagiaire Informatique</div>
-      <div class="tl-co orange">Ville de Cabourg — FabLab · Cabourg</div>
-      <ul class="tl-ul"><li>Programmation JS, modélisation 2D/3D, découpe laser, accueil public</li></ul>
-    </div>
-    <div class="tl-item stage">
-      <div class="tl-date">JANV. — FÉV. 2022 · STAGE 2 MOIS</div>
-      <div class="tl-title">Stagiaire Informatique</div>
-      <div class="tl-co orange">LISI MEDICAL · Hérouville-Saint-Clair</div>
-      <ul class="tl-ul"><li>Résolution de problèmes réseau, configuration de switches</li></ul>
-    </div>
-  </div>
-
-  <div class="sec-title rv" style="margin-top:44px;">Certifications</div>
-  <div class="certif-row rv">
-    <div class="fc">
-      <div class="fc-yr">2023</div>
-      <div class="fc-school">Certification officielle</div>
-      <div class="fc-title">PIX — Compétences numériques</div>
-      <span class="fc-badge" style="border-color:var(--accent);color:var(--accent);">Obtenu</span>
-    </div>
-    <div class="fc">
-      <div class="fc-yr">2025 — En cours</div>
-      <div class="fc-school">Microsoft</div>
-      <div class="fc-title">Certification Admin Azure</div>
-      <span class="fc-badge" style="border-color:var(--orange);color:var(--orange);">En préparation</span>
-    </div>
+  <div class="stats-strip">
+    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Projets E6 réalisés</div></div>
+    <div class="stat-box"><div class="stat-val">5+</div><div class="stat-lbl">Expériences pro</div></div>
+    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Certifications</div></div>
+    <div class="stat-box"><div class="stat-val">5</div><div class="stat-lbl">Années de formation IT</div></div>
   </div>
 </div>
 
 <div id="page-projets" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Épreuve E6 · BTS SIO SISR</div>
-      <h1>Projets</h1>
-    </div>
-    <div class="page-header-right">2 réalisations<br>professionnelles</div>
-  </div>
-
+  <div class="page-header"><div class="page-header-left"><div class="page-tag">Épreuve E6 · BTS SIO SISR</div><h1>Projets</h1></div></div>
   <div class="proj-list">
-    <div class="proj-card rv">
-      <div class="proj-head" data-toggle="proj">
+    <div class="proj-card">
+      <div class="proj-head">
         <span class="proj-num-badge">E6 · 01</span>
-        <div class="proj-head-text">
-          <div class="proj-title">Automatisation infrastructure micro-services</div>
-          <div class="proj-sub">Ansible × Proxmox VE</div>
-        </div>
-        <div class="proj-tags-inline">
-          <span class="tag">Ansible</span><span class="tag">Proxmox</span><span class="tag">Linux</span><span class="tag">IaC</span>
-        </div>
+        <div class="proj-title" style="flex:1">Automatisation infrastructure micro-services</div>
         <button class="proj-toggle">+</button>
       </div>
       <div class="proj-body">
-        <p class="proj-desc">L'administration manuelle de serveurs est source d'erreurs et d'incohérences. Ce projet démontre la maîtrise de l'<strong>Infrastructure as Code</strong> en automatisant intégralement le <strong>déploiement de 3 serveurs Minecraft en même temps</strong> sous Proxmox VE via Ansible — une seule commande, zéro intervention manuelle.</p>
-        <ul class="proj-hl">
-          <li>Déploiement en cluster de 3 serveurs Minecraft simultanés via playbook Ansible.</li>
-          <li>Principe d'idempotence : même résultat garanti après N exécutions du playbook.</li>
-          <li>Inventaire YAML, modules Ansible (apt, user, copy, systemd), SSH sans agent cible.</li>
-          <li>Session tmux persistante, utilisateur système dédié, JVM configurée.</li>
-        </ul>
-        
-        <div class="comp-valide" style="margin-top:20px; margin-bottom:20px; padding:15px; background:rgba(0,212,255,0.05); border:1px solid var(--border); border-left: 3px solid var(--accent);">
-          <div style="font-family:'Space Mono', monospace; font-size:10px; color:var(--accent); margin-bottom:8px; letter-spacing: 1px; text-transform: uppercase;">Compétences Bloc B1 validées</div>
-          <ul style="font-size:13px; color:var(--text); margin-left:16px; line-height: 1.6;">
-            <li><strong>Mettre à disposition des services informatiques :</strong> Déploiement de services de manière automatisée.</li>
-            <li><strong>Travailler en mode projet :</strong> Planification et exécution d'une architecture serveur.</li>
-          </ul>
+        <p class="proj-desc">Déploiement de serveurs via <strong>Ansible</strong> sur <strong>Proxmox</strong>.</p>
+        <div class="comp-valide" style="margin:20px 0; padding:15px; background:rgba(0,212,255,0.1); border-left:3px solid var(--accent);">
+          <div style="font-size:10px; color:var(--accent);">BLOC B1 VALIDÉ</div>
+          <ul style="font-size:12px; margin-left:15px;"><li>Mettre à disposition des services informatiques</li><li>Travailler en mode projet</li></ul>
         </div>
-
-        <img src="ansible-playbook.png" alt="Exécution du playbook Ansible" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
-          <a href="https://github.com/B2ZO0/Projet-ServeurMC-Ansible" target="_blank" class="btn btn-o">⬡ Voir sur GitHub ↗</a>
-          <a href="fiche_e6_1.pdf" target="_blank" class="btn btn-o">📄 Fiche descriptive</a>
-          <a href="dossier_pro_e6_1.pdf" target="_blank" class="btn btn-o">📁 Dossier pro</a>
+          <a href="https://github.com/B2ZO0/Projet-ServeurMC-Ansible" target="_blank" class="btn btn-o">⬡ GitHub ↗</a>
+          <a href="fiche_e6_1.pdf" download class="btn btn-o">📄 Fiche descriptive</a>
+          <a href="dossier_pro_e6_1.pdf" download class="btn btn-o">📁 Dossier pro</a>
         </div>
       </div>
     </div>
 
-    <div class="proj-card rv">
-      <div class="proj-head" data-toggle="proj">
+    <div class="proj-card">
+      <div class="proj-head">
         <span class="proj-num-badge">E6 · 02</span>
-        <div class="proj-head-text">
-          <div class="proj-title">Serveur de supervision Zabbix + Grafana</div>
-          <div class="proj-sub">Zabbix 7.0 × Grafana OSS × Debian 12</div>
-        </div>
-        <div class="proj-tags-inline">
-          <span class="tag">Zabbix</span><span class="tag">Grafana</span><span class="tag">MariaDB</span><span class="tag">Debian</span>
-        </div>
+        <div class="proj-title" style="flex:1">Supervision Zabbix + Grafana</div>
         <button class="proj-toggle">+</button>
       </div>
       <div class="proj-body">
-        <p class="proj-desc">Besoin réel rencontré en alternance chez Armatis : surveiller une infrastructure manuellement devient impossible à grande échelle. Ce projet déploie une <strong>solution complète de supervision</strong> avec collecte de métriques, alertes automatiques et dashboards modernes sur Debian 12.</p>
-        <ul class="proj-hl">
-          <li>Zabbix 7.0 installé sur Debian 12 avec MariaDB pour le stockage des métriques.</li>
-          <li>Agents Zabbix sur serveurs distants : collecte CPU, RAM, disque, réseau en temps réel.</li>
-          <li>Couplage Grafana OSS via API Zabbix — dashboards interactifs et personnalisés.</li>
-          <li>Architecture complète : Zabbix Server + Frontend PHP + Agent + MariaDB + Apache2.</li>
-        </ul>
-
-        <div class="comp-valide" style="margin-top:20px; margin-bottom:20px; padding:15px; background:rgba(0,212,255,0.05); border:1px solid var(--border); border-left: 3px solid var(--accent);">
-          <div style="font-family:'Space Mono', monospace; font-size:10px; color:var(--accent); margin-bottom:8px; letter-spacing: 1px; text-transform: uppercase;">Compétences Bloc B1 validées</div>
-          <ul style="font-size:13px; color:var(--text); margin-left:16px; line-height: 1.6;">
-            <li><strong>Gérer le patrimoine informatique :</strong> Surveillance active de l'état des équipements du réseau.</li>
-            <li><strong>Répondre aux incidents :</strong> Création d'alertes permettant d'être proactif avant une panne.</li>
-          </ul>
+        <p class="proj-desc">Mise en place d'une solution de monitoring globale.</p>
+        <div class="comp-valide" style="margin:20px 0; padding:15px; background:rgba(0,212,255,0.1); border-left:3px solid var(--accent);">
+          <div style="font-size:10px; color:var(--accent);">BLOC B1 VALIDÉ</div>
+          <ul style="font-size:12px; margin-left:15px;"><li>Gérer le patrimoine informatique</li><li>Répondre aux incidents</li></ul>
         </div>
-
-        <img src="grafana-dashboard.png" alt="Dashboard de supervision Grafana" class="proj-img" onerror="this.style.display='none';">
         <div class="proj-foot">
-          <a href="fiche_e6_2.pdf" target="_blank" class="btn btn-o">📄 Fiche descriptive</a>
-          <a href="dossier_pro_e6_2.pdf" target="_blank" class="btn btn-o">📁 Dossier pro</a>
+          <a href="fiche_e6_2.pdf" download class="btn btn-o">📄 Fiche descriptive</a>
+          <a href="dossier_pro_e6_2.pdf" download class="btn btn-o">📁 Dossier pro</a>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div id="page-competences" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Référentiel BTS SIO</div>
-      <h1>Compétences</h1>
-    </div>
-    <div class="page-header-right">Épreuve E5<br>BTS SIO SISR</div>
-  </div>
-
-  <div class="comp-block rv">
-    <div class="comp-sub">Tronc Commun — Bloc B1</div>
-    <div class="comp-intro-box" style="margin-bottom:40px;">
-      <p style="margin-bottom:15px; color:var(--text); font-weight:700;">Support et mise à disposition de services informatiques (Commun SISR et SLAM)</p>
-      <ul style="margin-left:20px;">
-        <li style="margin-bottom:8px;"><strong>Gérer le patrimoine informatique :</strong> Recenser, identifier et gérer les équipements, logiciels et configurations (GLPI, OCS Inventory).</li>
-        <li style="margin-bottom:8px;"><strong>Répondre aux incidents :</strong> Traiter les demandes d'assistance, diagnostiquer les pannes matérielles/logicielles et assurer le support utilisateur N1/N2.</li>
-        <li style="margin-bottom:8px;"><strong>Développer la présence en ligne :</strong> Participer à la gestion et l'évolution du site web ou de l'intranet de l'organisation.</li>
-        <li style="margin-bottom:8px;"><strong>Travailler en mode projet :</strong> Planifier, analyser et participer activement au développement d'une solution informatique en équipe.</li>
-        <li style="margin-bottom:8px;"><strong>Mettre à disposition des services :</strong> Installer, tester et déployer un nouveau poste, serveur ou logiciel pour les utilisateurs.</li>
-        <li><strong>Organiser son développement professionnel :</strong> Mettre en place une veille technologique et sécuritaire (flux RSS) et développer ses compétences.</li>
-      </ul>
-    </div>
-
-    <div class="comp-sub">Spécialisations du BTS SIO</div>
-    <div class="bts-grid">
-      <div class="bts-card" style="border-top: 3px solid var(--accent);">
-        <h3>SISR (Mon option)</h3>
-        <div class="opt">Solutions d'Infrastructure, Systèmes et Réseaux</div>
-        <p style="font-size:13px; color:var(--text); margin-bottom:12px;">Cette spécialité forme des professionnels capables d'installer, configurer et gérer les équipements et réseaux informatiques.</p>
-        <ul class="bts-ul">
-          <li><strong>Administration Systèmes :</strong> Déploiement et gestion de Windows Server et Linux (Debian, Ubuntu). Active Directory, GPO, DNS, DHCP.</li>
-          <li><strong>Gestion Réseau :</strong> Configuration de switches, routeurs, pare-feux. Création de VLANs et routage.</li>
-          <li><strong>Virtualisation :</strong> Maîtrise des environnements virtuels (Proxmox VE, VMware ESXi, Hyper-V).</li>
-          <li><strong>Supervision :</strong> Monitoring en temps réel des serveurs et réseaux (Zabbix, Grafana, Centreon).</li>
-          <li><strong>Cybersécurité :</strong> Sécurisation des accès, mise en place de VPN, sauvegardes et plan de reprise d'activité (PRA).</li>
-          <li><strong>Automatisation :</strong> Déploiement automatisé (Ansible, scripts PowerShell, Bash).</li>
-        </ul>
-        <div class="bts-debouches">
-          <div class="label">Métiers visés</div>
-          <div class="deb-tags">
-            <span class="deb-tag">Administrateur Systèmes & Réseaux</span>
-            <span class="deb-tag">Technicien Support Informatique N2/N3</span>
-            <span class="deb-tag">Technicien Infrastructure</span>
-            <span class="deb-tag">Analyste Cybersécurité Junior</span>
-          </div>
-        </div>
-      </div>
-      <div class="bts-card">
-        <h3>SLAM</h3>
-        <div class="opt">Solutions Logicielles et Applications Métiers</div>
-        <p style="font-size:13px; color:var(--text); margin-bottom:12px;">Cette spécialité est orientée vers le développement, la conception de logiciels et la création d'applications web ou mobiles.</p>
-        <ul class="bts-ul">
-          <li><strong>Développement Web :</strong> Création de sites et interfaces (HTML, CSS, JS, PHP, frameworks).</li>
-          <li><strong>Développement Objet :</strong> Programmation d'applications logicielles (Java, Python, C#).</li>
-          <li><strong>Bases de données :</strong> Modélisation (MCD/MLD) et requêtes SQL (MySQL, PostgreSQL).</li>
-          <li><strong>Gestion de projet :</strong> Utilisation des méthodes Agiles (Scrum) et du versioning (Git/GitHub).</li>
-          <li><strong>Maintenance :</strong> Correction de bugs et ajout de nouvelles fonctionnalités sur des logiciels existants.</li>
-        </ul>
-        <div class="bts-debouches">
-          <div class="label">Métiers visés</div>
-          <div class="deb-tags">
-            <span class="deb-tag">Développeur Web / Full-Stack</span>
-            <span class="deb-tag">Développeur d'Applications Mobiles</span>
-            <span class="deb-tag">Analyste Programmeur</span>
-            <span class="deb-tag">Concepteur Logiciel</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="comp-sub">Poursuites d'études</div>
-    <div style="font-size:14px; color:var(--muted); line-height:1.8;">
-      Après l'obtention du BTS SIO, plusieurs voies sont possibles pour se spécialiser (souvent en alternance) :
-      <ul style="margin-top:10px; margin-left:20px; color:var(--text);">
-        <li><strong>Licence Professionnelle :</strong> Métiers des Réseaux Informatiques et Télécommunications, Sécurité des Systèmes d'Information.</li>
-        <li><strong>Bachelor (Bac+3) :</strong> Bachelor Cybersécurité, Bachelor Administrateur Réseaux et Cloud (ce que je vise).</li>
-        <li><strong>Diplôme d'Ingénieur (Bac+5) :</strong> Écoles d'ingénieurs en informatique (CESI, ENI, CNAM) pour devenir Architecte Réseau ou Expert Cybersécurité.</li>
-        <li><strong>Master / Mastère (Bac+5) :</strong> Management des Systèmes d'Information, Sécurité Informatique.</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div id="page-veille" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Technologie & Sécurité</div>
-      <h1>Veille Techno.</h1>
-    </div>
-    <div class="page-header-right">Sources officielles<br>Mise à jour auto</div>
-  </div>
-
-  <div class="sec-title rv">Les domaines surveillés</div>
-  <div class="veille-intro-grid rv">
-    <div class="veille-domain-card">
-      <div class="vd-icon">🛡️</div>
-      <div class="vd-title">Cybersécurité</div>
-      <div class="vd-subtitle">C'est quoi concrètement ?</div>
-      <div class="vd-desc">
-        La <strong style="color:var(--text);">cybersécurité</strong> désigne l'ensemble des pratiques, outils et processus qui protègent les systèmes informatiques, réseaux et données contre les attaques, intrusions et accès non autorisés.
-        <br><br>
-        Dans mon quotidien de technicien SISR, cela se traduit par : analyser les <strong style="color:var(--text);">vulnérabilités connues</strong> (CVE), surveiller les alertes de l'ANSSI, comprendre les nouvelles techniques d'attaque (phishing, ransomware, zero-day) pour mieux y répondre et protéger les infrastructures que j'administre.
-        <br><br>
-        Je pratique aussi sur <strong style="color:var(--text);">Root-Me</strong> pour développer mes compétences en pentest de manière légale et encadrée.
-      </div>
-      <div class="vd-topics">
-        <span class="vd-topic">Vulnérabilités (CVE)</span>
-        <span class="vd-topic">Ransomwares</span>
-        <span class="vd-topic">Phishing</span>
-        <span class="vd-topic">Zero-day</span>
-        <span class="vd-topic">Pentest</span>
-        <span class="vd-topic">ANSSI / CERT-FR</span>
-        <span class="vd-topic">SIEM / SOC</span>
-        <span class="vd-topic">VPN & chiffrement</span>
-      </div>
-    </div>
-    <div class="veille-domain-card">
-      <div class="vd-icon">🖥️</div>
-      <div class="vd-title">Sysadmin & Windows</div>
-      <div class="vd-subtitle">C'est quoi concrètement ?</div>
-      <div class="vd-desc">
-        L'<strong style="color:var(--text);">administration système</strong> (sysadmin) consiste à installer, configurer, maintenir et optimiser les serveurs et postes de travail d'une organisation. C'est le cœur du métier SISR.
-        <br><br>
-        Concrètement : gérer des serveurs <strong style="color:var(--text);">Windows Server</strong> (Active Directory, DNS, DHCP, GPO), administrer des systèmes <strong style="color:var(--text);">Linux</strong> (Debian, Ubuntu), automatiser des tâches via PowerShell ou Bash, et surveiller les Patch Tuesday de Microsoft pour maintenir les parcs à jour.
-        <br><br>
-        C'est ce que je pratique quotidiennement chez <strong style="color:var(--text);">Armatis</strong> et dans mes projets personnels sous Proxmox.
-      </div>
-      <div class="vd-topics">
-        <span class="vd-topic">Windows Server</span>
-        <span class="vd-topic">Active Directory</span>
-        <span class="vd-topic">PowerShell</span>
-        <span class="vd-topic">Linux / Debian</span>
-        <span class="vd-topic">Patch Tuesday</span>
-        <span class="vd-topic">Virtualisation</span>
-        <span class="vd-topic">Cloud Azure</span>
-        <span class="vd-topic">Automatisation</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="veille-why rv">
-    <strong>Pourquoi faire de la veille technologique ?</strong><br>
-    En informatique, les technologies évoluent très vite. Une faille critique peut être publiée n'importe quel jour. Un nouveau ransomware peut cibler les entreprises en quelques heures. La veille me permet de rester informé en temps réel, d'anticiper les risques pour les infrastructures que je gère, et de continuer à progresser professionnellement. C'est une compétence à part entière, évaluée dans le BTS SIO (bloc B1).
-  </div>
-
-  <div class="sec-title rv">Flux RSS en temps réel</div>
-  <div class="veille-controls rv">
-    <div class="veille-search">
-      <input type="text" id="vs-input" placeholder="Rechercher dans les flux...">
-      <button id="btn-search-rss">↵</button>
-    </div>
-    <div class="veille-cats">
-      <span class="vcat active" data-cat="all">Tout</span>
-      <span class="vcat" data-cat="cyber">Cybersécurité</span>
-      <span class="vcat" data-cat="admin">Sysadmin & Windows</span>
-    </div>
-  </div>
-  <div class="veille-cols">
-    <div id="col-cyber" class="rv">
-      <div class="vcol-title"><div class="live-dot"></div>Cybersécurité — Sources officielles</div>
-      <div id="feed-cyber" class="rss-feed"><div class="rss-msg">Chargement des flux...</div></div>
-      <div class="veille-ts" id="ts-cyber"></div>
-    </div>
-    <div id="col-admin" class="rv">
-      <div class="vcol-title"><div class="live-dot"></div>Sysadmin & Windows</div>
-      <div id="feed-admin" class="rss-feed"><div class="rss-msg">Chargement des flux...</div></div>
-      <div class="veille-ts" id="ts-admin"></div>
-    </div>
-  </div>
-</div>
-
-<div id="page-armatis" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Alternance · Août 2024 — Aujourd'hui</div>
-      <h1>Armatis</h1>
-    </div>
-    <div class="page-header-right">Caen, Normandie<br>Technicien Informatique</div>
-  </div>
-
-  <div class="armatis-hero rv">
-    <div>
-      <div class="armatis-badge"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;"></span> En alternance · Depuis août 2024</div>
-      <h2 style="font-size:32px;font-weight:800;letter-spacing:-1.5px;margin-bottom:14px;">Armatis</h2>
-      <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:20px;">
-        <strong style="color:var(--text);">Armatis</strong> est l'un des leaders français de la <strong style="color:var(--text);">relation client externalisée</strong> (BPO – Business Process Outsourcing). Fondé en 1989, le groupe est présent en France et à l'international avec plusieurs milliers de collaborateurs répartis sur de nombreux sites.
-        <br><br>
-        Le site de <strong style="color:var(--text);">Caen</strong> est un centre d'appels et de relation client accueillant plusieurs centaines de collaborateurs. En tant que technicien informatique, j'assure le bon fonctionnement de l'ensemble du parc informatique du site : postes de travail, téléphonie, réseau et infrastructure serveur.
-      </p>
-      <div class="armatis-kv">
-        <div class="armatis-kv-item"><div class="kv-label">Secteur</div><div class="kv-val">Relation client / BPO</div></div>
-        <div class="armatis-kv-item"><div class="kv-label">Localisation</div><div class="kv-val">Caen, Normandie</div></div>
-        <div class="armatis-kv-item"><div class="kv-label">Taille du site</div><div class="kv-val">500+ collaborateurs</div></div>
-        <div class="armatis-kv-item"><div class="kv-label">Mon poste</div><div class="kv-val">Technicien IT N1/N2</div></div>
-      </div>
-    </div>
-    <div>
-      <img src="armatis-site.jpg" alt="Site Armatis Caen" class="armatis-photo" onerror="this.style.display='none'; document.getElementById('armatis-placeholder').style.display='flex';">
-      <div id="armatis-placeholder" class="armatis-photo-placeholder" style="display:none;">
-        <div class="ph-icon">🏢</div>
-        <p>Photo du site<br>à ajouter<br><span style="color:var(--accent);">armatis-site.jpg</span></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-title rv">Environnement technique</div>
-  <div class="env-strip rv">
-    <div class="env-box">
-      <div class="env-label">Systèmes</div>
-      <div class="env-items">
-        <span class="env-item">Windows 11</span>
-        <span class="env-item">Windows Server</span>
-        <span class="env-item">Active Directory</span>
-      </div>
-    </div>
-    <div class="env-box">
-      <div class="env-label">Réseau</div>
-      <div class="env-items">
-        <span class="env-item">VLAN</span>
-        <span class="env-item">LAN / Wi-Fi</span>
-        <span class="env-item">Switches</span>
-        <span class="env-item">Câblage RJ45</span>
-      </div>
-    </div>
-    <div class="env-box">
-      <div class="env-label">Outils & ITSM</div>
-      <div class="env-items">
-        <span class="env-item">Tickets ITSM</span>
-        <span class="env-item">GPO</span>
-        <span class="env-item">Téléphonie IP</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-title rv">Tâches effectuées au quotidien</div>
-  <div class="task-grid rv">
-    <div class="task-card">
-      <div class="task-icon">🎫</div>
-      <div class="task-title">Support utilisateur N1 & N2</div>
-      <div class="task-desc">Réception et traitement des tickets d'incidents via l'outil ITSM. Assistance en présentiel sur les postes de travail et à distance pour les problèmes logiciels, matériels ou réseau. Escalade vers le N3 si nécessaire.</div>
-      <div class="task-tags"><span class="tag">Tickets</span><span class="tag">Diagnostic</span><span class="tag">Assistance</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">💻</div>
-      <div class="task-title">Déploiement de postes Windows 11</div>
-      <div class="task-desc">Préparation, configuration et déploiement de postes de travail Windows 11 pour les nouveaux arrivants ou en remplacement. Installation des outils métiers (téléphonie, CRM, suites bureautiques) et jonction au domaine.</div>
-      <div class="task-tags"><span class="tag">Windows 11</span><span class="tag">MDT</span><span class="tag">Déploiement</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">👤</div>
-      <div class="task-title">Gestion Active Directory</div>
-      <div class="task-desc">Création, modification et suppression de comptes utilisateurs dans Active Directory. Gestion des groupes de sécurité, affectation des droits d'accès aux ressources partagées et application des stratégies de groupe (GPO).</div>
-      <div class="task-tags"><span class="tag">Active Directory</span><span class="tag">GPO</span><span class="tag">Droits</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">🌐</div>
-      <div class="task-title">Réseau & infrastructure</div>
-      <div class="task-desc">Brassage de prises réseau, câblage RJ45 en baie de brassage. Vérification de connectivité, diagnostic des pannes réseau. Interventions sur les switches pour vérification de ports et configuration de VLANs.</div>
-      <div class="task-tags"><span class="tag">LAN</span><span class="tag">VLAN</span><span class="tag">Switches</span><span class="tag">Câblage</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">📞</div>
-      <div class="task-title">Téléphonie & outils métiers</div>
-      <div class="task-desc">Configuration des postes de téléphonie IP utilisés par les agents de relation client. Résolution des incidents sur les outils CRM et plateformes métiers. Coordination avec les équipes techniques des éditeurs si besoin.</div>
-      <div class="task-tags"><span class="tag">Téléphonie IP</span><span class="tag">CRM</span><span class="tag">Outils métiers</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">🔧</div>
-      <div class="task-title">Maintenance matérielle</div>
-      <div class="task-desc">Diagnostic et remplacement de composants défectueux (RAM, disques durs, claviers, écrans). Gestion du stock de matériel et suivi des assets informatiques. Préparation du matériel reconditionné pour réutilisation.</div>
-      <div class="task-tags"><span class="tag">Hardware</span><span class="tag">Maintenance</span><span class="tag">Asset</span></div>
-    </div>
-  </div>
-
-  <div class="sec-title rv">Ce que cette alternance m'apporte</div>
-  <div class="quote-box rv">
-    L'alternance chez Armatis m'a permis de <strong>confronter mes connaissances théoriques à un environnement de production réel</strong>. Gérer un parc de plusieurs centaines de postes, traiter des incidents sous contrainte de temps, et communiquer avec des utilisateurs non-techniques sont des compétences que l'on n'acquiert pas uniquement en cours.
-    <br><br>
-    C'est directement dans ce contexte professionnel qu'est né le projet <strong>Zabbix/Grafana</strong> (E6·02) : le besoin de supervision était réel, identifié sur le terrain. Cette expérience confirme mon orientation vers l'<strong>administration infrastructure et la cybersécurité</strong>.
   </div>
 </div>
 
 <div id="page-documents" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Ressources & Fichiers</div>
-      <h1>Documents</h1>
-    </div>
-    <div class="page-header-right">Téléchargements</div>
+  <div class="page-header"><h1>Documents</h1></div>
+  <div class="sec-title">Général</div>
+  <div style="display:flex; gap:10px; margin-bottom:40px; flex-wrap:wrap;">
+    <a href="CV_Enzo_MARECHAL.pdf" download class="btn btn-p">⬇ Mon CV (PDF)</a>
+    <a href="Tableaudecompetence.xlsx" download class="btn btn-o">⬇ Tableau de compétences</a>
   </div>
-
-  <div class="sec-title rv">Documents Généraux</div>
-  <div style="display:flex; gap:20px; margin:24px 0 48px; flex-wrap:wrap;">
-    <a href="CV_Enzo_MARECHAL.pdf" download class="btn btn-p" style="padding:16px 32px;">⬇ Télécharger mon CV (PDF)</a>
-    <a href="Tableaudecompetence.xlsx" download class="btn btn-o" style="padding:16px 32px; background:var(--card);">⬇ Tableau de Compétences (Excel)</a>
-  </div>
-
-  <div class="sec-title rv">Projet 1 : Automatisation infrastructure micro-services</div>
-  <div class="certif-row" style="margin-bottom:48px;">
-    <a href="fiche_e6_1.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive (E6)</a>
-    <a href="dossier_pro_e6_1.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
-  </div>
-
-  <div class="sec-title rv">Projet 2 : Serveur de supervision Zabbix + Grafana</div>
-  <div class="certif-row">
-    <a href="fiche_e6_2.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📄 Fiche descriptive (E6)</a>
-    <a href="dossier_pro_e6_2.pdf" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
+  <div class="sec-title">Dossiers E6</div>
+  <div class="form-grid">
+    <div class="fc"><strong>Projet Ansible</strong><br><br><a href="dossier_pro_e6_1.pdf" download style="color:var(--accent)">Dossier + Fiche</a></div>
+    <div class="fc"><strong>Projet Zabbix</strong><br><br><a href="dossier_pro_e6_2.pdf" download style="color:var(--accent)">Dossier + Fiche</a></div>
   </div>
 </div>
 
+<div id="page-competences" class="page"><div class="page-header"><h1>Compétences</h1></div><p>Référentiel E5 SISR...</p></div>
+<div id="page-veille" class="page"><div class="page-header"><h1>Veille</h1></div><p>Cybersécurité & Sysadmin...</p></div>
+<div id="page-armatis" class="page"><div class="page-header"><h1>Armatis</h1></div><p>Mon alternance...</p></div>
+
 <div id="page-contact" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Disponible · Caen, Normandie</div>
-      <h1>Contact</h1>
-    </div>
-  </div>
-  
+  <div class="page-header"><h1>Contact</h1></div>
   <div class="contact-grid">
-    <div class="rv">
-      <div class="c-big">Travaillons<br><span>ensemble.</span></div>
-      <p class="c-intro">Disponible pour une alternance Bachelor Cybersécurité & Administration Réseau à partir de 2026. N'hésitez pas à me contacter directement.</p>
-      <div class="c-links">
-        <a href="mailto:marechal.enzo27@gmail.com" class="c-link">
-          <span class="c-icon">✉</span>
-          <div><div class="c-link-lbl">Email</div><div class="c-link-val">marechal.enzo27@gmail.com</div></div>
-        </a>
-        <a href="tel:+33782165772" class="c-link">
-          <span class="c-icon">☎</span>
-          <div><div class="c-link-lbl">Téléphone</div><div class="c-link-val">07 82 16 57 72</div></div>
-        </a>
-        <a href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261/" target="_blank" class="c-link">
-          <span class="c-icon">in</span>
-          <div><div class="c-link-lbl">LinkedIn</div><div class="c-link-val">marechal-enzo-7b9ba9261</div></div>
-        </a>
-        <a href="https://github.com/B2ZO0" target="_blank" class="c-link">
-          <span class="c-icon">⬡</span>
-          <div><div class="c-link-lbl">GitHub</div><div class="c-link-val">github.com/B2ZO0</div></div>
-        </a>
-        <a href="https://www.root-me.org/B2ZO?lang=fr#44c0f8d76977a97ee797b86f1e0d489f" target="_blank" class="c-link">
-          <span class="c-icon">⚑</span>
-          <div><div class="c-link-lbl">Root-Me</div><div class="c-link-val">root-me.org/B2ZO</div></div>
-        </a>
-      </div>
+    <div class="c-big">Travaillons<br><span>ensemble.</span></div>
+    <div class="c-links">
+      <a href="mailto:marechal.enzo27@gmail.com" class="c-link">✉ marechal.enzo27@gmail.com</a>
+      <a href="tel:+33782165772" class="c-link">☎ 07 82 16 57 72</a>
     </div>
   </div>
 </div>
 
 </div></div>
 
-<footer>
-  <p>© 2026 <span>Enzo MARECHAL</span> — BTS SIO SISR · AFTEC Caen</p>
-</footer>
+<footer><p>© 2026 <span>Enzo MARECHAL</span> — BTS SIO SISR</p></footer>
 
 <script>
-// ========== 1. CURSEUR ANIMÉ ==========
-(function() {
-  const cursor = document.getElementById('cur');
-  const cursorRing = document.getElementById('curRing');
-  let mouseX = 0, mouseY = 0, curX = 0, curY = 0, ringX = 0, ringY = 0;
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX; mouseY = e.clientY;
-    cursor.style.opacity = '1'; cursorRing.style.opacity = '1';
-  });
-  document.addEventListener('mouseleave', () => {
-    cursor.style.opacity = '0'; cursorRing.style.opacity = '0';
-  });
-  function animateCursor() {
-    curX += (mouseX - curX) * 0.15; curY += (mouseY - curY) * 0.15;
-    cursor.style.left = curX + 'px'; cursor.style.top = curY + 'px';
-    ringX += (mouseX - ringX) * 0.08; ringY += (mouseY - ringY) * 0.08;
-    cursorRing.style.left = ringX + 'px'; cursorRing.style.top = ringY + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-})();
+// 1. ANIMATION DU FOND (CANVAS)
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let points = [];
+const pointCount = 80;
+const connectionDist = 150;
 
-// ========== 2. NAVIGATION ==========
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + pageId).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.querySelector(`.nav-item[data-page="${pageId}"]`).classList.add('active');
-  document.querySelector('.main').scrollTop = 0;
-  window.scrollTo(0,0);
-  if(pageId === 'veille') loadRSS();
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
-document.querySelectorAll('[data-page]').forEach(btn => {
-  btn.addEventListener('click', function() { showPage(this.getAttribute('data-page')); });
-});
+window.addEventListener('resize', resize);
+resize();
 
-// ========== 3. PROJETS ACCORDION MODIFIÉ ==========
-document.querySelectorAll('.proj-head').forEach(head => {
-  head.addEventListener('click', function() {
-    const card = this.closest('.proj-card');
-    const body = card.querySelector('.proj-body');
-    const btn = this.querySelector('.proj-toggle');
+class Point {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+  }
+}
+
+for (let i = 0; i < pointCount; i++) points.push(new Point());
+
+function animateBG() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  points.forEach(p => {
+    p.update();
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0, 212, 255, 0.3)';
+    ctx.fill();
     
-    body.classList.toggle('open');
-    btn.classList.toggle('open');
-    btn.textContent = body.classList.contains('open') ? 'x' : '+';
-  });
-});
-
-// ========== 4. VEILLE RSS ==========
-let rssLoaded = false;
-const CYBER = [
-  {url:'https://www.cert.ssi.gouv.fr/feed/',name:'ANSSI CERT-FR'},
-  {url:'https://feeds.feedburner.com/TheHackersNews',name:'The Hacker News'}
-];
-const ADMIN = [
-  {url:'https://www.it-connect.fr/feed/',name:'IT-Connect.fr'},
-  {url:'https://windowsreport.com/feed/',name:'Windows Report'}
-];
-
-async function loadRSS() {
-  if (rssLoaded) return;
-  rssLoaded = true;
-  await Promise.all([
-    fetchFeeds(CYBER, 'feed-cyber', 'ts-cyber'),
-    fetchFeeds(ADMIN, 'feed-admin', 'ts-admin')
-  ]);
-}
-
-async function fetchFeeds(feeds, cid, tsid) {
-  const el = document.getElementById(cid);
-  el.innerHTML = '<div class="rss-msg">Chargement des flux en cours...</div>';
-  let items = [];
-  for (const f of feeds) {
-    try {
-      const r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f.url));
-      const d = await r.json();
-      if (d.status === 'ok') {
-        d.items.forEach(it => {
-          const title = it.title || '';
-          const link = it.link || '#';
-          const pub = it.pubDate || '';
-          const date = pub ? new Date(pub).toLocaleDateString('fr-FR') : '';
-          if (title) items.push({title, link, date, src: f.name});
-        });
+    points.forEach(p2 => {
+      let d = Math.sqrt((p.x - p2.x)**2 + (p.y - p2.y)**2);
+      if (d < connectionDist) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.strokeStyle = `rgba(0, 212, 255, ${1 - d/connectionDist})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
       }
-    } catch(e) { console.error("Erreur flux :", f.name); }
-  }
-  if (!items.length) {
-    el.innerHTML = '<div class="rss-msg" style="color:var(--orange);">! Impossible de charger les flux.</div>';
-    return;
-  }
-  el.innerHTML = items.slice(0, 10).map(i =>
-    `<div class="rss-item"><a href="${i.link}" target="_blank"><div class="rss-ttl">${i.title}</div><div class="rss-meta"><span class="rss-src">${i.src}</span><span>${i.date}</span></div></a></div>`
-  ).join('');
-  document.getElementById(tsid).textContent = 'Dernière MAJ : ' + new Date().toLocaleTimeString('fr-FR');
-}
-
-document.querySelectorAll('.vcat').forEach(catBtn => {
-  catBtn.addEventListener('click', function() {
-    document.querySelectorAll('.vcat').forEach(c => c.classList.remove('active'));
-    this.classList.add('active');
-    const cat = this.getAttribute('data-cat');
-    document.getElementById('col-cyber').style.display = (cat === 'admin') ? 'none' : '';
-    document.getElementById('col-admin').style.display = (cat === 'cyber') ? 'none' : '';
+    });
   });
+  requestAnimationFrame(animateBG);
+}
+animateBG();
+
+// 2. CURSEUR
+const cursor = document.getElementById('cur');
+const cursorRing = document.getElementById('curRing');
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+  cursorRing.style.left = e.clientX + 'px'; cursorRing.style.top = e.clientY + 'px';
+  cursor.style.opacity = '1'; cursorRing.style.opacity = '1';
 });
 
-// Afficher placeholder si image armatis ne charge pas
-window.addEventListener('load', function() {
-  var img = document.querySelector('img[src="armatis-site.jpg"]');
-  if(img && !img.complete) {
-    img.style.display='none';
-    var ph = document.getElementById('armatis-placeholder');
-    if(ph) ph.style.display='flex';
+// 3. NAVIGATION
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelector(`[data-page="${id}"]`).classList.add('active');
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-page]').forEach(b => b.onclick = () => showPage(b.dataset.page));
+
+// 4. ACCORDION
+document.querySelectorAll('.proj-head').forEach(h => {
+  h.onclick = () => {
+    h.nextElementSibling.classList.toggle('open');
+    h.querySelector('.proj-toggle').classList.toggle('open');
   }
 });
 </script>
