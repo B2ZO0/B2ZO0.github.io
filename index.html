@@ -51,8 +51,7 @@ body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-to
 .sidebar-logo .role{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:3px;}
 
 .sidebar-nav{padding:24px 0;flex:1;}
-/* Modification nav-item pour les liens <a> */
-.nav-item{text-decoration:none; display:flex;align-items:center;gap:12px;padding:13px 28px;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--muted);transition:all .2s;border-left:2px solid transparent;position:relative;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:13px 28px;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--muted);transition:all .2s;border-left:2px solid transparent;position:relative;}
 .nav-item:hover{color:var(--text);background:rgba(0,212,255,.04);}
 .nav-item.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,212,255,.06);}
 .nav-item .nav-icon{font-size:15px;width:18px;text-align:center;flex-shrink:0;}
@@ -65,8 +64,9 @@ body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-to
 
 .main{margin-left:240px;flex:1;position:relative;z-index:1;}
 
-/* Modifié pour que toutes les pages s'affichent les unes sous les autres */
-.page{display:block; min-height:100vh; padding:60px 64px 80px;}
+.page{display:none;min-height:100vh;padding:60px 64px 80px;animation:pageIn .35s ease;}
+.page.active{display:block;}
+@keyframes pageIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
 
 .page-header{margin-bottom:56px;padding-bottom:28px;border-bottom:1px solid var(--border);display:flex;align-items:flex-end;justify-content:space-between;}
 .page-header-left .page-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
@@ -80,7 +80,7 @@ body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-to
 .hero-layout{
   display:grid;
   grid-template-columns:1fr 300px;
-  gap:40px; 
+  gap:40px; /* Réduit pour éviter que ça ne coupe l'écran */
   align-items:start;
   margin-bottom:64px;
 }
@@ -98,6 +98,7 @@ body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-to
 .btn-o{border:1px solid var(--border);color:var(--text);background:transparent;}
 .btn-o:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.05);}
 
+/* Suppression du translateX pour ne pas casser la grille */
 .hero-photo-wrap{position:relative;}
 .hero-photo-frame{position:relative;}
 .hero-photo{width:300px;height:390px;object-fit:cover;object-position:center 10%;display:block;transition:filter .3s;}
@@ -137,7 +138,7 @@ body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-to
 .proj-list{display:flex;flex-direction:column;gap:3px;}
 .proj-card{background:rgba(15,19,24,0.85);border:1px solid var(--border);overflow:hidden;transition:border-color .25s;}
 .proj-card:hover{border-color:rgba(0,212,255,.3);}
-.proj-head{display:flex;align-items:center;gap:16px;padding:28px 32px;cursor:pointer;}
+.proj-head{display:flex;align-items:center;gap:16px;padding:28px 32px;}
 .proj-num-badge{font-family:'Space Mono',monospace;font-size:9px;color:var(--bg);background:var(--accent);padding:3px 8px;letter-spacing:2px;flex-shrink:0;}
 .proj-head-text{flex:1;}
 .proj-title{font-size:18px;font-weight:800;letter-spacing:-.5px;margin-bottom:3px;}
@@ -281,12 +282,12 @@ footer span{color:var(--accent);}
     order: -1;
     display: flex;
     justify-content: center;
-    transform: translateX(0);
   }
   .bts-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
   .hero-name {font-size: 40px;text-align: center;}
   .hero-bio {text-align: center;}
   .hero-btns {justify-content: center;}
+  /* Agrandissement de 50% sur mobile également : de 150px à 225px */
   .hero-photo {width: 225px;height: 225px;border-radius: 50%;}
   .stats-strip {grid-template-columns: 1fr 1fr;}
   footer {margin-left: 0;text-align: center;}
@@ -309,27 +310,27 @@ footer span{color:var(--accent);}
     <div class="role">BTS SIO · SISR</div>
   </div>
   <nav class="sidebar-nav">
-    <a href="#page-accueil" class="nav-item active" data-target="page-accueil">
+    <div class="nav-item active" data-page="accueil">
       <span class="nav-icon">⌂</span> Accueil <span class="nav-num">01</span>
-    </a>
-    <a href="#page-projets" class="nav-item" data-target="page-projets">
+    </div>
+    <div class="nav-item" data-page="projets">
       <span class="nav-icon">◈</span> Projets E6 <span class="nav-num">02</span>
-    </a>
-    <a href="#page-competences" class="nav-item" data-target="page-competences">
+    </div>
+    <div class="nav-item" data-page="competences">
       <span class="nav-icon">◉</span> Compétences <span class="nav-num">03</span>
-    </a>
-    <a href="#page-veille" class="nav-item" data-target="page-veille">
+    </div>
+    <div class="nav-item" data-page="veille">
       <span class="nav-icon">⊕</span> Veille <span class="nav-num">04</span>
-    </a>
-    <a href="#page-armatis" class="nav-item" data-target="page-armatis">
+    </div>
+    <div class="nav-item" data-page="armatis">
       <span class="nav-icon">🏢</span> Armatis <span class="nav-num">05</span>
-    </a>
-    <a href="#page-documents" class="nav-item" data-target="page-documents">
+    </div>
+    <div class="nav-item" data-page="documents">
       <span class="nav-icon">📄</span> Documents <span class="nav-num">06</span>
-    </a>
-    <a href="#page-contact" class="nav-item" data-target="page-contact">
+    </div>
+    <div class="nav-item" data-page="contact">
       <span class="nav-icon">✉</span> Contact <span class="nav-num">07</span>
-    </a>
+    </div>
   </nav>
   <div class="sidebar-links">
     <a href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261/" target="_blank">in LinkedIn ↗</a>
@@ -340,7 +341,7 @@ footer span{color:var(--accent);}
 
 <div class="main">
 
-<div id="page-accueil" class="page">
+<div id="page-accueil" class="page active">
   <div class="page-header rv">
     <div class="page-header-left">
       <div class="page-tag">Portfolio E5 / E6 · BTS SIO SISR</div>
@@ -368,9 +369,9 @@ footer span{color:var(--accent);}
         Recherche alternance <strong>Bachelor Cybersécurité & Administration Réseau</strong>
       </p>
       <div class="hero-btns">
-        <a href="#page-projets" class="btn btn-p">Projets E6 →</a>
-        <a href="#page-armatis" class="btn btn-o">Mon alternance</a>
-        <a href="#page-contact" class="btn btn-o">Contact</a>
+        <span class="btn btn-p" data-page="projets">Projets E6 →</span>
+        <span class="btn btn-o" data-page="armatis">Mon alternance</span>
+        <span class="btn btn-o" data-page="contact">Contact</span>
       </div>
     </div>
     
@@ -998,25 +999,18 @@ animateBG();
   animateCursor();
 })();
 
-// ========== 3. MISE À JOUR MENU ACTIF AU SCROLL ==========
-const pages = document.querySelectorAll('.page');
-const navItems = document.querySelectorAll('.nav-item');
-
-window.addEventListener('scroll', () => {
-  let current = '';
-  pages.forEach(page => {
-    const pageTop = page.offsetTop;
-    if (pageYOffset >= pageTop - 200) {
-      current = page.getAttribute('id');
-    }
-  });
-
-  navItems.forEach(item => {
-    item.classList.remove('active');
-    if (item.getAttribute('href') === '#' + current) {
-      item.classList.add('active');
-    }
-  });
+// ========== 3. NAVIGATION ==========
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-page="${pageId}"]`).classList.add('active');
+  document.querySelector('.main').scrollTop = 0;
+  window.scrollTo(0,0);
+  if(pageId === 'veille') loadRSS();
+}
+document.querySelectorAll('[data-page]').forEach(btn => {
+  btn.addEventListener('click', function() { showPage(this.getAttribute('data-page')); });
 });
 
 // ========== 4. PROJETS ACCORDION MODIFIÉ ==========
@@ -1051,9 +1045,6 @@ async function loadRSS() {
     fetchFeeds(ADMIN, 'feed-admin', 'ts-admin')
   ]);
 }
-
-// On charge les flux RSS directement vu qu'ils sont visibles maintenant
-loadRSS();
 
 async function fetchFeeds(feeds, cid, tsid) {
   const el = document.getElementById(cid);
