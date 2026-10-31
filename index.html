@@ -1,1099 +1,899 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enzo MARECHAL — Portfolio BTS SIO</title>
-<link rel="icon" type="image/png" href="favicon.png?v=2">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:#07090d; --card:#0f1318; --border:#1b2535;
-  --accent:#00d4ff; --green:#00e87a; --orange:#ff9500; --red:#ff4d6d;
-  --text:#dde8f2; --muted:#4d6a82; --grid:rgba(0,212,255,.025);
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Enzo MARECHAL — Technicien Systèmes &amp; Réseaux · Infrastructures, Cloud &amp; Cybersécurité</title>
+<meta name="description" content="Portfolio d'Enzo MARECHAL, Technicien Systèmes et Réseaux en CDI chez Attineos Infrastructures (Caen). Homelab Proxmox HA, pfSense CARP, Active Directory, MDT/WDS, 3CX, Zabbix, Wazuh, 15 projets d'infrastructure et une base de connaissances de procédures techniques.">
+<meta name="author" content="Enzo MARECHAL">
+<meta name="keywords" content="Enzo MARECHAL, technicien systèmes et réseaux, Attineos, Proxmox, pfSense, Active Directory, GPO, MDT, WDS, 3CX, Zabbix, Grafana, Wazuh, GLPI, Ansible, Cisco, cycle ingénieur alternance, Caen">
+<meta name="theme-color" content="#07080b">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://enzomarechal.fr/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://enzomarechal.fr/">
+<meta property="og:title" content="Enzo MARECHAL — Systèmes, Réseaux &amp; Sécurité">
+<meta property="og:description" content="Technicien Systèmes &amp; Réseaux chez Attineos Infrastructures. Homelab, 15 projets d'infrastructure, base de connaissances technique.">
+<meta property="og:image" content="https://enzomarechal.fr/enzo.jpeg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" href="favicon.png?v=3">
+<link rel="apple-touch-icon" href="favicon.png?v=3">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css?v=4.0.0">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Enzo MARECHAL",
+  "jobTitle": "Technicien Systèmes et Réseaux",
+  "worksFor": { "@type": "Organization", "name": "Attineos Infrastructures" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Caen", "addressRegion": "Normandie", "addressCountry": "FR" },
+  "url": "https://enzomarechal.fr",
+  "email": "mailto:marechal.enzo27@gmail.com",
+  "sameAs": [
+    "https://www.linkedin.com/in/marechal-enzo-7b9ba9261/",
+    "https://github.com/B2ZO0",
+    "https://www.root-me.org/B2ZO"
+  ],
+  "knowsAbout": ["Proxmox VE", "pfSense", "Active Directory", "GPO", "MDT", "WDS", "3CX", "Zabbix", "Grafana", "Wazuh", "GLPI", "Ansible", "Cisco IOS", "Docker", "Debian", "Windows Server"]
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+</script>
 
-/* Canvas de fond animé */
-#bg-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: -1;
-  background: var(--bg);
-}
-
-body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-toggle {
-  color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;
-  cursor:none !important;
-}
-
-.cur{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 15px var(--accent);opacity:0;transition:opacity .3s;}
-.cur-ring{width:32px;height:32px;border:2px solid rgba(0,212,255,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s, transform .1s;animation:pulse-ring 2s ease-in-out infinite;}
-@keyframes pulse-ring{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.4}50%{transform:translate(-50%,-50%) scale(1.3);opacity:.2}}
-
-.app{display:flex;min-height:100vh;}
-
-.sidebar{
-  position:fixed;top:0;left:0;bottom:0;
-  width:240px;
-  background:rgba(7,9,13,.97);
-  border-right:1px solid var(--border);
-  z-index:100;
-  display:flex;flex-direction:column;
-  padding:40px 0 30px;
-  backdrop-filter:blur(20px);
-}
-.sidebar-logo{padding:0 28px 36px;border-bottom:1px solid var(--border);}
-.sidebar-logo .initials{font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:transparent;-webkit-text-stroke:1.5px var(--accent);letter-spacing:-1px;line-height:1;}
-.sidebar-logo .name{font-size:13px;font-weight:700;color:var(--text);margin-top:6px;}
-.sidebar-logo .role{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:3px;}
-
-.sidebar-nav{padding:24px 0;flex:1;}
-.nav-item{display:flex;align-items:center;gap:12px;padding:13px 28px;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--muted);transition:all .2s;border-left:2px solid transparent;position:relative;}
-.nav-item:hover{color:var(--text);background:rgba(0,2,255,.04);}
-.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:rgba(0,2,255,.06);}
-.nav-item .nav-icon{font-size:15px;width:18px;text-align:center;flex-shrink:0;}
-.nav-item .nav-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-left:auto;}
-.nav-item.active .nav-num{color:var(--accent);}
-
-.sidebar-links{padding:20px 28px;border-top:1px solid var(--border);}
-.sidebar-links a{display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:1px;padding:6px 0;transition:color .2s;}
-.sidebar-links a:hover{color:var(--accent);}
-
-.main{margin-left:240px;flex:1;position:relative;z-index:1;}
-
-.page{display:none;min-height:100vh;padding:60px 64px 80px;animation:pageIn .35s ease;}
-.page.active{display:block;}
-@keyframes pageIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
-
-.page-header{margin-bottom:56px;padding-bottom:28px;border-bottom:1px solid var(--border);display:flex;align-items:flex-end;justify-content:space-between;}
-.page-header-left .page-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
-.page-header-left .page-tag::before{content:'';width:24px;height:1px;background:var(--accent);}
-.page-header-left h1{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;line-height:1;}
-.page-header-right{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-align:right;}
-
-.rv{opacity:1;transform:none;}
-
-/* ===================== ACCUEIL ===================== */
-.hero-layout{
-  display:grid;
-  grid-template-columns:1fr 300px;
-  gap:40px; /* Réduit pour éviter que ça ne coupe l'écran */
-  align-items:start;
-  margin-bottom:64px;
-}
-.hero-name{font-size:clamp(52px,7vw,88px);font-weight:800;letter-spacing:-3px;line-height:.92;margin-bottom:20px;}
-.hero-name .ln{color:transparent;-webkit-text-stroke:1.5px var(--accent);}
-.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
-.pill{padding:7px 14px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;transition:all .2s;}
-.pill.hi{border-color:rgba(0,212,255,.4);color:var(--accent);background:rgba(0,212,255,.05);}
-.hero-bio{font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:30px;}
-.hero-bio strong{color:var(--text);}
-.hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
-.btn{padding:11px 24px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:7px;border:none;}
-.btn-p{background:var(--accent);color:var(--bg);clip-path:polygon(0 0,calc(100%-10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100%-10px));}
-.btn-p:hover{background:#fff;}
-.btn-o{border:1px solid var(--border);color:var(--text);background:transparent;}
-.btn-o:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.05);}
-
-/* Suppression du translateX pour ne pas casser la grille */
-.hero-photo-wrap{position:relative;}
-.hero-photo-frame{position:relative;}
-.hero-photo{width:300px;height:390px;object-fit:cover;object-position:center 10%;display:block;transition:filter .3s;}
-
-.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:64px;}
-.stat-box{background:rgba(15,19,24,0.85);padding:24px 20px;}
-.stat-val{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:5px;}
-.stat-lbl{font-size:11px;color:var(--muted);letter-spacing:.5px;line-height:1.4;}
-
-.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:52px;}
-.fc{background:rgba(15,19,24,0.85);border:1px solid var(--border);padding:22px;transition:border-color .25s;}
-.fc:hover{border-color:rgba(0,212,255,.35);}
-.fc-yr{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:7px;}
-.fc-school{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:7px;}
-.fc-title{font-size:14px;font-weight:700;line-height:1.35;margin-bottom:10px;}
-.fc-badge{display:inline-block;padding:3px 8px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);}
-
-.sec-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px;}
-.sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
-
-.timeline{position:relative;padding-left:26px;}
-.timeline::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--border);}
-.tl-item{position:relative;padding-bottom:32px;}
-.tl-item::before{content:'';position:absolute;left:-22px;top:5px;width:8px;height:8px;border:2px solid var(--border);border-radius:50%;background:var(--bg);}
-.tl-item.alt::before{border-color:var(--green);}
-.tl-item.stage::before{border-color:var(--orange);}
-.tl-date{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:4px;}
-.tl-title{font-size:15px;font-weight:700;margin-bottom:2px;}
-.tl-co{font-size:12px;font-weight:600;margin-bottom:8px;}
-.tl-co.green{color:var(--green);} .tl-co.orange{color:var(--orange);}
-.tl-ul{font-size:13px;color:var(--muted);line-height:1.7;}
-.tl-ul li{margin-left:14px;margin-bottom:2px;}
-
-.certif-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-
-/* ===================== PROJETS ===================== */
-.proj-list{display:flex;flex-direction:column;gap:3px;}
-.proj-card{background:rgba(15,19,24,0.85);border:1px solid var(--border);overflow:hidden;transition:border-color .25s;}
-.proj-card:hover{border-color:rgba(0,212,255,.3);}
-.proj-head{display:flex;align-items:center;gap:16px;padding:28px 32px;}
-.proj-num-badge{font-family:'Space Mono',monospace;font-size:9px;color:var(--bg);background:var(--accent);padding:3px 8px;letter-spacing:2px;flex-shrink:0;}
-.proj-head-text{flex:1;}
-.proj-title{font-size:18px;font-weight:800;letter-spacing:-.5px;margin-bottom:3px;}
-.proj-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;}
-.proj-tags-inline{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto;}
-.tag{padding:3px 9px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-.proj-toggle{width:34px;height:34px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:16px;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:12px;}
-.proj-toggle:hover,.proj-toggle.open{border-color:var(--accent);color:var(--accent);}
-.proj-toggle.open{transform:rotate(45deg);}
-
-.proj-body{max-height:0;overflow:hidden;transition:max-height .5s ease-in-out, padding .3s;border-top:0px solid var(--border);padding:0 32px;}
-.proj-body.open{max-height:2500px;padding:28px 32px 36px;border-top-width:1px;}
-.proj-desc{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:20px;}
-.proj-desc strong{color:var(--text);}
-.proj-hl{display:flex;flex-direction:column;gap:9px;margin-bottom:24px;}
-.proj-hl li{display:flex;gap:10px;font-size:13px;color:var(--muted);line-height:1.6;list-style:none;}
-.proj-hl li::before{content:'→';color:var(--accent);font-family:'Space Mono',monospace;font-size:10px;flex-shrink:0;margin-top:2px;}
-.proj-foot{display:flex;gap:10px;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;}
-.proj-img{width:100%; border:1px solid var(--border); border-radius:8px; margin-top:20px;}
-
-.comp-valide {margin-top:20px; margin-bottom:20px; padding:15px; background:rgba(0,212,255,0.05); border:1px solid var(--border); border-left: 3px solid var(--accent);}
-.comp-valide-title {font-family:'Space Mono', monospace; font-size:10px; color:var(--accent); margin-bottom:8px; letter-spacing: 1px; text-transform: uppercase;}
-.comp-valide-list {font-size:13px; color:var(--text); margin-left:16px; line-height: 1.6;}
-
-/* ===================== COMPETENCES ===================== */
-.comp-intro-box{background:rgba(15,19,24,0.85);border:1px solid var(--border);border-left:3px solid var(--accent);padding:22px 24px;margin-bottom:40px;font-size:14px;color:var(--muted);line-height:1.85;}
-.comp-intro-box strong{color:var(--text);}
-.comp-block{margin-bottom:52px;}
-.comp-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);}
-.bts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;}
-.bts-card{background:rgba(15,19,24,0.85);border:1px solid var(--border);padding:28px;}
-.bts-card h3{font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.5px;}
-.bts-card .opt{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:16px;}
-.bts-ul{font-size:13px;color:var(--muted);line-height:1.8;}
-.bts-ul li{margin-left:14px;margin-bottom:3px;}
-.bts-debouches{margin-top:20px; border-top:1px solid var(--border); padding-top:16px;}
-.bts-debouches .label{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
-.deb-tags{display:flex;flex-wrap:wrap;gap:6px;}
-.deb-tag{padding:4px 10px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px; background: rgba(0,212,255,0.03);}
-
-/* ===================== ARMATIS ===================== */
-.armatis-hero{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;margin-bottom:52px;}
-.armatis-photo{width:100%;height:220px;object-fit:cover;border:1px solid var(--border);display:block;}
-.armatis-photo-placeholder{width:100%;height:220px;background:rgba(15,19,24,0.85);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
-.armatis-photo-placeholder .ph-icon{font-size:36px;opacity:.3;}
-.armatis-photo-placeholder p{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-align:center;}
-.armatis-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.3);font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:2px;margin-bottom:16px;}
-.armatis-kv{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:32px;}
-.armatis-kv-item{background:rgba(15,19,24,0.85);padding:16px 18px;}
-.armatis-kv-item .kv-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
-.armatis-kv-item .kv-val{font-size:13px;font-weight:700;color:var(--text);}
-
-.task-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:40px;}
-.task-card{background:rgba(15,19,24,0.85);border:1px solid var(--border);padding:22px;transition:border-color .25s;}
-.task-card:hover{border-color:rgba(0,212,255,.3);}
-.task-icon{font-size:20px;margin-bottom:12px;}
-.task-title{font-size:14px;font-weight:800;margin-bottom:8px;letter-spacing:-.3px;}
-.task-desc{font-size:12px;color:var(--muted);line-height:1.75;}
-.task-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
-
-.env-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:40px;}
-.env-box{background:rgba(15,19,24,0.85);padding:18px 20px;}
-.env-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:8px;}
-.env-items{display:flex;flex-wrap:wrap;gap:5px;}
-.env-item{padding:3px 9px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:1px;}
-
-.quote-box{background:rgba(15,19,24,0.85);border:1px solid var(--border);border-left:3px solid var(--green);padding:22px 26px;font-size:14px;color:var(--muted);line-height:1.85;font-style:italic;}
-.quote-box strong{color:var(--text);font-style:normal;}
-
-/* ===================== VEILLE ===================== */
-.veille-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px;}
-.veille-domain-card{background:rgba(15,19,24,0.85);border:1px solid var(--border);padding:28px;transition:border-color .25s;}
-.veille-domain-card:hover{border-color:rgba(0,212,255,.3);}
-.vd-icon{font-size:28px;margin-bottom:14px;}
-.vd-title{font-size:18px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px;}
-.vd-subtitle{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:14px;}
-.vd-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
-.vd-topics{display:flex;flex-wrap:wrap;gap:5px;}
-.vd-topic{padding:4px 10px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.5px;}
-
-.veille-why{background:rgba(15,19,24,0.85);border:1px solid var(--border);border-left:3px solid var(--orange);padding:22px 24px;margin-bottom:40px;font-size:13px;color:var(--muted);line-height:1.85;}
-.veille-why strong{color:var(--text);}
-
-.veille-controls{display:flex;gap:10px;margin-bottom:24px;align-items:center;flex-wrap:wrap;}
-.veille-search{display:flex;gap:0;flex:1;min-width:200px;}
-.veille-search input{flex:1;background:rgba(15,19,24,0.85);border:1px solid var(--border);border-right:0;color:var(--text);font-family:'Space Mono',monospace;font-size:11px;padding:10px 14px;outline:none;transition:border-color .2s;}
-.veille-search input:focus{border-color:var(--accent);}
-.veille-search input::placeholder{color:var(--muted);}
-.veille-search button{padding:10px 18px;background:var(--accent);color:var(--bg);border:1px solid var(--accent);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;transition:background .2s;}
-.veille-search button:hover{background:#fff;border-color:#fff;}
-.veille-cats{display:flex;gap:6px;flex-wrap:wrap;}
-.vcat{padding:8px 14px;border:1px solid var(--border);font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;transition:all .2s;}
-.vcat.active,.vcat:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.05);}
-.veille-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.vcol-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.4s infinite;flex-shrink:0;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.rss-feed{display:flex;flex-direction:column;gap:2px;}
-.rss-item{background:rgba(15,19,24,0.85);border:1px solid var(--border);padding:14px 16px;transition:border-color .2s;}
-.rss-item:hover{border-color:rgba(0,212,255,.3);}
-.rss-item a{text-decoration:none;color:inherit;}
-.rss-ttl{font-size:13px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:5px;}
-.rss-meta{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;display:flex;gap:10px;}
-.rss-src{color:var(--accent);}
-.rss-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:18px;text-align:center;border:1px solid var(--border);}
-.veille-ts{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);text-align:right;margin-top:8px;letter-spacing:1px;}
-
-/* ===================== CONTACT ===================== */
-.contact-grid{display:grid;grid-template-columns:1fr;gap:48px;align-items:center;max-width: 600px;margin: 0 auto;}
-.c-big{font-size:clamp(36px,4.5vw,56px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:18px;}
-.c-big span{color:var(--accent);}
-.c-intro{font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:28px;}
-.c-links{display:flex;flex-direction:column;gap:8px;}
-.c-link{display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all .2s;background:rgba(15,19,24,0.85);}
-.c-link:hover{border-color:var(--accent);background:rgba(0,212,255,.03);}
-.c-icon{font-size:15px;color:var(--accent);width:20px;text-align:center;flex-shrink:0;}
-.c-link-lbl{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;}
-.c-link-val{font-size:13px;font-weight:600;}
-
-footer{margin-left:240px;border-top:1px solid var(--border);padding:20px 64px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;background:rgba(5,7,10,0.8);backdrop-filter:blur(10px);}
-footer p{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;}
-footer span{color:var(--accent);}
-
-/* ===================== RESPONSIVE ===================== */
-@media(max-width:1000px){
-  body, a, button, input, textarea, select, .nav-item, .vcat, .proj-head, .proj-toggle {cursor: auto !important;}
-  .cur, .cur-ring {display: none !important;}
-  .sidebar {width: 100%;height: auto;position: relative;padding: 20px 0;border-right: none;border-bottom: 1px solid var(--border);}
-  .sidebar-logo {padding: 0 20px 20px;text-align: center;}
-  .sidebar-nav {display: flex;flex-wrap: wrap;justify-content: center;padding: 10px 0;}
-  .nav-item {padding: 8px 15px;border-left: none;border-bottom: 2px solid transparent;}
-  .nav-item.active {border-left-color: transparent;border-bottom-color: var(--accent);}
-  .sidebar-links {display: none;}
-  .main {margin-left: 0;}
-  .page {padding: 30px 20px;}
-  .hero-layout{
-    grid-template-columns: 1fr;
-    gap: 20px;
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
   }
-  .hero-photo-wrap {
-    order: -1;
-    display: flex;
-    justify-content: center;
-  }
-  .bts-grid,.veille-cols,.form-grid,.certif-row,.veille-intro-grid,.armatis-hero,.task-grid,.env-strip {grid-template-columns: 1fr;gap: 20px;}
-  .hero-name {font-size: 40px;text-align: center;}
-  .hero-bio {text-align: center;}
-  .hero-btns {justify-content: center;}
-  /* Agrandissement de 50% sur mobile également : de 150px à 225px */
-  .hero-photo {width: 225px;height: 225px;border-radius: 50%;}
-  .stats-strip {grid-template-columns: 1fr 1fr;}
-  footer {margin-left: 0;text-align: center;}
 }
-</style>
+</script>
 </head>
-<body>
 
-<canvas id="bg-canvas"></canvas>
+<body class="is-loading">
 
-<div class="cur" id="cur"></div>
-<div class="cur-ring" id="curRing"></div>
+<a class="skip-link" href="#main">Aller au contenu principal</a>
 
-<div class="app">
-
-<aside class="sidebar">
-  <div class="sidebar-logo">
-    <div class="initials">EM</div>
-    <div class="name">Enzo MARECHAL</div>
-    <div class="role">BTS SIO · SISR</div>
+<!-- ============================================================
+     PRELOADER — séquence de boot façon POST serveur
+     ============================================================ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <div class="preloader__logo">
+      <span class="preloader__mark">EM</span>
+      <span class="preloader__ring"></span>
+    </div>
+    <pre class="preloader__log" id="preloaderLog"></pre>
+    <div class="preloader__bar"><span id="preloaderBar"></span></div>
+    <button class="preloader__skip" id="preloaderSkip" type="button">Passer ↵</button>
   </div>
-  <nav class="sidebar-nav">
-    <div class="nav-item active" data-page="accueil">
-      <span class="nav-icon">⌂</span> Accueil <span class="nav-num">01</span>
+</div>
+
+<!-- Barre de progression de lecture globale -->
+<div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+<!-- Fond global : grille + halo + bruit -->
+<div class="bg-layer" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow--1"></div>
+  <div class="bg-glow bg-glow--2"></div>
+  <div class="bg-noise"></div>
+</div>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#hero" class="nav__brand" aria-label="Retour en haut">
+      <span class="nav__logo">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="navGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b7bff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><path d="M16 2 28.1 9v14L16 30 3.9 23V9z" fill="none" stroke="url(#navGrad)" stroke-width="1.6"/><path d="M10.5 11h7M10.5 16h5.5M10.5 21h7M10.5 11v10M19.5 21V11l3 5 3-5v10" fill="none" stroke="#eef1f6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(-2 0)"/></svg>
+      </span>
+      <span class="nav__name">Enzo<b>Marechal</b></span>
+    </a>
+
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="#mission" data-nav="mission">Mission</a>
+      <a href="#parcours" data-nav="parcours">Parcours</a>
+      <a href="#stack" data-nav="stack">Stack</a>
+      <a href="#homelab" data-nav="homelab">Homelab</a>
+      <a href="#projets" data-nav="projets">Projets</a>
+      <a href="#wiki" data-nav="wiki">Wiki</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+      <span class="nav__indicator" id="navIndicator" aria-hidden="true"></span>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="nav__cmd" id="cmdOpen" type="button" aria-label="Ouvrir la palette de commandes">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span>Rechercher</span>
+        <kbd><span class="kbd-mod">Ctrl</span>K</kbd>
+      </button>
+      <a class="nav__status" href="#objectif" title="Disponibilité">
+        <span class="pulse-dot"></span>
+        <span class="nav__status-text">Cycle ingé · alternance</span>
+      </a>
+      <button class="nav__burger" id="navBurger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
     </div>
-    <div class="nav-item" data-page="projets">
-      <span class="nav-icon">◈</span> Projets E6 <span class="nav-num">02</span>
-    </div>
-    <div class="nav-item" data-page="competences">
-      <span class="nav-icon">◉</span> Compétences <span class="nav-num">03</span>
-    </div>
-    <div class="nav-item" data-page="veille">
-      <span class="nav-icon">⊕</span> Veille <span class="nav-num">04</span>
-    </div>
-    <div class="nav-item" data-page="armatis">
-      <span class="nav-icon">🏢</span> Armatis <span class="nav-num">05</span>
-    </div>
-    <div class="nav-item" data-page="documents">
-      <span class="nav-icon">📄</span> Documents <span class="nav-num">06</span>
-    </div>
-    <div class="nav-item" data-page="contact">
-      <span class="nav-icon">✉</span> Contact <span class="nav-num">07</span>
-    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <nav class="mobile-menu__links" aria-label="Navigation mobile">
+    <a href="#mission"><span>01</span>Mission actuelle</a>
+    <a href="#parcours"><span>02</span>Parcours</a>
+    <a href="#stack"><span>03</span>Stack technique</a>
+    <a href="#homelab"><span>04</span>Homelab &amp; Prod</a>
+    <a href="#projets"><span>05</span>Projets</a>
+    <a href="#wiki"><span>06</span>Base de connaissances</a>
+    <a href="#objectif"><span>07</span>Objectif ingénieur</a>
+    <a href="#contact"><span>08</span>Contact</a>
   </nav>
-  <div class="sidebar-links">
-    <a href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261/" target="_blank">in LinkedIn ↗</a>
-    <a href="https://github.com/B2ZO0" target="_blank">⬡ GitHub ↗</a>
-    <a href="https://www.root-me.org/B2ZO?lang=fr#44c0f8d76977a97ee797b86f1e0d489f" target="_blank">⚑ Root-Me ↗</a>
+  <div class="mobile-menu__foot">
+    <a href="mailto:marechal.enzo27@gmail.com">marechal.enzo27@gmail.com</a>
+    <span>Caen · Normandie</span>
   </div>
-</aside>
+</div>
 
-<div class="main">
+<main id="main">
 
-<div id="page-accueil" class="page active">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Portfolio E5 / E6 · BTS SIO SISR</div>
-      <h1>Accueil</h1>
-    </div>
-    <div class="page-header-right">AFTEC · Caen<br>2024 — 2026</div>
+<!-- ============================================================
+     01 — HERO 3D : topologie réseau interactive
+     ============================================================ -->
+<section class="hero" id="hero" aria-label="Présentation">
+  <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="hero__fallback" aria-hidden="true"></div>
+  <div class="hero__vignette" aria-hidden="true"></div>
+
+  <div class="hero__tooltip" id="heroTooltip" role="status" aria-live="polite">
+    <div class="hero__tooltip-head"><span class="hero__tooltip-dot"></span><span id="heroTooltipName">—</span></div>
+    <div class="hero__tooltip-ip" id="heroTooltipIp">—</div>
+    <div class="hero__tooltip-role" id="heroTooltipRole">—</div>
   </div>
 
-  <div class="hero-layout rv">
-    <div>
-      <div class="hero-name">Enzo<br><span class="ln">MARECHAL</span></div>
-      <div class="hero-pills">
-        <span class="pill hi">Réseaux & Systèmes</span>
-        <span class="pill hi">Administration Windows</span>
-        <span class="pill hi">Linux</span>
-        <span class="pill">Virtualisation</span>
-        <span class="pill">Supervision</span>
-        <span class="pill">Automatisation</span>
-        <span class="pill">Cybersécurité</span>
-      </div>
-      <p class="hero-bio">
-        <strong>Technicien informatique en alternance</strong> · 21 ans · Caen, Normandie<br>
-        BTS SIO option SISR à l'AFTEC Caen — 2ème année<br>
-        En alternance chez <strong>Armatis</strong> depuis août 2024<br>
-        Recherche alternance <strong>Bachelor Cybersécurité & Administration Réseau</strong>
+  <div class="container hero__content">
+    <div class="hero__left">
+      <a class="hero__badge reveal-hero" href="#mission">
+        <span class="hero__badge-pill">CDI</span>
+        <span>Technicien Systèmes &amp; Réseaux · <b>Attineos Infrastructures</b></span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+
+      <h1 class="hero__title reveal-hero">
+        <span class="hero__title-line">Enzo Marechal</span>
+        <span class="hero__title-line hero__title-line--sub">
+          Je conçois, sécurise et <em class="serif">automatise</em> des infrastructures.
+        </span>
+      </h1>
+
+      <p class="hero__typed reveal-hero" aria-live="off">
+        <span class="hero__prompt">enzo@infra:~$</span>
+        <span id="typedTarget" class="hero__typed-text">administration systèmes &amp; réseaux</span>
       </p>
-      <div class="hero-btns">
-        <span class="btn btn-p" data-page="projets">Projets E6 →</span>
-        <span class="btn btn-o" data-page="armatis">Mon alternance</span>
-        <span class="btn btn-o" data-page="contact">Contact</span>
+
+      <p class="hero__desc reveal-hero">
+        En régie sur un site industriel à <b>Verson</b> : déploiement de postes <b>MDT/WDS</b>, <b>Active Directory</b> &amp; GPO,
+        <b>3CX</b>, architecture de switchs, supervision et support N2/N3. À côté, un homelab de production sur
+        <b>Proxmox VE HA</b>, segmenté en 5 VLANs derrière un cluster <b>pfSense CARP</b>.
+      </p>
+
+      <div class="hero__cta reveal-hero">
+        <a href="#projets" class="btn btn--primary magnetic">
+          <span>Explorer les 15 projets</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#wiki" class="btn btn--ghost magnetic">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h6M8 11h8"/></svg>
+          <span>Base de connaissances</span>
+        </a>
+        <a href="#homelab" class="btn btn--link">Voir l'architecture →</a>
       </div>
-    </div>
-    
-    <div class="hero-photo-wrap">
-      <img src="enzo.jpeg" alt="Enzo MARECHAL" class="hero-photo">
-    </div>
-  </div>
 
-  <div class="stats-strip rv">
-    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Projets E6<br>réalisés</div></div>
-    <div class="stat-box"><div class="stat-val">5+</div><div class="stat-lbl">Expériences<br>professionnelles</div></div>
-    <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">Certifications<br>(PIX + Azure)</div></div>
-    <div class="stat-box"><div class="stat-val">5</div><div class="stat-lbl">Années de<br>formation IT</div></div>
-  </div>
+      <dl class="hero__stats reveal-hero">
+        <div class="hero__stat"><dt><span class="counter" data-count="15">0</span></dt><dd>projets d'infrastructure</dd></div>
+        <div class="hero__stat"><dt><span class="counter" data-count="45" data-count-source="wiki" data-suffix="+">0</span></dt><dd>procédures techniques</dd></div>
+        <div class="hero__stat"><dt><span class="counter" data-count="5">0</span></dt><dd>VLANs segmentés</dd></div>
+        <div class="hero__stat"><dt><span class="counter" data-count="99.9" data-decimals="1" data-suffix="%">0</span></dt><dd>disponibilité homelab</dd></div>
+      </dl>
+    </div>
 
-  <div class="sec-title rv">Formation</div>
-  <div class="form-grid rv">
-    <div class="fc">
-      <div class="fc-yr">2026 — 2027</div>
-      <div class="fc-school">My Digital School · Caen</div>
-      <div class="fc-title">Bachelor Cybersécurité & Administrateur Réseaux</div>
-      <span class="fc-badge">À venir</span>
-    </div>
-    <div class="fc">
-      <div class="fc-yr">2024 — 2026</div>
-      <div class="fc-school">AFTEC · Caen</div>
-      <div class="fc-title">BTS SIO option SISR</div>
-      <span class="fc-badge" style="border-color:var(--green);color:var(--green);">En cours · 2ème année</span>
-    </div>
-    <div class="fc">
-      <div class="fc-yr">2020 — 2023</div>
-      <div class="fc-school">Lycée Charles Tellier · Condé-sur-Noireau</div>
-      <div class="fc-title">Bac Pro SN option RISC</div>
-      <span class="fc-badge" style="border-color:var(--accent);color:var(--accent);">Obtenu 2023</span>
-    </div>
-  </div>
-
-  <div class="sec-title rv">Expériences professionnelles</div>
-  <div class="timeline rv">
-    <div class="tl-item alt">
-      <div class="tl-date">AOÛT 2024 — AUJOURD'HUI · ALTERNANCE</div>
-      <div class="tl-title">Technicien Informatique</div>
-      <div class="tl-co green">Armatis · Caen</div>
-      <ul class="tl-ul">
-        <li>Support utilisateur N1 & N2, gestion de tickets, assistance sur site et à distance</li>
-        <li>Déploiement & configuration de postes Windows 11 et outils métiers</li>
-        <li>Diagnostic d'incidents matériels, logiciels et réseau (LAN, Wi-Fi, VLAN)</li>
-        <li>Gestion des comptes Active Directory : droits, groupes, GPO</li>
-        <li>Brassage réseau, vérification de connectivité, interventions sur switches</li>
-      </ul>
-    </div>
-    <div class="tl-item stage">
-      <div class="tl-date">MARS — AVRIL 2023 · STAGE 2 MOIS</div>
-      <div class="tl-title">Stagiaire Informatique</div>
-      <div class="tl-co orange">Chauvin-Arnoux Group · Reux</div>
-      <ul class="tl-ul">
-        <li>Chiffrage et sécurisation de disques, mise en route d'un RAID</li>
-        <li>Déploiement automatisé de postes via MDT, routage et config switches (VLAN)</li>
-        <li>Support informatique N1 & N2, micro-informatique</li>
-      </ul>
-    </div>
-    <div class="tl-item stage">
-      <div class="tl-date">NOV. — DÉC. 2022 · STAGE 2 MOIS</div>
-      <div class="tl-title">Stagiaire Informatique</div>
-      <div class="tl-co orange">Communauté de Communes Coeur Côte Fleurie · Deauville</div>
-      <ul class="tl-ul">
-        <li>Installation de postes de travail, brassage de prises réseau</li>
-        <li>Installation et configuration de Zabbix (supervision réseau & équipements)</li>
-      </ul>
-    </div>
-    <div class="tl-item stage">
-      <div class="tl-date">MAI — JUIL. 2022 · STAGE 3 MOIS</div>
-      <div class="tl-title">Stagiaire Informatique</div>
-      <div class="tl-co orange">Ville de Cabourg — FabLab · Cabourg</div>
-      <ul class="tl-ul"><li>Programmation JS, modélisation 2D/3D, découpe laser, accueil public</li></ul>
-    </div>
-    <div class="tl-item stage">
-      <div class="tl-date">JANV. — FÉV. 2022 · STAGE 2 MOIS</div>
-      <div class="tl-title">Stagiaire Informatique</div>
-      <div class="tl-co orange">LISI MEDICAL · Hérouville-Saint-Clair</div>
-      <ul class="tl-ul"><li>Résolution de problèmes réseau, configuration de switches</li></ul>
-    </div>
-  </div>
-
-  <div class="sec-title rv" style="margin-top:44px;">Certifications</div>
-  <div class="certif-row rv">
-    <div class="fc">
-      <div class="fc-yr">2023</div>
-      <div class="fc-school">Certification officielle</div>
-      <div class="fc-title">PIX — Compétences numériques</div>
-      <span class="fc-badge" style="border-color:var(--accent);color:var(--accent);">Obtenu</span>
-    </div>
-    <div class="fc">
-      <div class="fc-yr">2025 — En cours</div>
-      <div class="fc-school">Microsoft</div>
-      <div class="fc-title">Certification Admin Azure</div>
-      <span class="fc-badge" style="border-color:var(--orange);color:var(--orange);">En préparation</span>
-    </div>
-  </div>
-</div>
-
-<div id="page-projets" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Épreuve E6 · BTS SIO SISR</div>
-      <h1>Projets</h1>
-    </div>
-    <div class="page-header-right">2 réalisations<br>professionnelles</div>
-  </div>
-
-  <div class="proj-list">
-    <div class="proj-card rv">
-      <div class="proj-head" data-toggle="proj">
-        <span class="proj-num-badge">E6 · 01</span>
-        <div class="proj-head-text">
-          <div class="proj-title">Automatisation infrastructure micro-services</div>
-          <div class="proj-sub">Ansible × Proxmox VE</div>
+    <aside class="hero__right reveal-hero" aria-label="Console de supervision">
+      <div class="console" id="heroConsole">
+        <div class="console__bar">
+          <span class="console__dots"><i></i><i></i><i></i></span>
+          <span class="console__title">zabbix-proxy · live</span>
+          <span class="console__badge"><span class="pulse-dot pulse-dot--green"></span>OK</span>
         </div>
-        <div class="proj-tags-inline">
-          <span class="tag">Ansible</span><span class="tag">Proxmox</span><span class="tag">Linux</span><span class="tag">IaC</span>
-        </div>
-        <button class="proj-toggle">+</button>
-      </div>
-      <div class="proj-body">
-        <p class="proj-desc">L'administration manuelle de serveurs est source d'erreurs et d'incohérences. Ce projet démontre la maîtrise de l'<strong>Infrastructure as Code</strong> en automatisant intégralement le <strong>déploiement de 3 serveurs Minecraft en même temps</strong> sous Proxmox VE via Ansible — une seule commande, zéro intervention manuelle.</p>
-        <ul class="proj-hl">
-          <li>Déploiement en cluster de 3 serveurs Minecraft simultanés via playbook Ansible.</li>
-          <li>Principe d'idempotence : même résultat garanti après N exécutions du playbook.</li>
-          <li>Inventaire YAML, modules Ansible (apt, user, copy, systemd), SSH sans agent cible.</li>
-          <li>Session tmux persistante, utilisateur système dédié, JVM configurée.</li>
-        </ul>
-        
-        <div class="comp-valide">
-          <div class="comp-valide-title">Compétences Bloc B1 validées</div>
-          <ul class="comp-valide-list">
-            <li><strong>Mettre à disposition des services informatiques :</strong> Déploiement de services de manière automatisée.</li>
-            <li><strong>Travailler en mode projet :</strong> Planification et exécution d'une architecture serveur.</li>
-          </ul>
-        </div>
-
-        <img src="ansible-playbook.png" alt="Exécution du playbook Ansible" class="proj-img" onerror="this.style.display='none';">
-        <div class="proj-foot">
-          <a href="https://github.com/B2ZO0/Projet-ServeurMC-Ansible" target="_blank" class="btn btn-o">⬡ Voir sur GitHub ↗</a>
-          <a href="Ansible_E6.docx" download class="btn btn-o">📁 Dossier pro</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="proj-card rv">
-      <div class="proj-head" data-toggle="proj">
-        <span class="proj-num-badge">E6 · 02</span>
-        <div class="proj-head-text">
-          <div class="proj-title">Serveur de supervision Zabbix + Grafana</div>
-          <div class="proj-sub">Zabbix 7.0 × Grafana OSS × Debian 12</div>
-        </div>
-        <div class="proj-tags-inline">
-          <span class="tag">Zabbix</span><span class="tag">Grafana</span><span class="tag">MariaDB</span><span class="tag">Debian</span>
-        </div>
-        <button class="proj-toggle">+</button>
-      </div>
-      <div class="proj-body">
-        <p class="proj-desc">Besoin réel rencontré en alternance chez Armatis : surveiller une infrastructure manuellement devient impossible à grande échelle. Ce projet déploie une <strong>solution complète de supervision</strong> avec collecte de métriques, alertes automatiques et dashboards modernes sur Debian 12.</p>
-        <ul class="proj-hl">
-          <li>Zabbix 7.0 installé sur Debian 12 avec MariaDB pour le stockage des métriques.</li>
-          <li>Agents Zabbix sur serveurs distants : collecte CPU, RAM, disque, réseau en temps réel.</li>
-          <li>Couplage Grafana OSS via API Zabbix — dashboards interactifs et personnalisés.</li>
-          <li>Architecture complète : Zabbix Server + Frontend PHP + Agent + MariaDB + Apache2.</li>
-        </ul>
-
-        <div class="comp-valide">
-          <div class="comp-valide-title">Compétences Bloc B1 validées</div>
-          <ul class="comp-valide-list">
-            <li><strong>Gérer le patrimoine informatique :</strong> Surveillance active de l'état des équipements du réseau.</li>
-            <li><strong>Répondre aux incidents :</strong> Création d'alertes permettant d'être proactif avant une panne.</li>
-          </ul>
-        </div>
-
-        <img src="grafana-dashboard.png" alt="Dashboard de supervision Grafana" class="proj-img" onerror="this.style.display='none';">
-        <div class="proj-foot">
-          <a href="Grafana-Zabbix_E6.docx" download class="btn btn-o">📁 Dossier pro</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="page-competences" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Référentiel BTS SIO</div>
-      <h1>Compétences</h1>
-    </div>
-    <div class="page-header-right">Épreuve E5<br>BTS SIO SISR</div>
-  </div>
-
-  <div class="comp-block rv">
-    <div class="comp-sub">Tronc Commun — Bloc B1</div>
-    <div class="comp-intro-box" style="margin-bottom:40px;">
-      <p style="margin-bottom:15px; color:var(--text); font-weight:700;">Support et mise à disposition de services informatiques (Commun SISR et SLAM)</p>
-      <ul style="margin-left:20px;">
-        <li style="margin-bottom:8px;"><strong>Gérer le patrimoine informatique :</strong> Recenser, identifier et gérer les équipements, logiciels et configurations (GLPI, OCS Inventory).</li>
-        <li style="margin-bottom:8px;"><strong>Répondre aux incidents :</strong> Traiter les demandes d'assistance, diagnostiquer les pannes matérielles/logicielles et assurer le support utilisateur N1/N2.</li>
-        <li style="margin-bottom:8px;"><strong>Développer la présence en ligne :</strong> Participer à la gestion et l'évolution du site web ou de l'intranet de l'organisation.</li>
-        <li style="margin-bottom:8px;"><strong>Travailler en mode projet :</strong> Planifier, analyser et participer activement au développement d'une solution informatique en équipe.</li>
-        <li style="margin-bottom:8px;"><strong>Mettre à disposition des services :</strong> Installer, tester et déployer un nouveau poste, serveur ou logiciel pour les utilisateurs.</li>
-        <li><strong>Organiser son développement professionnel :</strong> Mettre en place une veille technologique et sécuritaire (flux RSS) et développer ses compétences.</li>
-      </ul>
-    </div>
-
-    <div class="comp-sub">Spécialisations du BTS SIO</div>
-    <div class="bts-grid">
-      <div class="bts-card" style="border-top: 3px solid var(--accent);">
-        <h3>SISR (Mon option)</h3>
-        <div class="opt">Solutions d'Infrastructure, Systèmes et Réseaux</div>
-        <p style="font-size:13px; color:var(--text); margin-bottom:12px;">Cette spécialité forme des professionnels capables d'installer, configurer et gérer les équipements et réseaux informatiques.</p>
-        <ul class="bts-ul">
-          <li><strong>Administration Systèmes :</strong> Déploiement et gestion de Windows Server et Linux (Debian, Ubuntu). Active Directory, GPO, DNS, DHCP.</li>
-          <li><strong>Gestion Réseau :</strong> Configuration de switches, routeurs, pare-feux. Création de VLANs et routage.</li>
-          <li><strong>Virtualisation :</strong> Maîtrise des environnements virtuels (Proxmox VE, VMware ESXi, Hyper-V).</li>
-          <li><strong>Supervision :</strong> Monitoring en temps réel des serveurs et réseaux (Zabbix, Grafana, Centreon).</li>
-          <li><strong>Cybersécurité :</strong> Sécurisation des accès, mise en place de VPN, sauvegardes et plan de reprise d'activité (PRA).</li>
-          <li><strong>Automatisation :</strong> Déploiement automatisé (Ansible, scripts PowerShell, Bash).</li>
-        </ul>
-        <div class="bts-debouches">
-          <div class="label">Métiers visés</div>
-          <div class="deb-tags">
-            <span class="deb-tag">Administrateur Systèmes & Réseaux</span>
-            <span class="deb-tag">Technicien Support Informatique N2/N3</span>
-            <span class="deb-tag">Technicien Infrastructure</span>
-            <span class="deb-tag">Analyste Cybersécurité Junior</span>
+        <div class="console__metrics">
+          <div class="metric">
+            <span class="metric__label">Cluster PVE</span>
+            <span class="metric__value" id="mCpu">23%</span>
+            <span class="metric__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline id="sparkCpu" points=""/></svg></span>
+          </div>
+          <div class="metric">
+            <span class="metric__label">WAN pfSense</span>
+            <span class="metric__value" id="mWan">184 Mb/s</span>
+            <span class="metric__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline id="sparkWan" points=""/></svg></span>
+          </div>
+          <div class="metric">
+            <span class="metric__label">Galera</span>
+            <span class="metric__value" id="mDb">3/3 sync</span>
+            <span class="metric__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline id="sparkDb" points=""/></svg></span>
           </div>
         </div>
+        <ol class="console__log" id="heroLog" aria-live="off"></ol>
       </div>
-      <div class="bts-card">
-        <h3>SLAM</h3>
-        <div class="opt">Solutions Logicielles et Applications Métiers</div>
-        <p style="font-size:13px; color:var(--text); margin-bottom:12px;">Cette spécialité est orientée vers le développement, la conception de logiciels et la création d'applications web ou mobiles.</p>
-        <ul class="bts-ul">
-          <li><strong>Développement Web :</strong> Création de sites et interfaces (HTML, CSS, JS, PHP, frameworks).</li>
-          <li><strong>Développement Objet :</strong> Programmation d'applications logicielles (Java, Python, C#).</li>
-          <li><strong>Bases de données :</strong> Modélisation (MCD/MLD) et requêtes SQL (MySQL, PostgreSQL).</li>
-          <li><strong>Gestion de projet :</strong> Utilisation des méthodes Agiles (Scrum) et du versioning (Git/GitHub).</li>
-          <li><strong>Maintenance :</strong> Correction de bugs et ajout de nouvelles fonctionnalités sur des logiciels existants.</li>
-        </ul>
-        <div class="bts-debouches">
-          <div class="label">Métiers visés</div>
-          <div class="deb-tags">
-            <span class="deb-tag">Développeur Web / Full-Stack</span>
-            <span class="deb-tag">Développeur d'Applications Mobiles</span>
-            <span class="deb-tag">Analyste Programmeur</span>
-            <span class="deb-tag">Concepteur Logiciel</span>
+
+      <figure class="hero__photo">
+        <img src="enzo.jpeg" alt="Portrait d'Enzo Marechal" width="120" height="120" loading="eager" decoding="async">
+        <figcaption>
+          <b>Enzo Marechal</b>
+          <span>Caen · Normandie</span>
+        </figcaption>
+      </figure>
+    </aside>
+  </div>
+
+  <div class="hero__hint" aria-hidden="true">
+    <span class="hero__hint-mouse"><i></i></span>
+    <span>Survolez les nœuds · défilez pour explorer</span>
+  </div>
+
+  <div class="hero__legend" aria-hidden="true">
+    <span><i style="--c:#8b7bff"></i>VLAN 10 Mgmt</span>
+    <span><i style="--c:#22d3ee"></i>VLAN 20 Serveurs</span>
+    <span><i style="--c:#f472b6"></i>VLAN 30 DMZ</span>
+    <span><i style="--c:#fbbf24"></i>VLAN 40 VoIP/IoT</span>
+    <span><i style="--c:#34d399"></i>VLAN 50 PXE</span>
+  </div>
+</section>
+
+<!-- Bandeau défilant des technologies -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track" id="marqueeTrack"></div>
+</div>
+
+<!-- ============================================================
+     02 — MISSION ACTUELLE : Attineos / usine de Verson (Bento)
+     ============================================================ -->
+<section class="section" id="mission" aria-labelledby="missionTitle">
+  <div class="container">
+    <header class="section__head">
+      <p class="eyebrow"><span class="eyebrow__num">01</span>Mission actuelle</p>
+      <h2 class="section__title" id="missionTitle">
+        En régie dans l'industrie,<br><span class="text-gradient">là où l'infra ne peut pas tomber.</span>
+      </h2>
+      <p class="section__lead">
+        Technicien Systèmes &amp; Réseaux en <b>CDI chez Attineos Infrastructures</b>, ESN caennaise structurée autour de trois pôles.
+        Je suis déployé en régie sur le site industriel d'un client à <b>Verson</b>, où j'interviens sur toute la chaîne :
+        du câble au contrôleur de domaine.
+      </p>
+    </header>
+
+    <div class="bento" id="missionBento">
+
+      <!-- Carte principale -->
+      <article class="card card--spot bento__item bento__item--hero tilt" data-tilt-max="4">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="mission-hero">
+          <div class="mission-hero__top">
+            <div class="mission-hero__logo">
+              <img src="attineos-logo.png" alt="Attineos Infrastructures" loading="lazy" onerror="this.closest('.mission-hero__logo').classList.add('is-missing')">
+              <span class="mission-hero__logo-fallback">attineos <small>INFRASTRUCTURES</small></span>
+            </div>
+            <span class="chip chip--live"><span class="pulse-dot pulse-dot--green"></span>En poste</span>
           </div>
+          <h3 class="mission-hero__title">Administration système &amp; réseau d'un site de production</h3>
+          <p class="mission-hero__text">
+            Environnement industriel 24/7 : la moindre coupure réseau arrête une ligne de production.
+            Mon rôle est d'administrer, faire évoluer et sécuriser le SI du site, en lien direct avec les équipes
+            de production, la DSI client et le pôle Infrastructures d'Attineos.
+          </p>
+          <ul class="mission-hero__facts">
+            <li><span>Contrat</span><b>CDI</b></li>
+            <li><span>Mode</span><b>Régie client</b></li>
+            <li><span>Site</span><b>Usine · Verson (14)</b></li>
+            <li><span>Niveau</span><b>Support N2 / N3</b></li>
+          </ul>
+          <div class="mission-hero__poles">
+            <span class="pole">Applications</span>
+            <span class="pole">Cybersécurité</span>
+            <span class="pole pole--active">Infrastructures</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card card--spot bento__item bento__item--tall tilt" data-tilt-max="6">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="card__icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="m9 9 2 2 4-4"/></svg></div>
+        <h3 class="card__title">Déploiement de postes MDT / WDS</h3>
+        <p class="card__text">Boot PXE, séquences de tâches MDT, injection de pilotes par modèle, configuration BIOS automatisée avec <b>HP BCU</b> et jonction au domaine sans intervention.</p>
+        <div class="mini-terminal" aria-hidden="true">
+          <div><span class="t-dim">PXE&gt;</span> DHCP 10.10.50.112 · WDS 10.10.50.10</div>
+          <div><span class="t-dim">MDT&gt;</span> TS «Win11-23H2-Prod» <span class="t-ok">running</span></div>
+          <div><span class="t-dim">BCU&gt;</span> SecureBoot=Enable · TPM=On</div>
+          <div class="mini-terminal__bar"><span style="--w:72%"></span></div>
+          <div><span class="t-dim">step</span> 14/19 Apply drivers HP EliteBook 840 G10</div>
+        </div>
+        <div class="tags"><span>MDT</span><span>WDS</span><span>PXE</span><span>HP BCU</span><span>PowerShell</span></div>
+      </article>
+
+      <article class="card card--spot bento__item tilt" data-tilt-max="6">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="card__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="17" r="2.5"/><circle cx="19" cy="17" r="2.5"/><path d="M12 10v3M12 13l-5 2.5M12 13l5 2.5"/></svg></div>
+        <h3 class="card__title">Active Directory &amp; GPO</h3>
+        <p class="card__text">Structure d'OU, délégation, groupes AGDLP, GPO de durcissement et de configuration des postes de production.</p>
+        <div class="tags"><span>AD DS</span><span>GPO</span><span>DNS</span><span>DHCP</span></div>
+      </article>
+
+      <article class="card card--spot bento__item tilt" data-tilt-max="6">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="card__icon"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.5"/></svg></div>
+        <h3 class="card__title">Gestion des secrets</h3>
+        <p class="card__text"><b>Vaultwarden</b> : coffres par équipe, partage contrôlé, fin des mots de passe dans des fichiers Excel.</p>
+        <div class="tags"><span>Vaultwarden</span><span>Docker</span><span>TLS</span></div>
+      </article>
+
+      <article class="card card--spot bento__item tilt" data-tilt-max="6">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div>
+        <h3 class="card__title">Téléphonie VoIP 3CX</h3>
+        <p class="card__text">Trunk SIP, provisioning des postes, files d'attente, VLAN voix dédié et QoS sur les switchs.</p>
+        <div class="tags"><span>3CX</span><span>SIP</span><span>QoS</span><span>LLDP-MED</span></div>
+      </article>
+
+      <article class="card card--spot bento__item bento__item--wide tilt" data-tilt-max="4">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="split">
+          <div>
+            <div class="card__icon"><svg viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="6" rx="1.5"/><path d="M6 12h.01M9 12h.01M12 12h.01M15 12h.01"/><path d="M7 9V5M17 9V5M12 15v4"/></svg></div>
+            <h3 class="card__title">Architecture de switchs</h3>
+            <p class="card__text">Cœur L3, distribution, accès : trunks 802.1Q, agrégats LACP, Rapid-PVST, port-security, DHCP snooping et documentation de baie.</p>
+            <div class="tags"><span>Cisco IOS</span><span>VLAN</span><span>LACP</span><span>STP</span></div>
+          </div>
+          <div class="switch-viz" aria-hidden="true" id="switchViz"></div>
+        </div>
+      </article>
+
+      <article class="card card--spot bento__item tilt" data-tilt-max="6">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+        <h3 class="card__title">RMM &amp; supervision</h3>
+        <p class="card__text">Inventaire, patch management, scripts à distance et alerting proactif avant que l'utilisateur ne s'en aperçoive.</p>
+        <div class="tags"><span>RMM</span><span>Zabbix</span><span>Alerting</span></div>
+      </article>
+
+      <article class="card card--spot bento__item tilt" data-tilt-max="6">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="card__icon"><svg viewBox="0 0 24 24"><path d="m8 6-6 6 6 6M16 6l6 6-6 6M14 4l-4 16"/></svg></div>
+        <h3 class="card__title">Automatisation</h3>
+        <p class="card__text">PowerShell pour l'AD et les postes, Ansible côté Linux : ce qui se répète deux fois devient un script.</p>
+        <div class="tags"><span>PowerShell</span><span>Ansible</span><span>Bash</span></div>
+      </article>
+
+      <article class="card card--spot bento__item tilt" data-tilt-max="6">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="card__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3 class="card__title">Support N2 / N3</h3>
+        <p class="card__text">Diagnostic poussé, analyse de causes racines, escalade éditeurs et rédaction de procédures pour le N1.</p>
+        <div class="tags"><span>ITIL</span><span>RCA</span><span>Documentation</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     03 — PARCOURS : timeline animée au scroll
+     ============================================================ -->
+<section class="section section--alt" id="parcours" aria-labelledby="parcoursTitle">
+  <div class="container">
+    <header class="section__head">
+      <p class="eyebrow"><span class="eyebrow__num">02</span>Parcours</p>
+      <h2 class="section__title" id="parcoursTitle">
+        Du câble RJ45 à l'architecture.<br><span class="text-gradient">Une progression construite sur le terrain.</span>
+      </h2>
+    </header>
+
+    <div class="timeline" id="timeline">
+      <div class="timeline__rail" aria-hidden="true"><span class="timeline__progress" id="timelineProgress"></span></div>
+      <!-- Généré par app.js depuis PROFILE.timeline -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     04 — STACK : galaxie 3D de badges technologiques
+     ============================================================ -->
+<section class="section" id="stack" aria-labelledby="stackTitle">
+  <div class="container">
+    <header class="section__head section__head--split">
+      <div>
+        <p class="eyebrow"><span class="eyebrow__num">03</span>Stack technique</p>
+        <h2 class="section__title" id="stackTitle">
+          Les outils que j'utilise<br><span class="text-gradient">en production, pas seulement en TP.</span>
+        </h2>
+      </div>
+      <p class="section__lead">
+        Faites tourner la galaxie, survolez un badge pour voir le contexte d'usage, cliquez pour ouvrir
+        les procédures du wiki liées à cette technologie.
+      </p>
+    </header>
+
+    <div class="stack">
+      <div class="stack__stage card card--glass">
+        <canvas class="stack__canvas" id="stackCanvas" aria-label="Galaxie 3D des technologies maîtrisées"></canvas>
+        <div class="stack__fallback" id="stackFallback"></div>
+        <div class="stack__hud" aria-hidden="true">
+          <span>DRAG ↻ ROTATION</span>
+          <span>CLICK → WIKI</span>
+        </div>
+      </div>
+
+      <aside class="stack__panel card card--spot" id="stackPanel" aria-live="polite">
+        <div class="card__glow" aria-hidden="true"></div>
+        <div class="stack__panel-head">
+          <span class="stack__panel-mono" id="stackMono">PX</span>
+          <div>
+            <h3 id="stackName">Proxmox VE</h3>
+            <p id="stackCat">Virtualisation</p>
+          </div>
+        </div>
+        <p class="stack__panel-desc" id="stackDesc">Survolez une technologie dans la galaxie.</p>
+        <div class="stack__level">
+          <div class="stack__level-head"><span>Maîtrise</span><b id="stackLevelTxt">—</b></div>
+          <div class="stack__level-bar"><span id="stackLevelBar"></span></div>
+        </div>
+        <ul class="stack__uses" id="stackUses"></ul>
+        <div class="stack__panel-foot">
+          <span><b id="stackProj">0</b> projets</span>
+          <span><b id="stackProc">0</b> procédures</span>
+          <button class="btn btn--sm btn--ghost" id="stackGoWiki" type="button">Voir dans le wiki →</button>
+        </div>
+      </aside>
+    </div>
+
+    <div class="skills" id="skillsGrid">
+      <!-- Généré par app.js depuis SKILL_DOMAINS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     05 — HOMELAB : architecture interactive SVG
+     ============================================================ -->
+<section class="section section--alt" id="homelab" aria-labelledby="homelabTitle">
+  <div class="container container--wide">
+    <header class="section__head section__head--split">
+      <div>
+        <p class="eyebrow"><span class="eyebrow__num">04</span>Architecture Homelab &amp; Environnement de Prod</p>
+        <h2 class="section__title" id="homelabTitle">
+          Un SI d'entreprise,<br><span class="text-gradient">reproduit et segmenté à la maison.</span>
+        </h2>
+      </div>
+      <p class="section__lead">
+        Cluster Proxmox VE à 3 nœuds, pfSense en haute disponibilité CARP, cœur de réseau Cisco et
+        5 VLANs isolés par une politique de filtrage stricte. Cliquez sur un équipement, filtrez par VLAN
+        ou activez un flux pour suivre les paquets.
+      </p>
+    </header>
+
+    <div class="lab">
+      <div class="lab__toolbar" role="toolbar" aria-label="Contrôles du schéma réseau">
+        <div class="lab__group" id="labVlanFilters" aria-label="Filtrer par VLAN">
+          <!-- Généré : boutons VLAN -->
+        </div>
+        <div class="lab__group lab__group--right">
+          <div class="segmented" role="radiogroup" aria-label="Mode de vue">
+            <button type="button" class="segmented__btn is-active" data-view="2d" role="radio" aria-checked="true">2D</button>
+            <button type="button" class="segmented__btn" data-view="iso" role="radio" aria-checked="false">3D iso</button>
+          </div>
+          <button type="button" class="icon-btn" id="labZoomIn" aria-label="Zoom avant">+</button>
+          <button type="button" class="icon-btn" id="labZoomOut" aria-label="Zoom arrière">−</button>
+          <button type="button" class="icon-btn" id="labReset" aria-label="Réinitialiser la vue">⟲</button>
+          <button type="button" class="icon-btn" id="labFullscreen" aria-label="Plein écran">⤢</button>
+        </div>
+      </div>
+
+      <div class="lab__flows" id="labFlows" aria-label="Flux réseau">
+        <!-- Généré : toggles de flux -->
+      </div>
+
+      <div class="lab__body">
+        <div class="lab__viewport" id="labViewport">
+          <div class="lab__scene" id="labScene">
+            <!-- SVG généré par app.js (buildHomelabSVG) -->
+          </div>
+          <div class="lab__minimap" id="labMinimap" aria-hidden="true"></div>
+          <div class="lab__hint" aria-hidden="true">Cliquez sur un équipement · Ctrl + molette pour zoomer · glisser pour déplacer</div>
+        </div>
+
+        <aside class="lab__panel" id="labPanel" aria-live="polite">
+          <div class="lab__panel-empty" id="labPanelEmpty">
+            <div class="lab__panel-icon">
+              <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <p>Sélectionnez un équipement du schéma pour afficher son rôle, son adressage, ses services et les procédures associées.</p>
+          </div>
+          <div class="lab__panel-detail" id="labPanelDetail" hidden></div>
+        </aside>
+      </div>
+
+      <div class="lab__tabs">
+        <div class="tabs" role="tablist" aria-label="Documentation réseau">
+          <button class="tabs__btn is-active" role="tab" aria-selected="true" aria-controls="tabIpam" id="tabIpamBtn" data-tab="tabIpam">Plan d'adressage &amp; VLANs</button>
+          <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tabFw" id="tabFwBtn" data-tab="tabFw">Matrice de flux pare-feu</button>
+          <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tabRules" id="tabRulesBtn" data-tab="tabRules">Règles pfSense</button>
+          <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tabHw" id="tabHwBtn" data-tab="tabHw">Matériel &amp; ressources</button>
+          <span class="tabs__indicator" aria-hidden="true"></span>
+        </div>
+        <div class="tabs__panel is-active" role="tabpanel" id="tabIpam" aria-labelledby="tabIpamBtn"></div>
+        <div class="tabs__panel" role="tabpanel" id="tabFw" aria-labelledby="tabFwBtn" hidden></div>
+        <div class="tabs__panel" role="tabpanel" id="tabRules" aria-labelledby="tabRulesBtn" hidden></div>
+        <div class="tabs__panel" role="tabpanel" id="tabHw" aria-labelledby="tabHwBtn" hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     06 — PROJETS : 15 projets d'infrastructure
+     ============================================================ -->
+<section class="section" id="projets" aria-labelledby="projetsTitle">
+  <div class="container">
+    <header class="section__head section__head--split">
+      <div>
+        <p class="eyebrow"><span class="eyebrow__num">05</span>Projets techniques</p>
+        <h2 class="section__title" id="projetsTitle">
+          15 projets d'infrastructure,<br><span class="text-gradient">documentés comme en production.</span>
+        </h2>
+      </div>
+      <p class="section__lead">
+        Chaque projet dispose de son schéma d'architecture, de ses choix techniques justifiés, des
+        étapes de mise en œuvre et des tests de validation. Cliquez sur une carte pour ouvrir le dossier complet.
+      </p>
+    </header>
+
+    <div class="filters" id="projectFilters" role="toolbar" aria-label="Filtrer les projets">
+      <!-- Généré -->
+    </div>
+
+    <div class="projects" id="projectsGrid">
+      <!-- Généré par app.js depuis PROJECTS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     07 — WIKI : base de connaissances type IT-Connect
+     ============================================================ -->
+<section class="section section--alt section--wiki" id="wiki" aria-labelledby="wikiTitle">
+  <div id="wikiParticles" class="wiki-particles" aria-hidden="true"></div>
+  <div class="container">
+    <header class="section__head section__head--center">
+      <p class="eyebrow eyebrow--center"><span class="eyebrow__num">06</span>Base de connaissances</p>
+      <h2 class="section__title" id="wikiTitle">
+        Le wiki technique.<br><span class="text-gradient">Des procédures écrites de A à Z.</span>
+      </h2>
+      <p class="section__lead">
+        Contexte, topologie, prérequis, commandes exactes, fichiers de configuration complets et tests de validation.
+        Chaque procédure a été rédigée pour qu'un collègue puisse la rejouer sans moi.
+      </p>
+    </header>
+
+    <div class="wiki-stats" id="wikiStats">
+      <div class="wiki-stat"><b id="wsCount">0</b><span>procédures</span></div>
+      <div class="wiki-stat"><b id="wsTechs">0</b><span>technologies</span></div>
+      <div class="wiki-stat"><b id="wsMinutes">0</b><span>min de lecture</span></div>
+      <div class="wiki-stat"><b id="wsCode">0</b><span>blocs de code</span></div>
+    </div>
+
+    <div class="wiki-search card card--glass">
+      <div class="wiki-search__field">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <label class="sr-only" for="wikiSearch">Rechercher une procédure</label>
+        <input type="search" id="wikiSearch" placeholder="Rechercher : « GPO BitLocker », « CARP », « galera », « vlan trunk »…" autocomplete="off" spellcheck="false">
+        <kbd class="wiki-search__kbd">/</kbd>
+        <button type="button" class="wiki-search__clear" id="wikiClear" aria-label="Effacer la recherche" hidden>×</button>
+      </div>
+      <div class="wiki-search__row">
+        <div class="wiki-search__selects">
+          <label class="select">
+            <span class="sr-only">Catégorie</span>
+            <select id="wikiCategory"><option value="">Toutes les catégories</option></select>
+          </label>
+          <label class="select">
+            <span class="sr-only">Niveau</span>
+            <select id="wikiLevel">
+              <option value="">Tous niveaux</option>
+              <option value="Débutant">Débutant</option>
+              <option value="Intermédiaire">Intermédiaire</option>
+              <option value="Avancé">Avancé</option>
+              <option value="Expert">Expert</option>
+            </select>
+          </label>
+          <label class="select">
+            <span class="sr-only">Tri</span>
+            <select id="wikiSort">
+              <option value="relevance">Pertinence</option>
+              <option value="recent">Plus récentes</option>
+              <option value="short">Lecture courte</option>
+              <option value="long">Lecture longue</option>
+              <option value="alpha">A → Z</option>
+            </select>
+          </label>
+        </div>
+        <div class="segmented segmented--sm" role="radiogroup" aria-label="Affichage">
+          <button type="button" class="segmented__btn is-active" data-layout="grid" role="radio" aria-checked="true" aria-label="Grille">▦</button>
+          <button type="button" class="segmented__btn" data-layout="list" role="radio" aria-checked="false" aria-label="Liste">☰</button>
+        </div>
+      </div>
+      <div class="wiki-techs" id="wikiTechs" aria-label="Filtrer par technologie"></div>
+    </div>
+
+    <div class="wiki-meta">
+      <p id="wikiResultCount" aria-live="polite">—</p>
+      <button type="button" class="btn btn--link btn--sm" id="wikiReset" hidden>Réinitialiser les filtres</button>
+    </div>
+
+    <div class="wiki-grid" id="wikiGrid" data-layout="grid"></div>
+
+    <div class="wiki-empty" id="wikiEmpty" hidden>
+      <div class="wiki-empty__icon">∅</div>
+      <h3>Aucune procédure ne correspond.</h3>
+      <p>Essayez un autre terme, retirez un filtre ou ouvrez la palette avec <kbd><span class="kbd-mod">Ctrl</span>K</kbd>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     08 — OBJECTIF : cycle ingénieur en alternance
+     ============================================================ -->
+<section class="section" id="objectif" aria-labelledby="objectifTitle">
+  <div class="container">
+    <div class="goal card card--spot">
+      <div class="card__glow" aria-hidden="true"></div>
+      <div class="goal__orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="goal__content">
+        <p class="eyebrow"><span class="eyebrow__num">07</span>Objectif</p>
+        <h2 class="section__title" id="objectifTitle">
+          Prochaine étape :<br><span class="text-gradient">le cycle ingénieur en alternance.</span>
+        </h2>
+        <p class="section__lead">
+          Je cherche une école d'ingénieurs et une entreprise d'accueil pour me spécialiser en
+          <b>Infrastructures</b>, <b>Cloud</b> et <b>Cybersécurité</b>. J'arrive avec de la production réelle,
+          de la rigueur documentaire et l'habitude des environnements où la disponibilité n'est pas négociable.
+        </p>
+        <div class="goal__grid">
+          <div class="goal__item">
+            <span class="goal__k">01</span>
+            <h3>Infrastructures</h3>
+            <p>Virtualisation, haute disponibilité, réseau d'entreprise, PRA/PCA.</p>
+          </div>
+          <div class="goal__item">
+            <span class="goal__k">02</span>
+            <h3>Cloud</h3>
+            <p>IaC, conteneurs, architectures hybrides, automatisation des déploiements.</p>
+          </div>
+          <div class="goal__item">
+            <span class="goal__k">03</span>
+            <h3>Cybersécurité</h3>
+            <p>Durcissement, détection (SIEM), gestion des identités, défense en profondeur.</p>
+          </div>
+        </div>
+        <ul class="goal__bring">
+          <li><b>Autonomie en production</b> — je gère seul un site industriel en régie.</li>
+          <li><b>Documentation</b> — chaque intervention devient une procédure réutilisable.</li>
+          <li><b>Automatisation</b> — PowerShell, Ansible, Bash dès qu'une tâche se répète.</li>
+          <li><b>Sécurité by design</b> — segmentation, moindre privilège, traçabilité.</li>
+        </ul>
+        <div class="hero__cta">
+          <a href="#contact" class="btn btn--primary magnetic"><span>Me proposer une alternance</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="CV_Enzo_MARECHAL.pdf" class="btn btn--ghost magnetic" download><span>Télécharger le CV</span></a>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="comp-sub">Poursuites d'études</div>
-    <div style="font-size:14px; color:var(--muted); line-height:1.8;">
-      Après l'obtention du BTS SIO, plusieurs voies sont possibles pour se spécialiser (souvent en alternance) :
-      <ul style="margin-top:10px; margin-left:20px; color:var(--text);">
-        <li><strong>Licence Professionnelle :</strong> Métiers des Réseaux Informatiques et Télécommunications, Sécurité des Systèmes d'Information.</li>
-        <li><strong>Bachelor (Bac+3) :</strong> Bachelor Cybersécurité, Bachelor Administrateur Réseaux et Cloud (ce que je vise).</li>
-        <li><strong>Diplôme d'Ingénieur (Bac+5) :</strong> Écoles d'ingénieurs en informatique (CESI, ENI, CNAM) pour devenir Architecte Réseau ou Expert Cybersécurité.</li>
-        <li><strong>Master / Mastère (Bac+5) :</strong> Management des Systèmes d'Information, Sécurité Informatique.</li>
+<!-- ============================================================
+     09 — CONTACT
+     ============================================================ -->
+<section class="section section--contact" id="contact" aria-labelledby="contactTitle">
+  <div id="contactParticles" class="contact-particles" aria-hidden="true"></div>
+  <div class="container">
+    <div class="contact">
+      <div class="contact__left">
+        <p class="eyebrow"><span class="eyebrow__num">08</span>Contact</p>
+        <h2 class="contact__title" id="contactTitle">Parlons <em class="serif">infrastructure</em>.</h2>
+        <p class="section__lead">Recruteur, école d'ingénieurs ou collègue technicien : je réponds rapidement.</p>
+        <button class="contact__email" id="copyEmail" type="button" data-email="marechal.enzo27@gmail.com">
+          <span class="contact__email-label">marechal.enzo27@gmail.com</span>
+          <span class="contact__email-action" id="copyEmailState">Copier</span>
+        </button>
+      </div>
+      <div class="contact__links">
+        <a class="contact-link card card--spot" href="mailto:marechal.enzo27@gmail.com">
+          <div class="card__glow" aria-hidden="true"></div>
+          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+          <span class="contact-link__body"><small>E-mail</small><b>marechal.enzo27@gmail.com</b></span>
+          <span class="contact-link__arrow">↗</span>
+        </a>
+        <a class="contact-link card card--spot" href="tel:+33782165772">
+          <div class="card__glow" aria-hidden="true"></div>
+          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
+          <span class="contact-link__body"><small>Téléphone</small><b>07 82 16 57 72</b></span>
+          <span class="contact-link__arrow">↗</span>
+        </a>
+        <a class="contact-link card card--spot" href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261/" target="_blank" rel="noopener">
+          <div class="card__glow" aria-hidden="true"></div>
+          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></span>
+          <span class="contact-link__body"><small>LinkedIn</small><b>marechal-enzo</b></span>
+          <span class="contact-link__arrow">↗</span>
+        </a>
+        <a class="contact-link card card--spot" href="https://github.com/B2ZO0" target="_blank" rel="noopener">
+          <div class="card__glow" aria-hidden="true"></div>
+          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5a3 3 0 0 0-.9-2.3c3-.3 6-1.5 6-6.5a5 5 0 0 0-1.4-3.5 4.6 4.6 0 0 0-.1-3.5s-1.1-.3-3.6 1.4a12 12 0 0 0-6.4 0C6.1 1.4 5 1.7 5 1.7a4.6 4.6 0 0 0-.1 3.5A5 5 0 0 0 3.5 8.7c0 5 3 6.2 6 6.5a3 3 0 0 0-.9 2.3V21"/></svg></span>
+          <span class="contact-link__body"><small>GitHub</small><b>github.com/B2ZO0</b></span>
+          <span class="contact-link__arrow">↗</span>
+        </a>
+        <a class="contact-link card card--spot" href="https://www.root-me.org/B2ZO?lang=fr" target="_blank" rel="noopener">
+          <div class="card__glow" aria-hidden="true"></div>
+          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span>
+          <span class="contact-link__body"><small>Root-Me</small><b>root-me.org/B2ZO</b></span>
+          <span class="contact-link__arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     10 — DOCUMENTS / CV (volontairement discret)
+     ============================================================ -->
+<section class="docs" id="documents" aria-labelledby="docsTitle">
+  <div class="container">
+    <details class="docs__details">
+      <summary class="docs__summary">
+        <span id="docsTitle">Documents &amp; CV</span>
+        <span class="docs__hint">4 fichiers · PDF / DOCX</span>
+        <span class="docs__chev" aria-hidden="true">⌄</span>
+      </summary>
+      <ul class="docs__list">
+        <li><a href="CV_Enzo_MARECHAL.pdf" download><span class="docs__ext">PDF</span>Curriculum vitae — Enzo MARECHAL</a></li>
+        <li><a href="Tableaudecompetence.pdf" download><span class="docs__ext">PDF</span>Tableau de compétences</a></li>
+        <li><a href="Ansible_E6.docx" download><span class="docs__ext docs__ext--doc">DOCX</span>Dossier — Automatisation Ansible × Proxmox</a></li>
+        <li><a href="Grafana-Zabbix_E6.docx" download><span class="docs__ext docs__ext--doc">DOCX</span>Dossier — Supervision Zabbix + Grafana</a></li>
       </ul>
-    </div>
+    </details>
   </div>
-</div>
+</section>
 
-<div id="page-veille" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Technologie & Sécurité</div>
-      <h1>Veille Techno.</h1>
-    </div>
-    <div class="page-header-right">Sources officielles<br>Mise à jour auto</div>
-  </div>
+</main>
 
-  <div class="sec-title rv">Les domaines surveillés</div>
-  <div class="veille-intro-grid rv">
-    <div class="veille-domain-card">
-      <div class="vd-icon">🛡️</div>
-      <div class="vd-title">Cybersécurité</div>
-      <div class="vd-subtitle">C'est quoi concrètement ?</div>
-      <div class="vd-desc">
-        La <strong style="color:var(--text);">cybersécurité</strong> désigne l'ensemble des pratiques, outils et processus qui protègent les systèmes informatiques, réseaux et données contre les attaques, intrusions et accès non autorisés.
-        <br><br>
-        Dans mon quotidien de technicien SISR, cela se traduit par : analyser les <strong style="color:var(--text);">vulnérabilités connues</strong> (CVE), surveiller les alertes de l'ANSSI, comprendre les nouvelles techniques d'attaque (phishing, ransomware, zero-day) pour mieux y répondre et protéger les infrastructures que j'administre.
-        <br><br>
-        Je pratique aussi sur <strong style="color:var(--text);">Root-Me</strong> pour développer mes compétences en pentest de manière légale et encadrée.
-      </div>
-      <div class="vd-topics">
-        <span class="vd-topic">Vulnérabilités (CVE)</span>
-        <span class="vd-topic">Ransomwares</span>
-        <span class="vd-topic">Phishing</span>
-        <span class="vd-topic">Zero-day</span>
-        <span class="vd-topic">Pentest</span>
-        <span class="vd-topic">ANSSI / CERT-FR</span>
-        <span class="vd-topic">SIEM / SOC</span>
-        <span class="vd-topic">VPN & chiffrement</span>
-      </div>
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__left">
+      <span class="footer__brand">Enzo<b>Marechal</b></span>
+      <span class="footer__copy">© <span id="year">2026</span> · Conçu et codé à la main · HTML, CSS, JavaScript, Three.js</span>
     </div>
-    <div class="veille-domain-card">
-      <div class="vd-icon">🖥️</div>
-      <div class="vd-title">Sysadmin & Windows</div>
-      <div class="vd-subtitle">C'est quoi concrètement ?</div>
-      <div class="vd-desc">
-        L'<strong style="color:var(--text);">administration système</strong> (sysadmin) consiste à installer, configurer, maintenir et optimiser les serveurs et postes de travail d'une organisation. C'est le cœur du métier SISR.
-        <br><br>
-        Concrètement : gérer des serveurs <strong style="color:var(--text);">Windows Server</strong> (Active Directory, DNS, DHCP, GPO), administrer des systèmes <strong style="color:var(--text);">Linux</strong> (Debian, Ubuntu), automatiser des tâches via PowerShell ou Bash, et surveiller les Patch Tuesday de Microsoft pour maintenir les parcs à jour.
-        <br><br>
-        C'est ce que je pratique quotidiennement chez <strong style="color:var(--text);">Armatis</strong> et dans mes projets personnels sous Proxmox.
-      </div>
-      <div class="vd-topics">
-        <span class="vd-topic">Windows Server</span>
-        <span class="vd-topic">Active Directory</span>
-        <span class="vd-topic">PowerShell</span>
-        <span class="vd-topic">Linux / Debian</span>
-        <span class="vd-topic">Patch Tuesday</span>
-        <span class="vd-topic">Virtualisation</span>
-        <span class="vd-topic">Cloud Azure</span>
-        <span class="vd-topic">Automatisation</span>
-      </div>
+    <div class="footer__right">
+      <span class="footer__status"><span class="pulse-dot pulse-dot--green"></span>Tous les systèmes sont opérationnels</span>
+      <span class="footer__uptime" id="footerUptime">uptime 00:00:00</span>
+      <button type="button" class="footer__top" id="backToTop" aria-label="Revenir en haut">↑</button>
     </div>
   </div>
-
-  <div class="veille-why rv">
-    <strong>Pourquoi faire de la veille technologique ?</strong><br>
-    En informatique, les technologies évoluent très vite. Une faille critique peut être publiée n'importe quel jour. Un nouveau ransomware peut cibler les entreprises en quelques heures. La veille me permet de rester informé en temps réel, d'anticiper les risques pour les infrastructures que je gère, et de continuer à progresser professionnellement. C'est une compétence à part entière, évaluée dans le BTS SIO (bloc B1).
-  </div>
-
-  <div class="sec-title rv">Flux RSS en temps réel</div>
-  <div class="veille-controls rv">
-    <div class="veille-search">
-      <input type="text" id="vs-input" placeholder="Rechercher dans les flux...">
-      <button id="btn-search-rss">↵</button>
-    </div>
-    <div class="veille-cats">
-      <span class="vcat active" data-cat="all">Tout</span>
-      <span class="vcat" data-cat="cyber">Cybersécurité</span>
-      <span class="vcat" data-cat="admin">Sysadmin & Windows</span>
-    </div>
-  </div>
-  <div class="veille-cols">
-    <div id="col-cyber" class="rv">
-      <div class="vcol-title"><div class="live-dot"></div>Cybersécurité — Sources officielles</div>
-      <div id="feed-cyber" class="rss-feed"><div class="rss-msg">Chargement des flux...</div></div>
-      <div class="veille-ts" id="ts-cyber"></div>
-    </div>
-    <div id="col-admin" class="rv">
-      <div class="vcol-title"><div class="live-dot"></div>Sysadmin & Windows</div>
-      <div id="feed-admin" class="rss-feed"><div class="rss-msg">Chargement des flux...</div></div>
-      <div class="veille-ts" id="ts-admin"></div>
-    </div>
-  </div>
-</div>
-
-<div id="page-armatis" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Alternance · Août 2024 — Aujourd'hui</div>
-      <h1>Armatis</h1>
-    </div>
-    <div class="page-header-right">Caen, Normandie<br>Technicien Informatique</div>
-  </div>
-
-  <div class="armatis-hero rv">
-    <div>
-      <div class="armatis-badge"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;"></span> En alternance · Depuis août 2024</div>
-      <h2 style="font-size:32px;font-weight:800;letter-spacing:-1.5px;margin-bottom:14px;">Armatis</h2>
-      <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:20px;">
-        <strong style="color:var(--text);">Armatis</strong> est l'un des leaders français de la <strong style="color:var(--text);">relation client externalisée</strong> (BPO – Business Process Outsourcing). Fondé en 1989, le groupe est présent en France et à l'international avec plusieurs milliers de collaborateurs répartis sur de nombreux sites.
-        <br><br>
-        Le site de <strong style="color:var(--text);">Caen</strong> est un centre d'appels et de relation client accueillant plusieurs centaines de collaborateurs. En tant que technicien informatique, j'assure le bon fonctionnement de l'ensemble du parc informatique du site : postes de travail, téléphonie, réseau et infrastructure serveur.
-      </p>
-      <div class="armatis-kv">
-        <div class="armatis-kv-item"><div class="kv-label">Secteur</div><div class="kv-val">Relation client / BPO</div></div>
-        <div class="armatis-kv-item"><div class="kv-label">Localisation</div><div class="kv-val">Caen, Normandie</div></div>
-        <div class="armatis-kv-item"><div class="kv-label">Taille du site</div><div class="kv-val">500+ collaborateurs</div></div>
-        <div class="armatis-kv-item"><div class="kv-label">Mon poste</div><div class="kv-val">Technicien IT N1/N2</div></div>
-      </div>
-    </div>
-    <div>
-      <img src="armatis-site.jpg" alt="Site Armatis Caen" class="armatis-photo" onerror="this.style.display='none'; document.getElementById('armatis-placeholder').style.display='flex';">
-      <div id="armatis-placeholder" class="armatis-photo-placeholder" style="display:none;">
-        <div class="ph-icon">🏢</div>
-        <p>Photo du site<br>à ajouter<br><span style="color:var(--accent);">armatis-site.jpg</span></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-title rv">Environnement technique</div>
-  <div class="env-strip rv">
-    <div class="env-box">
-      <div class="env-label">Systèmes</div>
-      <div class="env-items">
-        <span class="env-item">Windows 11</span>
-        <span class="env-item">Windows Server</span>
-        <span class="env-item">Active Directory</span>
-      </div>
-    </div>
-    <div class="env-box">
-      <div class="env-label">Réseau</div>
-      <div class="env-items">
-        <span class="env-item">VLAN</span>
-        <span class="env-item">LAN / Wi-Fi</span>
-        <span class="env-item">Switches</span>
-        <span class="env-item">Câblage RJ45</span>
-      </div>
-    </div>
-    <div class="env-box">
-      <div class="env-label">Outils & ITSM</div>
-      <div class="env-items">
-        <span class="env-item">Tickets ITSM</span>
-        <span class="env-item">GPO</span>
-        <span class="env-item">Téléphonie IP</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-title rv">Tâches effectuées au quotidien</div>
-  <div class="task-grid rv">
-    <div class="task-card">
-      <div class="task-icon">🎫</div>
-      <div class="task-title">Support utilisateur N1 & N2</div>
-      <div class="task-desc">Réception et traitement des tickets d'incidents via l'outil ITSM. Assistance en présentiel sur les postes de travail et à distance pour les problèmes logiciels, matériels ou réseau. Escalade vers le N3 si nécessaire.</div>
-      <div class="task-tags"><span class="tag">Tickets</span><span class="tag">Diagnostic</span><span class="tag">Assistance</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">💻</div>
-      <div class="task-title">Déploiement de postes Windows 11</div>
-      <div class="task-desc">Préparation, configuration et déploiement de postes de travail Windows 11 pour les nouveaux arrivants ou en remplacement. Installation des outils métiers (téléphonie, CRM, suites bureautiques) et jonction au domaine.</div>
-      <div class="task-tags"><span class="tag">Windows 11</span><span class="tag">MDT</span><span class="tag">Déploiement</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">👤</div>
-      <div class="task-title">Gestion Active Directory</div>
-      <div class="task-desc">Création, modification et suppression de comptes utilisateurs dans Active Directory. Gestion des groupes de sécurité, affectation des droits d'accès aux ressources partagées et application des stratégies de groupe (GPO).</div>
-      <div class="task-tags"><span class="tag">Active Directory</span><span class="tag">GPO</span><span class="tag">Droits</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">🌐</div>
-      <div class="task-title">Réseau & infrastructure</div>
-      <div class="task-desc">Brassage de prises réseau, câblage RJ45 en baie de brassage. Vérification de connectivité, diagnostic des pannes réseau. Interventions sur les switches pour vérification de ports et configuration de VLANs.</div>
-      <div class="task-tags"><span class="tag">LAN</span><span class="tag">VLAN</span><span class="tag">Switches</span><span class="tag">Câblage</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">📞</div>
-      <div class="task-title">Téléphonie & outils métiers</div>
-      <div class="task-desc">Configuration des postes de téléphonie IP utilisés par les agents de relation client. Résolution des incidents sur les outils CRM et plateformes métiers. Coordination avec les équipes techniques des éditeurs si besoin.</div>
-      <div class="task-tags"><span class="tag">Téléphonie IP</span><span class="tag">CRM</span><span class="tag">Outils métiers</span></div>
-    </div>
-    <div class="task-card">
-      <div class="task-icon">🔧</div>
-      <div class="task-title">Maintenance matérielle</div>
-      <div class="task-desc">Diagnostic et remplacement de composants défectueux (RAM, disques durs, claviers, écrans). Gestion du stock de matériel et suivi des assets informatiques. Préparation du matériel reconditionné pour réutilisation.</div>
-      <div class="task-tags"><span class="tag">Hardware</span><span class="tag">Maintenance</span><span class="tag">Asset</span></div>
-    </div>
-  </div>
-
-  <div class="sec-title rv">Ce que cette alternance m'apporte</div>
-  <div class="quote-box rv">
-    L'alternance chez Armatis m'a permis de <strong>confronter mes connaissances théoriques à un environnement de production réel</strong>. Gérer un parc de plusieurs centaines de postes, traiter des incidents sous contrainte de temps, et communiquer avec des utilisateurs non-techniques sont des compétences que l'on n'acquiert pas uniquement en cours.
-    <br><br>
-    C'est directement dans ce contexte professionnel qu'est né le projet <strong>Zabbix/Grafana</strong> (E6·02) : le besoin de supervision était réel, identifié sur le terrain. Cette expérience confirme mon orientation vers l'<strong>administration infrastructure et la cybersécurité</strong>.
-  </div>
-</div>
-
-<div id="page-documents" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Ressources & Fichiers</div>
-      <h1>Documents</h1>
-    </div>
-    <div class="page-header-right">Téléchargements</div>
-  </div>
-
-  <div class="sec-title rv">Documents Généraux</div>
-  <div style="display:flex; gap:20px; margin:24px 0 48px; flex-wrap:wrap;">
-    <a href="CV_Enzo_MARECHAL.pdf" download class="btn btn-p" style="padding:16px 32px;">⬇ Télécharger mon CV (PDF)</a>
-    <a href="Tableaudecompetence.pdf" download class="btn btn-o" style="padding:16px 32px; background:rgba(15,19,24,0.85);">⬇ Tableau de Compétences (PDF)</a>
-  </div>
-
-  <div class="sec-title rv">Projet 1 : Automatisation infrastructure micro-services</div>
-  <div class="certif-row" style="margin-bottom:48px;">
-    <a href="Ansible_E6.docx" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
-  </div>
-
-  <div class="sec-title rv">Projet 2 : Serveur de supervision Zabbix + Grafana</div>
-  <div class="certif-row">
-    <a href="Grafana-Zabbix_E6.docx" target="_blank" download class="btn btn-o" style="justify-content:center; padding:16px;">📁 Dossier professionnel (E6)</a>
-  </div>
-</div>
-
-<div id="page-contact" class="page">
-  <div class="page-header rv">
-    <div class="page-header-left">
-      <div class="page-tag">Disponible · Caen, Normandie</div>
-      <h1>Contact</h1>
-    </div>
-  </div>
-  
-  <div class="contact-grid">
-    <div class="rv">
-      <div class="c-big">Travaillons<br><span>ensemble.</span></div>
-      <p class="c-intro">Disponible pour une alternance Bachelor Cybersécurité & Administration Réseau à partir de 2026. N'hésitez pas à me contacter directement.</p>
-      <div class="c-links">
-        <a href="mailto:marechal.enzo27@gmail.com" class="c-link">
-          <span class="c-icon">✉</span>
-          <div><div class="c-link-lbl">Email</div><div class="c-link-val">marechal.enzo27@gmail.com</div></div>
-        </a>
-        <a href="tel:+33782165772" class="c-link">
-          <span class="c-icon">☎</span>
-          <div><div class="c-link-lbl">Téléphone</div><div class="c-link-val">07 82 16 57 72</div></div>
-        </a>
-        <a href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261/" target="_blank" class="c-link">
-          <span class="c-icon">in</span>
-          <div><div class="c-link-lbl">LinkedIn</div><div class="c-link-val">marechal-enzo-7b9ba9261</div></div>
-        </a>
-        <a href="https://github.com/B2ZO0" target="_blank" class="c-link">
-          <span class="c-icon">⬡</span>
-          <div><div class="c-link-lbl">GitHub</div><div class="c-link-val">github.com/B2ZO0</div></div>
-        </a>
-        <a href="https://www.root-me.org/B2ZO?lang=fr#44c0f8d76977a97ee797b86f1e0d489f" target="_blank" class="c-link">
-          <span class="c-icon">⚑</span>
-          <div><div class="c-link-lbl">Root-Me</div><div class="c-link-val">root-me.org/B2ZO</div></div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div></div>
-
-<footer>
-  <p>© 2026 <span>Enzo MARECHAL</span> — BTS SIO SISR · AFTEC Caen</p>
 </footer>
 
-<script>
-// ========== 1. FOND ANIMÉ PLEXUS ==========
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-let points = [];
-const pointCount = 80;
-const connectionDist = 150;
+<!-- ============================================================
+     MODALE — Dossier projet
+     ============================================================ -->
+<div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" hidden>
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel modal__panel--project" tabindex="-1" data-lenis-prevent>
+    <header class="modal__header">
+      <div class="modal__crumbs"><span>Projets</span><span>/</span><span id="projectModalCrumb">—</span></div>
+      <div class="modal__actions">
+        <button type="button" class="icon-btn" id="projectPrev" aria-label="Projet précédent">←</button>
+        <button type="button" class="icon-btn" id="projectNext" aria-label="Projet suivant">→</button>
+        <button type="button" class="icon-btn" data-close aria-label="Fermer">✕</button>
+      </div>
+    </header>
+    <div class="modal__scroll" id="projectModalScroll">
+      <div class="project-detail" id="projectModalBody"></div>
+    </div>
+  </div>
+</div>
 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resize);
-resize();
+<!-- ============================================================
+     MODALE — Lecteur de procédure (wiki)
+     ============================================================ -->
+<div class="modal modal--reader" id="wikiModal" role="dialog" aria-modal="true" aria-labelledby="wikiModalTitle" hidden>
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel modal__panel--reader" tabindex="-1">
+    <div class="reader__progress" aria-hidden="true"><span id="readerProgress"></span></div>
+    <header class="modal__header">
+      <div class="modal__crumbs"><span>Wiki</span><span>/</span><span id="wikiModalCrumb">—</span></div>
+      <div class="modal__actions">
+        <button type="button" class="icon-btn" id="readerToc" aria-label="Afficher le sommaire">☰</button>
+        <button type="button" class="icon-btn" id="readerFont" aria-label="Taille du texte">Aa</button>
+        <button type="button" class="icon-btn" id="readerLink" aria-label="Copier le lien de la procédure">🔗</button>
+        <button type="button" class="icon-btn" id="readerPrint" aria-label="Imprimer">⎙</button>
+        <button type="button" class="icon-btn" id="readerPrev" aria-label="Procédure précédente">←</button>
+        <button type="button" class="icon-btn" id="readerNext" aria-label="Procédure suivante">→</button>
+        <button type="button" class="icon-btn" data-close aria-label="Fermer">✕</button>
+      </div>
+    </header>
+    <div class="reader">
+      <aside class="reader__toc" id="readerTocPanel" data-lenis-prevent>
+        <p class="reader__toc-title">Sommaire</p>
+        <nav id="readerTocNav" aria-label="Sommaire de la procédure"></nav>
+        <div class="reader__toc-meta" id="readerTocMeta"></div>
+      </aside>
+      <article class="reader__main" id="readerScroll" data-lenis-prevent>
+        <div class="reader__content" id="readerContent"></div>
+      </article>
+    </div>
+  </div>
+</div>
 
-class Point {
-  constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.vx = (Math.random() - 0.5) * 0.5;
-    this.vy = (Math.random() - 0.5) * 0.5;
-  }
-  update() {
-    this.x += this.vx; this.y += this.vy;
-    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-  }
-}
+<!-- ============================================================
+     PALETTE DE COMMANDES (Ctrl / ⌘ + K)
+     ============================================================ -->
+<div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Palette de commandes" hidden>
+  <div class="cmdk__backdrop" data-close></div>
+  <div class="cmdk__panel">
+    <div class="cmdk__input">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" id="cmdkInput" placeholder="Aller à une section, un projet, une procédure…" autocomplete="off" spellcheck="false" aria-controls="cmdkList" aria-autocomplete="list">
+      <kbd>Esc</kbd>
+    </div>
+    <ul class="cmdk__list" id="cmdkList" role="listbox" data-lenis-prevent></ul>
+    <div class="cmdk__foot">
+      <span><kbd>↑</kbd><kbd>↓</kbd> naviguer</span>
+      <span><kbd>↵</kbd> ouvrir</span>
+      <span><kbd>Esc</kbd> fermer</span>
+    </div>
+  </div>
+</div>
 
-for (let i = 0; i < pointCount; i++) points.push(new Point());
+<!-- Toasts -->
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
 
-function animateBG() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  points.forEach(p => {
-    p.update();
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(0, 212, 255, 0.3)';
-    ctx.fill();
-    
-    points.forEach(p2 => {
-      let d = Math.sqrt((p.x - p2.x)**2 + (p.y - p2.y)**2);
-      if (d < connectionDist) {
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(p2.x, p2.y);
-        ctx.strokeStyle = `rgba(0, 212, 255, ${1 - d/connectionDist})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    });
-  });
-  requestAnimationFrame(animateBG);
-}
-animateBG();
+<noscript>
+  <div class="noscript">JavaScript est désactivé : le schéma réseau, la 3D, les projets et le wiki nécessitent JavaScript.</div>
+</noscript>
 
-// ========== 2. CURSEUR FLUIDE CORRIGÉ ==========
-(function() {
-  const cursor = document.getElementById('cur');
-  const cursorRing = document.getElementById('curRing');
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let curX = mouseX, curY = mouseY, ringX = mouseX, ringY = mouseY;
-  
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX; mouseY = e.clientY;
-    cursor.style.opacity = '1'; cursorRing.style.opacity = '1';
-  });
-  
-  document.addEventListener('mouseleave', () => {
-    cursor.style.opacity = '0'; cursorRing.style.opacity = '0';
-  });
-  
-  function animateCursor() {
-    curX += (mouseX - curX) * 0.2; 
-    curY += (mouseY - curY) * 0.2;
-    cursor.style.left = curX + 'px'; 
-    cursor.style.top = curY + 'px';
-    
-    ringX += (mouseX - ringX) * 0.1; 
-    ringY += (mouseY - ringY) * 0.1;
-    cursorRing.style.left = ringX + 'px'; 
-    cursorRing.style.top = ringY + 'px';
-    
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-})();
+<!-- ============================================================
+     LIBRAIRIES (CDN) — toutes optionnelles : le site se dégrade proprement
+     ============================================================ -->
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@tsparticles/slim@3.5.0/tsparticles.slim.bundle.min.js"></script>
 
-// ========== 3. NAVIGATION ==========
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + pageId).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.querySelector(`.nav-item[data-page="${pageId}"]`).classList.add('active');
-  document.querySelector('.main').scrollTop = 0;
-  window.scrollTo(0,0);
-  if(pageId === 'veille') loadRSS();
-}
-document.querySelectorAll('[data-page]').forEach(btn => {
-  btn.addEventListener('click', function() { showPage(this.getAttribute('data-page')); });
-});
+<!-- ============================================================
+     DONNÉES — générées aux étapes suivantes (absentes = ignorées)
+     ============================================================ -->
+<script defer src="data-projets.js"></script>
+<script defer src="data-procedures-1.js"></script>
+<script defer src="data-procedures-2.js"></script>
+<script defer src="data-procedures-3.js"></script>
+<script defer src="data-procedures-4.js"></script>
+<script defer src="data-procedures-5.js"></script>
 
-// ========== 4. PROJETS ACCORDION MODIFIÉ ==========
-document.querySelectorAll('.proj-head').forEach(head => {
-  head.addEventListener('click', function() {
-    const card = this.closest('.proj-card');
-    const body = card.querySelector('.proj-body');
-    const btn = this.querySelector('.proj-toggle');
-    
-    body.classList.toggle('open');
-    btn.classList.toggle('open');
-    btn.textContent = body.classList.contains('open') ? 'x' : '+';
-  });
-});
-
-// ========== 5. VEILLE RSS ==========
-let rssLoaded = false;
-const CYBER = [
-  {url:'https://www.cert.ssi.gouv.fr/feed/',name:'ANSSI CERT-FR'},
-  {url:'https://feeds.feedburner.com/TheHackersNews',name:'The Hacker News'}
-];
-const ADMIN = [
-  {url:'https://www.it-connect.fr/feed/',name:'IT-Connect.fr'},
-  {url:'https://windowsreport.com/feed/',name:'Windows Report'}
-];
-
-async function loadRSS() {
-  if (rssLoaded) return;
-  rssLoaded = true;
-  await Promise.all([
-    fetchFeeds(CYBER, 'feed-cyber', 'ts-cyber'),
-    fetchFeeds(ADMIN, 'feed-admin', 'ts-admin')
-  ]);
-}
-
-async function fetchFeeds(feeds, cid, tsid) {
-  const el = document.getElementById(cid);
-  el.innerHTML = '<div class="rss-msg">Chargement des flux en cours...</div>';
-  let items = [];
-  for (const f of feeds) {
-    try {
-      const r = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f.url));
-      const d = await r.json();
-      if (d.status === 'ok') {
-        d.items.forEach(it => {
-          const title = it.title || '';
-          const link = it.link || '#';
-          const pub = it.pubDate || '';
-          const date = pub ? new Date(pub).toLocaleDateString('fr-FR') : '';
-          if (title) items.push({title, link, date, src: f.name});
-        });
-      }
-    } catch(e) { console.error("Erreur flux :", f.name); }
-  }
-  if (!items.length) {
-    el.innerHTML = '<div class="rss-msg" style="color:var(--orange);">! Impossible de charger les flux.</div>';
-    return;
-  }
-  el.innerHTML = items.slice(0, 10).map(i =>
-    `<div class="rss-item"><a href="${i.link}" target="_blank"><div class="rss-ttl">${i.title}</div><div class="rss-meta"><span class="rss-src">${i.src}</span><span>${i.date}</span></div></a></div>`
-  ).join('');
-  document.getElementById(tsid).textContent = 'Dernière MAJ : ' + new Date().toLocaleTimeString('fr-FR');
-}
-
-document.querySelectorAll('.vcat').forEach(catBtn => {
-  catBtn.addEventListener('click', function() {
-    document.querySelectorAll('.vcat').forEach(c => c.classList.remove('active'));
-    this.classList.add('active');
-    const cat = this.getAttribute('data-cat');
-    document.getElementById('col-cyber').style.display = (cat === 'admin') ? 'none' : '';
-    document.getElementById('col-admin').style.display = (cat === 'cyber') ? 'none' : '';
-  });
-});
-
-// Afficher placeholder si image armatis ne charge pas
-window.addEventListener('load', function() {
-  var img = document.querySelector('img[src="armatis-site.jpg"]');
-  if(img && !img.complete) {
-    img.style.display='none';
-    var ph = document.getElementById('armatis-placeholder');
-    if(ph) ph.style.display='flex';
-  }
-});
-</script>
+<!-- Application (module ES : Three.js est importé dynamiquement) -->
+<script type="module" src="app.js?v=4.0.0"></script>
 </body>
 </html>
