@@ -11,7 +11,9 @@
   <meta property="og:description" content="Projets, parcours et compétences. Créateur de NetCockpit, le cockpit de supervision de l'infrastructure.">
   <meta property="og:image" content="https://enzomarechal.fr/img/netcockpit-overview.jpg">
   <meta property="og:url" content="https://enzomarechal.fr/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="style.css?v=7">
   <script>
     (function () {
@@ -29,17 +31,18 @@
   <!-- ================= RAIL DE NAVIGATION ================= -->
   <aside class="rail" id="rail" aria-label="Navigation">
     <a class="rail__mark" href="#apercu" aria-label="Haut de page">
-      <svg viewBox="0 0 128 128" aria-hidden="true"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="64" cy="64" r="40" stroke="currentColor" stroke-width="8"/><path d="M27 71 101 55" stroke="currentColor" stroke-width="8"/><path d="m44 86 20-16 20 16" stroke="#d16bff" stroke-width="8.5"/></g></svg>
+      <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="emg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a6cff"/><stop offset="1" stop-color="#d16bff"/></linearGradient></defs><rect x="3.5" y="3.5" width="57" height="57" rx="14.5" fill="var(--surface)" stroke="url(#emg)" stroke-width="3"/><g fill="none" stroke="url(#emg)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M27 20H16v24h11M16 32h9"/><path d="M33 44V20l8.5 13L50 20v24"/></g><circle cx="51" cy="13" r="4.5" fill="#35d07f" stroke="var(--sunken)" stroke-width="2"/></svg>
     </a>
     <nav class="rail__nav" id="railNav">
       <a href="#apercu" data-tip="Vue d'ensemble"><i data-i="grid"></i><span>Vue d'ensemble</span></a>
-      <a href="#netcockpit" data-tip="NetCockpit"><i data-i="radar"></i><span>NetCockpit</span></a>
       <a href="#attineos" data-tip="Mon poste"><i data-i="building"></i><span>Mon poste</span></a>
       <a href="#armatis" data-tip="Alternance"><i data-i="briefcase"></i><span>Alternance</span></a>
-      <a href="#parcours" data-tip="Parcours"><i data-i="route"></i><span>Parcours</span></a>
+      <a href="#parcours" data-tip="Expériences"><i data-i="route"></i><span>Expériences</span></a>
+      <a href="#formations" data-tip="Formations"><i data-i="school"></i><span>Formations</span></a>
       <a href="#competences" data-tip="Compétences"><i data-i="layers"></i><span>Compétences</span></a>
+      <a href="#veille" data-tip="Veille technologique"><i data-i="rss"></i><span>Veille</span></a>
       <a href="#projets" data-tip="Projets"><i data-i="folder"></i><span>Projets</span></a>
-      <a href="#veille" data-tip="Veille"><i data-i="rss"></i><span>Veille</span></a>
+      <a href="#netcockpit" data-tip="NetCockpit"><i data-i="radar"></i><span>NetCockpit</span></a>
       <a href="#contact" data-tip="Contact"><i data-i="mail"></i><span>Contact</span></a>
     </nav>
     <div class="rail__bottom">
@@ -63,6 +66,7 @@
       </label>
       <a class="btn btn--sig btn--sm" href="CV_Enzo_MARECHAL.pdf" target="_blank" rel="noopener"><i data-i="download"></i><span>Mon CV</span></a>
       <span class="live"><span class="lamp up"></span>en poste</span>
+      <span class="top__progress" aria-hidden="true"><span id="progress"></span></span>
     </header>
 
     <main id="main">
@@ -72,7 +76,7 @@
         <div class="verdict reveal">
           <span class="lamp up big pulse"></span>
           <div>
-            <h1>Enzo MARECHAL · <span class="sig-text">Technicien systèmes &amp; réseaux</span></h1>
+            <h1>Enzo MARECHAL · <span class="sig-text" id="typeRole" data-text="Technicien systèmes &amp; réseaux">Technicien systèmes &amp; réseaux</span></h1>
             <p class="muted">En poste chez <strong>Attineos</strong> · mission dans une usine à Verson · BTS SIO SISR · Bac Pro SN option C · Caen</p>
           </div>
         </div>
@@ -84,11 +88,12 @@
               <span class="profile__status"><span class="lamp up"></span>Disponible pour échanger</span>
             </div>
             <div class="profile__body">
-              <h2>Bonjour, moi c'est Enzo.</h2>
+              <h2>Bonjour, je suis Enzo.</h2>
               <p>
-                J'ai 21 ans et je travaille dans l'équipe informatique d'une usine, en mission pour Attineos.
-                Je m'occupe de la maintenance du parc, des migrations de logiciels, du réseau et du matériel,
-                et aujourd'hui je mets en place des GPO pour l'entreprise.
+                Technicien systèmes et réseaux chez Attineos, je travaille en mission au sein du service informatique
+                d'un site industriel. J'assure le bon fonctionnement du parc et du réseau, j'accompagne les utilisateurs
+                au quotidien et je participe aux projets de l'équipe, comme le déploiement des postes ou la mise en place
+                des stratégies de groupe.
               </p>
               <div class="profile__btns">
                 <a class="btn btn--sig" href="#projets"><i data-i="folder"></i>Voir mes projets</a>
@@ -149,7 +154,7 @@
           <div class="strip__cell s-info">
             <span class="strip__label"><i data-i="radar"></i>Projet perso</span>
             <strong>NetCockpit</strong>
-            <span class="muted">fait avec l'aide de l'IA</span>
+            <span class="muted">open source · GitHub</span>
           </div>
           <div class="strip__cell s-warn">
             <span class="strip__label"><i data-i="school"></i>Diplômes</span>
@@ -171,18 +176,18 @@
             </header>
             <div class="prose">
               <p>
-                L'informatique me plaît depuis le lycée, surtout tout ce qui touche aux <strong>réseaux et aux serveurs</strong> :
-                comprendre comment les machines communiquent, pourquoi une panne arrive, et comment la régler proprement.
+                Passionné d'informatique depuis le lycée, je me suis orienté vers l'<strong>infrastructure</strong> :
+                les réseaux, les serveurs et tout ce qui permet aux utilisateurs de travailler sans se poser de questions.
               </p>
               <p>
-                Après un <strong>Bac Pro Systèmes Numériques</strong> option réseaux, j'ai fait un <strong>BTS SIO option SISR</strong>
-                à l'AFTEC de Caen, en alternance pendant deux ans chez <strong>Armatis</strong>. Depuis septembre 2026, je suis
-                <strong>technicien systèmes et réseaux en CDI chez Attineos</strong>, en mission chez un client industriel :
-                je fais partie de l'équipe informatique de l'usine.
+                J'ai suivi un <strong>Bac Pro Systèmes Numériques option RISC</strong>, puis un <strong>BTS SIO option SISR</strong>
+                en alternance chez <strong>Armatis</strong>. Depuis septembre 2026, je suis
+                <strong>technicien systèmes et réseaux en CDI chez Attineos</strong>.
               </p>
               <p>
-                J'essaie d'élargir mon travail petit à petit et de prendre en charge des projets de plus en plus importants.
-                À côté, je continue d'apprendre sur mon homelab Proxmox et sur Root-Me.
+                Ce qui me plaît dans ce métier, c'est la diversité : un jour une panne à résoudre en production, le lendemain
+                un nouveau service à mettre en place. J'aime apprendre et je cherche à prendre en charge des sujets de plus en
+                plus complets. En dehors du travail, je continue de me former sur mon homelab et grâce à ma veille technologique.
               </p>
             </div>
             <div class="qualities">
@@ -200,85 +205,6 @@
             </header>
             <div class="skilltopo" id="skillTopo" aria-label="Schéma de mes domaines de compétences"></div>
           </article>
-        </div>
-      </section>
-
-      <!-- ================= NETCOCKPIT ================= -->
-      <section class="page" id="netcockpit" data-title="Projet perso · NetCockpit">
-        <header class="page__head reveal">
-          <p class="eyebrow"><span class="badge b-magenta">Projet perso</span><span class="badge b-up">open source</span><span class="badge b-info">réalisé avec l'aide de l'IA</span></p>
-          <h2>NetCockpit</h2>
-          <p class="lede">Un tableau de bord qui affiche le réseau et les alertes au même endroit. Je l'ai réalisé avec l'aide de l'IA, à partir d'un besoin rencontré sur le terrain, et je l'utilise sur mon homelab et dans ma mission.</p>
-        </header>
-
-        <div class="nc reveal">
-          <div class="nc__viewer panel">
-            <div class="nc__tabs" role="tablist" aria-label="Captures de NetCockpit" id="ncTabs">
-              <button type="button" role="tab" aria-selected="true" data-shot="overview">Vue d'ensemble</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="topology">Topologie</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="switches">Switchs</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="vmware">VMware</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="device-ai">Analyse IA</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="overview-day-fr">Thème jour</button>
-            </div>
-            <figure class="nc__screen">
-              <img id="ncShot" src="img/netcockpit-overview.jpg" alt="NetCockpit : vue d'ensemble" width="1600" height="900">
-              <figcaption id="ncCaption">La vue d'ensemble : une phrase dit si tout va bien, la route vers Internet est tracée en magenta, la topologie est en direct.</figcaption>
-            </figure>
-          </div>
-
-          <div class="nc__side">
-            <article class="panel">
-              <header class="panel__head"><h3>Le besoin</h3></header>
-              <p class="muted-2">
-                Dans beaucoup d'entreprises, le réseau est géré par un prestataire : l'équipe informatique n'a pas
-                d'accès administrateur aux switchs ni au pare-feu. Les outils habituels n'affichent alors qu'une liste
-                d'adresses IP, et le schéma réseau est un vieux fichier que personne ne met à jour.
-              </p>
-            </article>
-            <article class="panel">
-              <header class="panel__head"><h3>Ce que fait l'outil</h3></header>
-              <ul class="ticks">
-                <li><strong>Topologie automatique</strong> : Internet → pare-feu → sites → switchs → serveurs → VM, mise à jour toutes les 15 s</li>
-                <li><strong>Qui est branché où</strong> : lecture CDP/LLDP via les ESXi et les serveurs, sans toucher aux switchs</li>
-                <li><strong>Pas de fausses alertes</strong> : un portable rentré chez lui est « absent », pas « en panne »</li>
-                <li><strong>Une seule chaîne d'alertes</strong> : Prometheus, Loki et Zabbix vers Telegram, Discord ou e-mail</li>
-                <li><strong>Diagnostic IA en option</strong>, avec un modèle local possible : rien ne sort du réseau</li>
-                <li><strong>Une seule commande</strong> pour tout installer : <code>./setup.sh</code></li>
-              </ul>
-            </article>
-          </div>
-        </div>
-
-        <div class="grid grid--3 nc__facts">
-          <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="layers"></i>Technologies</h3></header>
-            <ul class="chips">
-              <li>Python</li><li>Docker Compose</li><li>Prometheus</li><li>Grafana</li><li>Loki</li><li>Alertmanager</li>
-              <li>Zabbix 7.0</li><li>SNMP</li><li>nmap</li><li>API vCenter</li><li>Grafana Alloy</li><li>JavaScript</li>
-            </ul>
-          </article>
-          <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="building"></i>Mon rôle</h3></header>
-            <ul class="ticks">
-              <li>Définir le besoin à partir de ce que je vis en mission</li>
-              <li>Choisir les outils et faire écrire le code avec l'aide de l'IA</li>
-              <li>Tester sur mon homelab, corriger, puis l'utiliser en mission</li>
-            </ul>
-          </article>
-          <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="star"></i>Ce que j'en retiens</h3></header>
-            <ul class="ticks">
-              <li>Comment Prometheus, Grafana et Zabbix fonctionnent ensemble</li>
-              <li>Un code produit par l'IA doit être testé et compris avant d'être utilisé</li>
-              <li>Documenter un projet pour que d'autres puissent l'utiliser</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="nc__cta reveal">
-          <a class="btn btn--sig" href="https://github.com/B2ZO0/netcockpit" target="_blank" rel="noopener"><i data-i="github"></i>Voir NetCockpit sur GitHub</a>
-          <span class="muted">Démo en une minute : <code>docker compose -f docker-compose.demo.yml up</code></span>
         </div>
       </section>
 
@@ -376,37 +302,103 @@
         </blockquote>
       </section>
 
-      <!-- ================= PARCOURS ================= -->
-      <section class="page" id="parcours" data-title="Parcours">
+      <!-- ================= EXPÉRIENCES ================= -->
+      <section class="page" id="parcours" data-title="Expériences">
         <header class="page__head reveal">
-          <h2>Formations et expériences</h2>
-          <p class="lede">Le journal de bord, du plus récent au plus ancien.</p>
+          <h2>Expériences professionnelles</h2>
+          <p class="lede">Du plus récent au plus ancien : mon poste actuel, mon alternance et mes stages.</p>
         </header>
         <div class="grid grid--2">
           <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="briefcase"></i>Expériences</h3></header>
+            <header class="panel__head"><h3><i data-i="briefcase"></i>Emploi et alternance</h3></header>
             <ol class="log">
               <li class="is-now"><span class="lamp up pulse"></span><div><time>Depuis sept. 2026 · CDI</time><strong>Technicien systèmes &amp; réseaux</strong><em>Attineos · mission chez un client industriel, Verson</em><p>Maintenance du parc, installation des postes avec MDT, migrations de logiciels, réseau, GPO et support.</p></div></li>
               <li><span class="lamp info"></span><div><time>Août 2024 → août 2026 · alternance</time><strong>Technicien informatique</strong><em>Armatis · Caen</em><p>Support N1/N2, Active Directory, réseau, téléphonie et maintenance du matériel.</p></div></li>
-              <li><span class="lamp off"></span><div><time>Mars → avril 2023 · stage</time><strong>Stagiaire informatique</strong><em>Chauvin-Arnoux Group · Reux</em><p>Chiffrement de disques, RAID, déploiement avec MDT, VLAN sur les switchs, support N1/N2.</p></div></li>
-              <li><span class="lamp off"></span><div><time>Nov. → déc. 2022 · stage</time><strong>Stagiaire informatique</strong><em>CC Cœur Côte Fleurie · Deauville</em><p>Installation de postes, brassage, installation de Zabbix pour superviser le réseau.</p></div></li>
-              <li><span class="lamp off"></span><div><time>Mai → juillet 2022 · stage</time><strong>Stagiaire</strong><em>Ville de Cabourg · FabLab</em><p>JavaScript, modélisation 2D/3D, découpe laser, accueil du public.</p></div></li>
-              <li><span class="lamp off"></span><div><time>Janv. → févr. 2022 · stage</time><strong>Stagiaire informatique</strong><em>LISI MEDICAL · Hérouville-Saint-Clair</em><p>Résolution de problèmes réseau et configuration de switchs.</p></div></li>
             </ol>
           </article>
           <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="school"></i>Formations</h3></header>
+            <header class="panel__head"><h3><i data-i="building"></i>Stages</h3></header>
             <ol class="log">
-              <li><span class="lamp violet"></span><div><time>2024 → 2026</time><strong>BTS SIO option SISR</strong><em>AFTEC · Caen · en alternance</em><p>Solutions d'infrastructure, systèmes et réseaux. Deux projets présentés au jury pour l'épreuve E6 : Ansible et Zabbix + Grafana.</p></div></li>
-              <li><span class="lamp violet"></span><div><time>2020 → 2023</time><strong>Bac Pro Systèmes Numériques, option C (RISC)</strong><em>Lycée Charles Tellier · Condé-en-Normandie</em><p>Réseaux informatiques et systèmes communicants : câblage, baies, switchs et routeurs. Obtenu en 2023.</p></div></li>
-              <li><span class="lamp violet"></span><div><time>2023</time><strong>Certification PIX</strong><em>Compétences numériques</em></div></li>
+              <li><span class="lamp off"></span><div><time>Mars → avril 2023</time><strong>Stagiaire informatique</strong><em>Chauvin-Arnoux Group · Reux</em><p>Chiffrement de disques, RAID, déploiement avec MDT, VLAN sur les switchs, support N1/N2.</p></div></li>
+              <li><span class="lamp off"></span><div><time>Nov. → déc. 2022</time><strong>Stagiaire informatique</strong><em>CC Cœur Côte Fleurie · Deauville</em><p>Installation de postes, brassage, installation de Zabbix pour superviser le réseau.</p></div></li>
+              <li><span class="lamp off"></span><div><time>Mai → juillet 2022</time><strong>Stagiaire</strong><em>Ville de Cabourg · FabLab</em><p>JavaScript, modélisation 2D/3D, découpe laser, accueil du public.</p></div></li>
+              <li><span class="lamp off"></span><div><time>Janv. → févr. 2022</time><strong>Stagiaire informatique</strong><em>LISI MEDICAL · Hérouville-Saint-Clair</em><p>Résolution de problèmes réseau et configuration de switchs.</p></div></li>
             </ol>
-            <div class="docs-mini">
-              <a href="CV_Enzo_MARECHAL.pdf" target="_blank" rel="noopener"><i data-i="file"></i>CV (PDF)</a>
-              <a href="Tableaudecompetence.pdf" target="_blank" rel="noopener"><i data-i="file"></i>Tableau de compétences</a>
-            </div>
           </article>
         </div>
+      </section>
+
+      <!-- ================= FORMATIONS ================= -->
+      <section class="page" id="formations" data-title="Formations">
+        <header class="page__head reveal">
+          <h2>Formations</h2>
+          <p class="lede">Ce que j'ai appris au lycée puis en BTS : les bases du réseau, mes premières fois sous Linux, la fibre, le déploiement et la configuration des systèmes.</p>
+        </header>
+
+        <article class="panel school reveal">
+          <header class="school__head">
+            <span class="school__ic"><i data-i="school"></i></span>
+            <div>
+              <h3>BTS SIO option SISR</h3>
+              <p class="muted">Services informatiques aux organisations · Solutions d'infrastructure, systèmes et réseaux</p>
+            </div>
+            <div class="school__meta">
+              <span class="badge b-violet">2024 → 2026</span>
+              <span class="badge b-src">AFTEC · Caen · en alternance chez Armatis</span>
+            </div>
+          </header>
+          <p class="muted-2 school__intro">
+            Deux ans en alternance : une partie du temps à l'école sur des maquettes, l'autre en entreprise sur un vrai parc.
+            C'est là que j'ai appris à monter une infrastructure complète, du serveur au poste de l'utilisateur.
+          </p>
+          <div class="learn">
+            <div class="learn__item"><i data-i="monitor"></i><h4>Systèmes Windows</h4><p>Installer Windows Server, créer un domaine Active Directory, gérer les comptes et les groupes, configurer le DNS, le DHCP et les GPO.</p></div>
+            <div class="learn__item"><i data-i="terminal"></i><h4>Linux en ligne de commande</h4><p>Installer une Debian sans interface graphique, naviguer dans les fichiers, gérer les droits, installer et dépanner des services (Apache, MariaDB), se connecter en SSH.</p></div>
+            <div class="learn__item"><i data-i="download"></i><h4>Déploiement et configuration</h4><p>Préparer des postes en série, installer des logiciels à distance, automatiser des tâches avec PowerShell, Bash et Ansible.</p></div>
+            <div class="learn__item"><i data-i="network"></i><h4>Réseau et sécurité</h4><p>Découper un réseau en VLAN, router, filtrer avec un pare-feu pfSense, mettre en place des VPN et sécuriser les accès.</p></div>
+            <div class="learn__item"><i data-i="box"></i><h4>Virtualisation et services</h4><p>Créer des machines virtuelles sous Proxmox, installer GLPI pour le parc et les tickets, superviser avec Zabbix.</p></div>
+            <div class="learn__item"><i data-i="shield"></i><h4>Sauvegarde et cybersécurité</h4><p>Sauvegarder et restaurer, lire des journaux, détecter une attaque, appliquer les bonnes pratiques de l'ANSSI.</p></div>
+          </div>
+          <footer class="school__foot">
+            <span><i data-i="star"></i>Épreuve E6 : deux projets présentés au jury, l'automatisation avec Ansible et la supervision avec Zabbix + Grafana.</span>
+            <a class="btn btn--sm" href="#projets" data-filter="bts"><i data-i="folder"></i>Voir mes projets de BTS</a>
+          </footer>
+        </article>
+
+        <article class="panel school reveal">
+          <header class="school__head">
+            <span class="school__ic school__ic--warm"><i data-i="cpu"></i></span>
+            <div>
+              <h3>Bac Pro Systèmes Numériques, option C (RISC)</h3>
+              <p class="muted">Réseaux informatiques et systèmes communicants</p>
+            </div>
+            <div class="school__meta">
+              <span class="badge b-warn">2020 → 2023 · obtenu</span>
+              <span class="badge b-src">Lycée Charles Tellier · Condé-en-Normandie</span>
+            </div>
+          </header>
+          <p class="muted-2 school__intro">
+            Trois ans très concrets, en atelier et en stage. C'est là que j'ai touché pour la première fois à un câble,
+            à un switch, à la fibre et à Linux, et que j'ai compris que je voulais travailler dans le réseau.
+          </p>
+          <div class="learn">
+            <div class="learn__item"><i data-i="cable"></i><h4>Câblage cuivre et baies</h4><p>Monter une baie de brassage, poser et sertir des câbles RJ45, tester chaque lien et remplir un cahier de recette.</p></div>
+            <div class="learn__item"><i data-i="bolt"></i><h4>Fibre optique</h4><p>Préparer et raccorder de la fibre, poser des connecteurs, faire des soudures et mesurer la qualité des liaisons.</p></div>
+            <div class="learn__item"><i data-i="network"></i><h4>Premiers switchs et routeurs</h4><p>Configurer des équipements Cisco en ligne de commande, créer des VLAN, faire un plan d'adressage IP.</p></div>
+            <div class="learn__item"><i data-i="terminal"></i><h4>Premières fois sous Linux</h4><p>Découvrir le terminal, les commandes de base et l'installation de services, notamment pour la téléphonie sur IP.</p></div>
+            <div class="learn__item"><i data-i="phone"></i><h4>Systèmes communicants</h4><p>Mettre en service une borne Wi-Fi, des caméras IP et des téléphones IP.</p></div>
+            <div class="learn__item"><i data-i="tool"></i><h4>Maintenance</h4><p>Diagnostiquer une panne, remplacer des composants et réinstaller un poste.</p></div>
+          </div>
+          <footer class="school__foot">
+            <span><i data-i="star"></i>Chef-d'œuvre : en groupe, le réseau complet d'une petite entreprise, présenté devant un jury. Quatre stages en entreprise.</span>
+            <a class="btn btn--sm" href="#projets" data-filter="bacpro"><i data-i="folder"></i>Voir mes projets de Bac Pro</a>
+          </footer>
+        </article>
+
+        <article class="panel school school--small reveal">
+          <span class="school__ic school__ic--green"><i data-i="check"></i></span>
+          <div><h3>Certification PIX</h3><p class="muted">Compétences numériques · 2023</p></div>
+        </article>
       </section>
 
       <!-- ================= COMPÉTENCES ================= -->
@@ -416,19 +408,95 @@
           <p class="lede">Ce que je sais faire, appris en entreprise, en formation et sur mon homelab.</p>
         </header>
         <div class="grid grid--3" id="skills"></div>
-        <article class="panel bloc reveal">
-          <header class="panel__head">
-            <h3>Référentiel BTS SIO · Bloc 1</h3>
-            <a class="btn btn--sm" href="Tableaudecompetence.pdf" target="_blank" rel="noopener"><i data-i="file"></i>Tableau de compétences</a>
-          </header>
-          <ol class="bloc__list">
-            <li><strong>Gérer le patrimoine informatique</strong><span>Maintenance du parc, outil RMM, GLPI</span></li>
-            <li><strong>Répondre aux incidents et aux demandes</strong><span>Support N1 à N3, diagnostic, supervision</span></li>
-            <li><strong>Développer la présence en ligne</strong><span>Ce portfolio</span></li>
-            <li><strong>Travailler en mode projet</strong><span>Projets présentés au jury (E6), chef-d'œuvre du Bac Pro</span></li>
-            <li><strong>Mettre à disposition un service</strong><span>Serveur MDT, GPO, Vaultwarden</span></li>
-            <li><strong>Organiser son développement professionnel</strong><span>Veille, homelab, Root-Me</span></li>
+      </section>
+
+      <!-- ================= VEILLE ================= -->
+      <section class="page" id="veille" data-title="Veille technologique">
+        <header class="page__head reveal">
+          <p class="eyebrow"><span class="badge b-up"><span class="lamp up pulse"></span>suivie chaque semaine</span></p>
+          <h2>Veille technologique</h2>
+          <p class="lede">
+            En informatique, tout bouge vite : une faille peut être publiée n'importe quel jour et une mise à jour peut changer
+            le fonctionnement d'un parc entier. Ma veille me sert à protéger les postes et les serveurs dont je m'occupe,
+            à anticiper les changements et à continuer d'apprendre.
+          </p>
+        </header>
+
+        <div class="grid grid--3">
+          <article class="panel vtheme reveal">
+            <header class="panel__head"><h3><i data-i="shield"></i>Cybersécurité</h3><span class="badge b-down">priorité</span></header>
+            <p class="muted-2">Les failles qui touchent les logiciels et le matériel qu'on utilise, les attaques qui visent les entreprises et les recommandations officielles.</p>
+            <ul class="ticks">
+              <li>Alertes et avis du CERT-FR</li>
+              <li>Failles critiques (CVE) sur les VPN, pare-feu, navigateurs</li>
+              <li>Rançongiciels et hameçonnage : comment ils entrent</li>
+              <li>Guides de bonnes pratiques de l'ANSSI</li>
+            </ul>
+          </article>
+          <article class="panel vtheme reveal">
+            <header class="panel__head"><h3><i data-i="monitor"></i>Administration Windows</h3></header>
+            <p class="muted-2">Tout ce qui change le quotidien d'un parc Windows et d'un domaine Active Directory.</p>
+            <ul class="ticks">
+              <li>Patch Tuesday : les correctifs du 2e mardi de chaque mois</li>
+              <li>Fins de support (Windows 10 en octobre 2025) et migrations</li>
+              <li>Nouveautés de Windows 11 et Windows Server</li>
+              <li>Nouvelles options de GPO et de sécurité</li>
+            </ul>
+          </article>
+          <article class="panel vtheme reveal">
+            <header class="panel__head"><h3><i data-i="network"></i>Réseau, Linux &amp; virtualisation</h3></header>
+            <p class="muted-2">Les outils que j'utilise en mission et sur mon homelab.</p>
+            <ul class="ticks">
+              <li>Nouvelles versions de Proxmox et Debian</li>
+              <li>Évolutions du marché de la virtualisation</li>
+              <li>Wi-Fi, fibre et équipements réseau</li>
+              <li>Outils de supervision open source</li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="panel method reveal">
+          <header class="panel__head"><h3><i data-i="route"></i>Ma méthode, étape par étape</h3></header>
+          <ol class="method__steps">
+            <li><span>1</span><div><strong>Collecter</strong><p>Les flux RSS de mes sources sont regroupés dans un lecteur, avec quelques newsletters et des comptes LinkedIn spécialisés.</p></div></li>
+            <li><span>2</span><div><strong>Trier</strong><p>Je lis les titres régulièrement et je garde ce qui touche à mon travail ou à ce que je veux apprendre.</p></div></li>
+            <li><span>3</span><div><strong>Vérifier</strong><p>Pour une faille ou une mise à jour : est-ce que ça concerne notre parc ? quelles versions ? y a-t-il un correctif ?</p></div></li>
+            <li><span>4</span><div><strong>Agir et partager</strong><p>J'en parle à l'équipe si c'est utile, et je teste sur mon homelab ce qui m'intéresse.</p></div></li>
           </ol>
+        </article>
+
+        <div class="grid grid--veille">
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="rss"></i>Mes sources</h3></header>
+            <ul class="sources">
+              <li><a href="https://www.cert.ssi.gouv.fr/" target="_blank" rel="noopener">CERT-FR · alertes et avis</a></li>
+              <li><a href="https://cyber.gouv.fr/" target="_blank" rel="noopener">ANSSI · guides et recommandations</a></li>
+              <li><a href="https://www.cybermalveillance.gouv.fr/" target="_blank" rel="noopener">Cybermalveillance.gouv.fr</a></li>
+              <li><a href="https://www.it-connect.fr/" target="_blank" rel="noopener">IT-Connect · tutoriels et actualités</a></li>
+              <li><a href="https://www.lemagit.fr/" target="_blank" rel="noopener">LeMagIT</a></li>
+              <li><a href="https://www.lemondeinformatique.fr/" target="_blank" rel="noopener">Le Monde Informatique</a></li>
+              <li><a href="https://msrc.microsoft.com/update-guide" target="_blank" rel="noopener">Microsoft · guide des mises à jour</a></li>
+              <li><a href="https://www.root-me.org/B2ZO" target="_blank" rel="noopener">Root-Me · pratique</a></li>
+            </ul>
+          </article>
+          <article class="panel feeds reveal">
+            <header class="panel__head">
+              <h3><span class="lamp up pulse"></span>Fil en direct</h3>
+              <div class="seg seg--sm" id="feedTabs">
+                <button type="button" class="is-on" data-feed="cert">Alertes CERT-FR</button>
+                <button type="button" data-feed="itc">IT-Connect</button>
+              </div>
+            </header>
+            <ul class="feed" id="feedList"><li class="feed__msg">Chargement…</li></ul>
+          </article>
+        </div>
+
+        <article class="panel veille-why reveal">
+          <h3><i data-i="star"></i>Ce que ma veille m'apporte</h3>
+          <p class="muted-2">
+            Elle m'aide à réagir vite quand une faille touche un logiciel du parc, à préparer les changements comme une fin de
+            support, et à garder l'envie d'apprendre. Beaucoup de mes projets perso sont nés d'un article lu en veille.
+          </p>
         </article>
       </section>
 
@@ -446,42 +514,83 @@
         <p class="empty muted" id="projEmpty" hidden>Aucun projet ne correspond à cette recherche.</p>
       </section>
 
-      <!-- ================= VEILLE ================= -->
-      <section class="page" id="veille" data-title="Veille technologique">
+      <!-- ================= NETCOCKPIT ================= -->
+      <section class="page" id="netcockpit" data-title="Projet perso · NetCockpit">
         <header class="page__head reveal">
-          <h2>Veille technologique</h2>
-          <p class="lede">Une faille peut être publiée n'importe quel jour. Je suis deux sujets qui touchent directement mon travail.</p>
+          <p class="eyebrow"><span class="badge b-magenta">Projet perso</span><span class="badge b-up">open source</span></p>
+          <h2>NetCockpit</h2>
+          <p class="lede">Un tableau de bord qui affiche le réseau et les alertes au même endroit. Un projet perso né d'un besoin rencontré sur le terrain, que j'utilise sur mon homelab et dans ma mission.</p>
         </header>
-        <div class="grid grid--3">
+
+        <div class="nc reveal">
+          <div class="nc__viewer panel">
+            <div class="nc__tabs" role="tablist" aria-label="Captures de NetCockpit" id="ncTabs">
+              <button type="button" role="tab" aria-selected="true" data-shot="overview">Vue d'ensemble</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="topology">Topologie</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="switches">Switchs</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="vmware">VMware</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="device-ai">Analyse IA</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="overview-day-fr">Thème jour</button>
+            </div>
+            <figure class="nc__screen">
+              <img id="ncShot" src="img/netcockpit-overview.jpg" alt="NetCockpit : vue d'ensemble" width="1600" height="900">
+              <figcaption id="ncCaption">La vue d'ensemble : une phrase dit si tout va bien, la route vers Internet est tracée en magenta, la topologie est en direct.</figcaption>
+            </figure>
+          </div>
+
+          <div class="nc__side">
+            <article class="panel">
+              <header class="panel__head"><h3>Le besoin</h3></header>
+              <p class="muted-2">
+                Dans beaucoup d'entreprises, le réseau est géré par un prestataire : l'équipe informatique n'a pas
+                d'accès administrateur aux switchs ni au pare-feu. Les outils habituels n'affichent alors qu'une liste
+                d'adresses IP, et le schéma réseau est un vieux fichier que personne ne met à jour.
+              </p>
+            </article>
+            <article class="panel">
+              <header class="panel__head"><h3>Ce que fait l'outil</h3></header>
+              <ul class="ticks">
+                <li><strong>Topologie automatique</strong> : Internet → pare-feu → sites → switchs → serveurs → VM, mise à jour toutes les 15 s</li>
+                <li><strong>Qui est branché où</strong> : lecture CDP/LLDP via les ESXi et les serveurs, sans toucher aux switchs</li>
+                <li><strong>Pas de fausses alertes</strong> : un portable rentré chez lui est « absent », pas « en panne »</li>
+                <li><strong>Une seule chaîne d'alertes</strong> : Prometheus, Loki et Zabbix vers Telegram, Discord ou e-mail</li>
+                <li><strong>Diagnostic IA en option</strong>, avec un modèle local possible : rien ne sort du réseau</li>
+                <li><strong>Une seule commande</strong> pour tout installer : <code>./setup.sh</code></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="grid grid--3 nc__facts">
           <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="shield"></i>Cybersécurité</h3><span class="badge b-down">priorité</span></header>
-            <p class="muted-2">Failles connues (CVE), alertes de l'ANSSI et du CERT-FR, rançongiciels et hameçonnage. Le but : savoir quoi mettre à jour en premier et comment protéger le parc.</p>
+            <header class="panel__head"><h3><i data-i="layers"></i>Technologies</h3></header>
+            <ul class="chips">
+              <li>Python</li><li>Docker Compose</li><li>Prometheus</li><li>Grafana</li><li>Loki</li><li>Alertmanager</li>
+              <li>Zabbix 7.0</li><li>SNMP</li><li>nmap</li><li>API vCenter</li><li>Grafana Alloy</li><li>JavaScript</li>
+            </ul>
           </article>
           <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="server"></i>Administration système</h3></header>
-            <p class="muted-2">Windows Server, Windows 11, les mises à jour mensuelles de Microsoft (Patch Tuesday), Linux et la virtualisation. Le but : anticiper avant que ça arrive sur le parc.</p>
+            <header class="panel__head"><h3><i data-i="building"></i>Mon rôle</h3></header>
+            <ul class="ticks">
+              <li>Définir le besoin à partir de ce que je vis en mission</li>
+              <li>Choisir et assembler les outils : Prometheus, Grafana, Zabbix, Docker</li>
+              <li>Tester sur mon homelab, corriger, puis l'utiliser en mission</li>
+            </ul>
           </article>
           <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="rss"></i>Mes sources</h3></header>
-            <ul class="sources">
-              <li><a href="https://www.cert.ssi.gouv.fr/" target="_blank" rel="noopener">CERT-FR</a></li>
-              <li><a href="https://cyber.gouv.fr/" target="_blank" rel="noopener">ANSSI</a></li>
-              <li><a href="https://www.it-connect.fr/" target="_blank" rel="noopener">IT-Connect</a></li>
-              <li><a href="https://www.lemagit.fr/" target="_blank" rel="noopener">LeMagIT</a></li>
-              <li><a href="https://msrc.microsoft.com/update-guide" target="_blank" rel="noopener">Microsoft · mises à jour</a></li>
+            <header class="panel__head"><h3><i data-i="star"></i>Ce que j'en retiens</h3></header>
+            <ul class="ticks">
+              <li>Comment Prometheus, Grafana et Zabbix fonctionnent ensemble</li>
+              <li>Tester et valider chaque fonction sur un lab avant de l'utiliser en vrai</li>
+              <li>Documenter un projet pour que d'autres puissent l'utiliser</li>
             </ul>
           </article>
         </div>
-        <article class="panel feeds reveal">
-          <header class="panel__head">
-            <h3><span class="lamp up pulse"></span>Fil en direct</h3>
-            <div class="seg seg--sm" id="feedTabs">
-              <button type="button" class="is-on" data-feed="cert">Alertes CERT-FR</button>
-              <button type="button" data-feed="itc">IT-Connect</button>
-            </div>
-          </header>
-          <ul class="feed" id="feedList"><li class="feed__msg">Chargement…</li></ul>
-        </article>
+
+        <div class="nc__cta reveal">
+          <a class="btn btn--sig" href="https://github.com/B2ZO0/netcockpit" target="_blank" rel="noopener"><i data-i="github"></i>Voir NetCockpit sur GitHub</a>
+          <span class="muted">Démo en une minute : <code>docker compose -f docker-compose.demo.yml up</code></span>
+        </div>
       </section>
 
       <!-- ================= DOCUMENTS & CONTACT ================= -->
