@@ -307,6 +307,10 @@ main { padding: 0 28px; max-width: 1360px; }
 .c-attineos { --c: var(--magenta); } .c-netcockpit { --c: var(--magenta); } .c-armatis { --c: var(--info); }
 .c-stage { --c: #4cc9f0; } .c-bts { --c: var(--violet); } .c-bacpro { --c: var(--warning); } .c-perso { --c: var(--up); }
 .empty { padding: 20px 0; }
+.pblock + .pblock { margin-top: 30px; }
+.pblock__title { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; font-size: 17px; margin-bottom: 14px; }
+.pblock__title small { font-size: 13px; font-weight: 400; color: var(--muted); }
+.pblock__count { margin-left: auto; font-size: 12px; color: var(--muted); padding: 2px 9px; border-radius: 5px; background: var(--raised); border: 1px solid var(--line); }
 
 /* ---------- fiche projet ---------- */
 .modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 18px; }
