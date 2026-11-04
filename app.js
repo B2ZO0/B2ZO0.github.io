@@ -188,7 +188,7 @@
      Projets
      --------------------------------------------------------- */
   var BLOCKS = [
-    { k: 'phare', title: 'À la une', sub: 'Projet perso réalisé avec l\'aide de l\'IA' },
+    { k: 'phare', title: 'À la une', sub: 'Mon projet perso open source' },
     { k: 'entreprise', title: 'En entreprise', sub: 'Ma mission chez Attineos et mes stages' },
     { k: 'bts', title: 'BTS SIO option SISR', sub: 'AFTEC Caen · 2024 → 2026' },
     { k: 'bacpro', title: 'Bac Pro Systèmes Numériques option C (RISC)', sub: 'Lycée Charles Tellier · 2020 → 2023' },
@@ -214,20 +214,20 @@
     /* ===================== PROJET PHARE ===================== */
     {
       id: 'netcockpit', block: 'phare', g: ['perso', 'entreprise'], featured: true, c: 'netcockpit', icon: 'radar',
-      tag: 'Projet perso · open source', date: '2026 · réalisé avec l\'aide de l\'IA',
+      tag: 'Projet perso · open source', date: '2026 · homelab et mission',
       title: 'NetCockpit : un tableau de bord de supervision du réseau',
-      sum: "Un projet perso réalisé avec l'aide de l'IA : il découvre les équipements du réseau, affiche une carte en direct et regroupe les alertes. Je l'utilise sur mon homelab et dans ma mission.",
+      sum: "Un tableau de bord de supervision : il découvre les équipements du réseau, affiche une carte en direct et regroupe les alertes. Je l'utilise sur mon homelab et dans ma mission.",
       img: 'img/netcockpit-topology.jpg', imgAlt: 'Carte du réseau affichée par NetCockpit (données de démonstration)',
-      contexte: "Dans beaucoup d'entreprises, le réseau est géré par un prestataire et l'équipe informatique n'a pas accès aux switchs. Résultat : pas de schéma à jour et peu de visibilité. Je voulais un outil qui rassemble ce à quoi on a accès. Le code a été écrit avec l'aide de l'IA ; mon travail a été de définir le besoin, de choisir les outils, de tester sur le terrain et de faire corriger ce qui n'allait pas.",
+      contexte: "Dans beaucoup d'entreprises, le réseau est géré par un prestataire et l'équipe informatique n'a pas accès aux switchs. Résultat : pas de schéma à jour et peu de visibilité. Je voulais un outil qui rassemble ce à quoi on a accès. J'ai assemblé des outils open source reconnus, puis je l'ai testé sur mon homelab avant de l'utiliser en mission.",
       actions: [
         "Définir le besoin à partir de ce que je vis en mission",
         "Choisir les briques : Prometheus, Grafana, Loki, Zabbix, Alertmanager, le tout sous Docker",
-        "Faire générer le code avec l'IA, le relire, le tester et demander les corrections",
+        "Développer l'interface et les scripts d'installation, avec des outils d'assistance au code",
         "Tester sur mon homelab Proxmox, puis sur le réseau de ma mission",
         "Vérifier que la carte du réseau et les alertes correspondent à la réalité",
         "Rédiger la documentation et publier le projet sur GitHub"
       ],
-      tools: ['Docker Compose', 'Prometheus', 'Grafana', 'Zabbix', 'Loki', 'SNMP', 'IA'],
+      tools: ['Docker Compose', 'Prometheus', 'Grafana', 'Zabbix', 'Loki', 'SNMP', 'Python'],
       result: "Un outil qui me donne une vue d'ensemble du réseau et des alertes au même endroit. Surtout, j'ai beaucoup appris sur la supervision en le testant.",
       skills: [B1.patrimoine, B1.incidents, B1.projet, B1.dev],
       links: [{ href: 'https://github.com/B2ZO0/netcockpit', label: 'Voir sur GitHub', ic: 'github' }, { href: '#netcockpit', label: 'Captures', ic: 'radar', local: true }]
@@ -582,8 +582,8 @@
     {
       id: 'perso-portfolio', block: 'perso', g: ['perso'], c: 'perso', icon: 'globe', tag: 'Projet perso · web', date: '2026',
       title: 'Ce portfolio, enzomarechal.fr',
-      sum: "Le site que tu regardes, réalisé avec l'aide de l'IA et hébergé sur GitHub Pages avec mon nom de domaine.",
-      contexte: "Je voulais un site à mon image, dans le même style que NetCockpit, pour présenter mon parcours et mes projets. Comme pour NetCockpit, je l'ai réalisé avec l'aide de l'IA.",
+      sum: "Le site que tu regardes : HTML, CSS et JavaScript, hébergé sur GitHub Pages avec mon nom de domaine.",
+      contexte: "Je voulais un site à mon image, dans le même style que NetCockpit, pour présenter mon parcours, mes formations et mes projets.",
       actions: ["Pages en HTML, CSS et JavaScript, sans bibliothèque", "Thèmes jour et nuit, adapté au téléphone", "Hébergement GitHub Pages et nom de domaine personnel", "Fil de veille en direct (CERT-FR, IT-Connect)"],
       tools: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
       result: "Un portfolio rapide, lisible et facile à mettre à jour.",
@@ -596,8 +596,8 @@
   var DETAILS = {
     'netcockpit': {
       obj: "Avoir une vue claire du réseau et des alertes au même endroit, même sans accès administrateur aux switchs.",
-      diff: [["Les appareils éteints le soir (portables) remontaient comme « en panne » et noyaient les vraies alertes.", "Faire la différence entre « absent » (en gris) et « en panne » (en rouge), réservé aux serveurs et équipements importants."], ["Je ne maîtrisais pas tout le code produit par l'IA.", "Tester chaque fonction sur mon lab, lire les journaux, et demander des corrections précises plutôt que tout accepter."]],
-      learn: "Comment fonctionnent Prometheus, Grafana et Zabbix ensemble, et qu'un outil généré par l'IA doit être testé et compris avant d'être utilisé en vrai."
+      diff: [["Les appareils éteints le soir (portables) remontaient comme « en panne » et noyaient les vraies alertes.", "Faire la différence entre « absent » (en gris) et « en panne » (en rouge), réservé aux serveurs et équipements importants."], ["La première version consommait trop de ressources sur une petite machine virtuelle.", "Réglage de la fréquence de collecte et de la durée de conservation des données."]],
+      learn: "Comment Prometheus, Grafana et Zabbix fonctionnent ensemble, et l'importance de tester sur un lab avant de déployer."
     },
     'att-deploiement': {
       obj: "Installer un poste complet sans intervention, de la même façon à chaque fois.",
@@ -894,6 +894,51 @@
     $$('section.page').forEach(function (s) { io.observe(s); });
   }
 
+  /* ---------------------------------------------------------
+     Petites animations : progression, halo, titre tapé
+     --------------------------------------------------------- */
+  function initAnimations() {
+    var bar = $('#progress');
+    var onScroll = function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    if (reduce) return;
+
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.addEventListener('pointermove', function (e) {
+        var p = e.target.closest && e.target.closest('.panel');
+        if (!p) return;
+        var r = p.getBoundingClientRect();
+        p.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        p.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      }, { passive: true });
+    }
+
+    var role = $('#typeRole');
+    if (role) {
+      var text = role.getAttribute('data-text'), i = 0;
+      role.textContent = '';
+      role.classList.add('is-typing');
+      setTimeout(function step() {
+        role.textContent = text.slice(0, ++i);
+        if (i < text.length) setTimeout(step, 45);
+        else setTimeout(function () { role.classList.remove('is-typing'); }, 1600);
+      }, 400);
+    }
+  }
+
+  function initFilterLinks() {
+    $$('[data-filter]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var b = $('#filters button[data-g="' + a.getAttribute('data-filter') + '"]');
+        if (b) b.click();
+      });
+    });
+  }
+
   function initSearch() {
     var input = $('#search');
     var jump = true;
@@ -1044,6 +1089,8 @@
     initTheme();
     initNav();
     initSearch();
+    initFilterLinks();
+    initAnimations();
     initNetCockpit();
     initReveal();
     initCounters();
