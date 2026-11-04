@@ -118,7 +118,7 @@ i[data-i] svg { width: 100%; height: 100%; }
 .search kbd { position: absolute; right: 10px; }
 .live { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); white-space: nowrap; }
 
-main { padding: 0 28px; max-width: 1360px; }
+main { padding: 0 28px; max-width: 1360px; margin: 0 auto; }
 .page { padding: 44px 0 26px; }
 .page + .page { border-top: 1px dashed var(--line); margin-top: 26px; }
 .page__head { max-width: 800px; margin-bottom: 26px; }
@@ -267,7 +267,7 @@ main { padding: 0 28px; max-width: 1360px; }
 .skill__list { display: grid; gap: 2px; }
 .skill__list li { display: flex; align-items: center; gap: 9px; padding: 5px 8px; border-radius: 6px; font-size: 13.5px; }
 .skill__list li:nth-child(odd) { background: var(--raised); }
-.skill__list li em { margin-left: auto; font-style: normal; font-size: 11.5px; color: var(--muted); }
+
 .bloc { margin-top: 18px; }
 .bloc__list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; counter-reset: b; }
 .bloc__list li { counter-increment: b; position: relative; padding: 11px 12px 11px 48px; border-radius: 8px; background: var(--raised); border: 1px solid var(--line); }
@@ -377,7 +377,7 @@ main { padding: 0 28px; max-width: 1360px; }
 .form .btn { justify-self: start; }
 
 /* ---------- pied de page, notification ---------- */
-.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding: 22px 28px; margin-top: 30px; border-top: 1px solid var(--line); font-size: 13px; }
+.foot { max-width: 1360px; margin-left: auto; margin-right: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding: 22px 28px; margin-top: 30px; border-top: 1px solid var(--line); font-size: 13px; }
 .foot > span:first-child { display: inline-flex; align-items: center; gap: 8px; }
 .foot a:hover { color: var(--magenta); }
 .toast { position: fixed; z-index: 300; left: 50%; bottom: 22px; transform: translate(-50%, 20px); padding: 10px 16px; border-radius: 8px; background: var(--text); color: var(--bg); font-size: 13.5px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; }
@@ -445,4 +445,25 @@ main { padding: 0 28px; max-width: 1360px; }
   .rail, .top, .form, .feeds, .modal, .toast { display: none !important; }
   .shell { margin: 0; }
   .js .reveal { opacity: 1; transform: none; }
+}
+
+/* ---------- bulles de compétences ---------- */
+.skilltopo { padding: 22px 16px; }
+.bubbles { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; }
+.bubble { --b: var(--violet); display: grid; place-items: center; text-align: center; border-radius: 50%; padding: 8px; line-height: 1.2; font-weight: 700;
+  color: var(--text); background: color-mix(in srgb, var(--b) 16%, var(--surface)); border: 2px solid color-mix(in srgb, var(--b) 60%, transparent);
+  box-shadow: 0 0 22px -8px var(--b); animation: floaty 6s ease-in-out infinite; }
+.bubble--3 { width: 118px; height: 118px; font-size: 13.5px; }
+.bubble--2 { width: 96px; height: 96px; font-size: 12.5px; }
+.bubble--1 { width: 86px; height: 86px; font-size: 11px; padding: 6px; }
+.bubble--violet { --b: var(--violet); } .bubble--magenta { --b: var(--magenta); } .bubble--up { --b: var(--up); } .bubble--info { --b: var(--info); }
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.mp__diff { display: grid; gap: 8px; }
+.mp__diff > div { padding: 10px 12px; border-radius: 8px; background: var(--raised); border-left: 3px solid var(--warning); }
+.mp__diff p { font-size: 14px; }
+.mp__diff p + p { margin-top: 4px; }
+@media (max-width: 760px) {
+  .bubble--3 { width: 100px; height: 100px; font-size: 12.5px; }
+  .bubble--2 { width: 84px; height: 84px; font-size: 11.5px; }
+  .bubble--1 { width: 70px; height: 70px; font-size: 10.5px; }
 }
