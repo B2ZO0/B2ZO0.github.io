@@ -1,899 +1,541 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr" data-theme="night">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Enzo MARECHAL — Technicien Systèmes &amp; Réseaux · Infrastructures, Cloud &amp; Cybersécurité</title>
-<meta name="description" content="Portfolio d'Enzo MARECHAL, Technicien Systèmes et Réseaux en CDI chez Attineos Infrastructures (Caen). Homelab Proxmox HA, pfSense CARP, Active Directory, MDT/WDS, 3CX, Zabbix, Wazuh, 15 projets d'infrastructure et une base de connaissances de procédures techniques.">
-<meta name="author" content="Enzo MARECHAL">
-<meta name="keywords" content="Enzo MARECHAL, technicien systèmes et réseaux, Attineos, Proxmox, pfSense, Active Directory, GPO, MDT, WDS, 3CX, Zabbix, Grafana, Wazuh, GLPI, Ansible, Cisco, cycle ingénieur alternance, Caen">
-<meta name="theme-color" content="#07080b">
-<meta name="color-scheme" content="dark">
-<link rel="canonical" href="https://enzomarechal.fr/">
-
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://enzomarechal.fr/">
-<meta property="og:title" content="Enzo MARECHAL — Systèmes, Réseaux &amp; Sécurité">
-<meta property="og:description" content="Technicien Systèmes &amp; Réseaux chez Attineos Infrastructures. Homelab, 15 projets d'infrastructure, base de connaissances technique.">
-<meta property="og:image" content="https://enzomarechal.fr/enzo.jpeg">
-<meta property="og:locale" content="fr_FR">
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="icon" type="image/png" href="favicon.png?v=3">
-<link rel="apple-touch-icon" href="favicon.png?v=3">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="style.css?v=4.0.0">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Enzo MARECHAL",
-  "jobTitle": "Technicien Systèmes et Réseaux",
-  "worksFor": { "@type": "Organization", "name": "Attineos Infrastructures" },
-  "address": { "@type": "PostalAddress", "addressLocality": "Caen", "addressRegion": "Normandie", "addressCountry": "FR" },
-  "url": "https://enzomarechal.fr",
-  "email": "mailto:marechal.enzo27@gmail.com",
-  "sameAs": [
-    "https://www.linkedin.com/in/marechal-enzo-7b9ba9261/",
-    "https://github.com/B2ZO0",
-    "https://www.root-me.org/B2ZO"
-  ],
-  "knowsAbout": ["Proxmox VE", "pfSense", "Active Directory", "GPO", "MDT", "WDS", "3CX", "Zabbix", "Grafana", "Wazuh", "GLPI", "Ansible", "Cisco IOS", "Docker", "Debian", "Windows Server"]
-}
-</script>
-
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
-  }
-}
-</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enzo MARECHAL — Technicien systèmes &amp; réseaux</title>
+  <meta name="description" content="Portfolio d'Enzo MARECHAL, technicien systèmes et réseaux chez Attineos. Créateur de NetCockpit. BTS SIO SISR, alternance chez Armatis, projets, compétences et veille.">
+  <meta name="author" content="Enzo MARECHAL">
+  <meta name="theme-color" content="#11131d">
+  <meta property="og:title" content="Enzo MARECHAL — Technicien systèmes & réseaux">
+  <meta property="og:description" content="Projets, parcours et compétences. Créateur de NetCockpit, le cockpit de supervision de l'infrastructure.">
+  <meta property="og:image" content="https://enzomarechal.fr/img/netcockpit-overview.jpg">
+  <meta property="og:url" content="https://enzomarechal.fr/">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css?v=7">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('em-theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'day' : 'night';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
 
-<body class="is-loading">
-
-<a class="skip-link" href="#main">Aller au contenu principal</a>
-
-<!-- ============================================================
-     PRELOADER — séquence de boot façon POST serveur
-     ============================================================ -->
-<div class="preloader" id="preloader" aria-hidden="true">
-  <div class="preloader__inner">
-    <div class="preloader__logo">
-      <span class="preloader__mark">EM</span>
-      <span class="preloader__ring"></span>
-    </div>
-    <pre class="preloader__log" id="preloaderLog"></pre>
-    <div class="preloader__bar"><span id="preloaderBar"></span></div>
-    <button class="preloader__skip" id="preloaderSkip" type="button">Passer ↵</button>
-  </div>
-</div>
-
-<!-- Barre de progression de lecture globale -->
-<div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
-
-<!-- Fond global : grille + halo + bruit -->
-<div class="bg-layer" aria-hidden="true">
-  <div class="bg-grid"></div>
-  <div class="bg-glow bg-glow--1"></div>
-  <div class="bg-glow bg-glow--2"></div>
-  <div class="bg-noise"></div>
-</div>
-
-<!-- ============================================================
-     NAVIGATION
-     ============================================================ -->
-<header class="nav" id="nav">
-  <div class="nav__inner">
-    <a href="#hero" class="nav__brand" aria-label="Retour en haut">
-      <span class="nav__logo">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="navGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b7bff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><path d="M16 2 28.1 9v14L16 30 3.9 23V9z" fill="none" stroke="url(#navGrad)" stroke-width="1.6"/><path d="M10.5 11h7M10.5 16h5.5M10.5 21h7M10.5 11v10M19.5 21V11l3 5 3-5v10" fill="none" stroke="#eef1f6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(-2 0)"/></svg>
-      </span>
-      <span class="nav__name">Enzo<b>Marechal</b></span>
+  <!-- ================= RAIL DE NAVIGATION ================= -->
+  <aside class="rail" id="rail" aria-label="Navigation">
+    <a class="rail__mark" href="#apercu" aria-label="Haut de page">
+      <svg viewBox="0 0 128 128" aria-hidden="true"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="64" cy="64" r="40" stroke="currentColor" stroke-width="8"/><path d="M27 71 101 55" stroke="currentColor" stroke-width="8"/><path d="m44 86 20-16 20 16" stroke="#d16bff" stroke-width="8.5"/></g></svg>
     </a>
-
-    <nav class="nav__links" aria-label="Navigation principale">
-      <a href="#mission" data-nav="mission">Mission</a>
-      <a href="#parcours" data-nav="parcours">Parcours</a>
-      <a href="#stack" data-nav="stack">Stack</a>
-      <a href="#homelab" data-nav="homelab">Homelab</a>
-      <a href="#projets" data-nav="projets">Projets</a>
-      <a href="#wiki" data-nav="wiki">Wiki</a>
-      <a href="#contact" data-nav="contact">Contact</a>
-      <span class="nav__indicator" id="navIndicator" aria-hidden="true"></span>
+    <nav class="rail__nav" id="railNav">
+      <a href="#apercu" data-tip="Vue d'ensemble"><i data-i="grid"></i><span>Vue d'ensemble</span></a>
+      <a href="#netcockpit" data-tip="NetCockpit"><i data-i="radar"></i><span>NetCockpit</span></a>
+      <a href="#attineos" data-tip="Mon poste"><i data-i="building"></i><span>Mon poste</span></a>
+      <a href="#armatis" data-tip="Alternance"><i data-i="briefcase"></i><span>Alternance</span></a>
+      <a href="#parcours" data-tip="Parcours"><i data-i="route"></i><span>Parcours</span></a>
+      <a href="#competences" data-tip="Compétences"><i data-i="layers"></i><span>Compétences</span></a>
+      <a href="#projets" data-tip="Projets"><i data-i="folder"></i><span>Projets</span></a>
+      <a href="#veille" data-tip="Veille"><i data-i="rss"></i><span>Veille</span></a>
+      <a href="#contact" data-tip="Contact"><i data-i="mail"></i><span>Contact</span></a>
     </nav>
-
-    <div class="nav__actions">
-      <button class="nav__cmd" id="cmdOpen" type="button" aria-label="Ouvrir la palette de commandes">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <span>Rechercher</span>
-        <kbd><span class="kbd-mod">Ctrl</span>K</kbd>
-      </button>
-      <a class="nav__status" href="#objectif" title="Disponibilité">
-        <span class="pulse-dot"></span>
-        <span class="nav__status-text">Cycle ingé · alternance</span>
-      </a>
-      <button class="nav__burger" id="navBurger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
-        <span></span><span></span>
-      </button>
+    <div class="rail__bottom">
+      <span class="lamp up pulse" title="En poste"></span>
+      <button class="rail__btn" type="button" id="themeBtn" data-tip="Thème jour / nuit" aria-label="Changer de thème"><i data-i="sun"></i></button>
     </div>
-  </div>
-</header>
+  </aside>
 
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <nav class="mobile-menu__links" aria-label="Navigation mobile">
-    <a href="#mission"><span>01</span>Mission actuelle</a>
-    <a href="#parcours"><span>02</span>Parcours</a>
-    <a href="#stack"><span>03</span>Stack technique</a>
-    <a href="#homelab"><span>04</span>Homelab &amp; Prod</a>
-    <a href="#projets"><span>05</span>Projets</a>
-    <a href="#wiki"><span>06</span>Base de connaissances</a>
-    <a href="#objectif"><span>07</span>Objectif ingénieur</a>
-    <a href="#contact"><span>08</span>Contact</a>
-  </nav>
-  <div class="mobile-menu__foot">
-    <a href="mailto:marechal.enzo27@gmail.com">marechal.enzo27@gmail.com</a>
-    <span>Caen · Normandie</span>
-  </div>
-</div>
-
-<main id="main">
-
-<!-- ============================================================
-     01 — HERO 3D : topologie réseau interactive
-     ============================================================ -->
-<section class="hero" id="hero" aria-label="Présentation">
-  <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
-  <div class="hero__fallback" aria-hidden="true"></div>
-  <div class="hero__vignette" aria-hidden="true"></div>
-
-  <div class="hero__tooltip" id="heroTooltip" role="status" aria-live="polite">
-    <div class="hero__tooltip-head"><span class="hero__tooltip-dot"></span><span id="heroTooltipName">—</span></div>
-    <div class="hero__tooltip-ip" id="heroTooltipIp">—</div>
-    <div class="hero__tooltip-role" id="heroTooltipRole">—</div>
-  </div>
-
-  <div class="container hero__content">
-    <div class="hero__left">
-      <a class="hero__badge reveal-hero" href="#mission">
-        <span class="hero__badge-pill">CDI</span>
-        <span>Technicien Systèmes &amp; Réseaux · <b>Attineos Infrastructures</b></span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-
-      <h1 class="hero__title reveal-hero">
-        <span class="hero__title-line">Enzo Marechal</span>
-        <span class="hero__title-line hero__title-line--sub">
-          Je conçois, sécurise et <em class="serif">automatise</em> des infrastructures.
-        </span>
-      </h1>
-
-      <p class="hero__typed reveal-hero" aria-live="off">
-        <span class="hero__prompt">enzo@infra:~$</span>
-        <span id="typedTarget" class="hero__typed-text">administration systèmes &amp; réseaux</span>
-      </p>
-
-      <p class="hero__desc reveal-hero">
-        En régie sur un site industriel à <b>Verson</b> : déploiement de postes <b>MDT/WDS</b>, <b>Active Directory</b> &amp; GPO,
-        <b>3CX</b>, architecture de switchs, supervision et support N2/N3. À côté, un homelab de production sur
-        <b>Proxmox VE HA</b>, segmenté en 5 VLANs derrière un cluster <b>pfSense CARP</b>.
-      </p>
-
-      <div class="hero__cta reveal-hero">
-        <a href="#projets" class="btn btn--primary magnetic">
-          <span>Explorer les 15 projets</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a href="#wiki" class="btn btn--ghost magnetic">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h6M8 11h8"/></svg>
-          <span>Base de connaissances</span>
-        </a>
-        <a href="#homelab" class="btn btn--link">Voir l'architecture →</a>
+  <div class="shell">
+    <!-- ================= BARRE DU HAUT ================= -->
+    <header class="top" id="top">
+      <button class="top__burger" id="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="rail"><i data-i="menu"></i></button>
+      <div class="top__title">
+        <strong id="topTitle">Vue d'ensemble</strong>
+        <span class="muted">Enzo MARECHAL</span>
       </div>
-
-      <dl class="hero__stats reveal-hero">
-        <div class="hero__stat"><dt><span class="counter" data-count="15">0</span></dt><dd>projets d'infrastructure</dd></div>
-        <div class="hero__stat"><dt><span class="counter" data-count="45" data-count-source="wiki" data-suffix="+">0</span></dt><dd>procédures techniques</dd></div>
-        <div class="hero__stat"><dt><span class="counter" data-count="5">0</span></dt><dd>VLANs segmentés</dd></div>
-        <div class="hero__stat"><dt><span class="counter" data-count="99.9" data-decimals="1" data-suffix="%">0</span></dt><dd>disponibilité homelab</dd></div>
-      </dl>
-    </div>
-
-    <aside class="hero__right reveal-hero" aria-label="Console de supervision">
-      <div class="console" id="heroConsole">
-        <div class="console__bar">
-          <span class="console__dots"><i></i><i></i><i></i></span>
-          <span class="console__title">zabbix-proxy · live</span>
-          <span class="console__badge"><span class="pulse-dot pulse-dot--green"></span>OK</span>
-        </div>
-        <div class="console__metrics">
-          <div class="metric">
-            <span class="metric__label">Cluster PVE</span>
-            <span class="metric__value" id="mCpu">23%</span>
-            <span class="metric__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline id="sparkCpu" points=""/></svg></span>
-          </div>
-          <div class="metric">
-            <span class="metric__label">WAN pfSense</span>
-            <span class="metric__value" id="mWan">184 Mb/s</span>
-            <span class="metric__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline id="sparkWan" points=""/></svg></span>
-          </div>
-          <div class="metric">
-            <span class="metric__label">Galera</span>
-            <span class="metric__value" id="mDb">3/3 sync</span>
-            <span class="metric__spark"><svg viewBox="0 0 100 24" preserveAspectRatio="none"><polyline id="sparkDb" points=""/></svg></span>
-          </div>
-        </div>
-        <ol class="console__log" id="heroLog" aria-live="off"></ol>
-      </div>
-
-      <figure class="hero__photo">
-        <img src="enzo.jpeg" alt="Portrait d'Enzo Marechal" width="120" height="120" loading="eager" decoding="async">
-        <figcaption>
-          <b>Enzo Marechal</b>
-          <span>Caen · Normandie</span>
-        </figcaption>
-      </figure>
-    </aside>
-  </div>
-
-  <div class="hero__hint" aria-hidden="true">
-    <span class="hero__hint-mouse"><i></i></span>
-    <span>Survolez les nœuds · défilez pour explorer</span>
-  </div>
-
-  <div class="hero__legend" aria-hidden="true">
-    <span><i style="--c:#8b7bff"></i>VLAN 10 Mgmt</span>
-    <span><i style="--c:#22d3ee"></i>VLAN 20 Serveurs</span>
-    <span><i style="--c:#f472b6"></i>VLAN 30 DMZ</span>
-    <span><i style="--c:#fbbf24"></i>VLAN 40 VoIP/IoT</span>
-    <span><i style="--c:#34d399"></i>VLAN 50 PXE</span>
-  </div>
-</section>
-
-<!-- Bandeau défilant des technologies -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee__track" id="marqueeTrack"></div>
-</div>
-
-<!-- ============================================================
-     02 — MISSION ACTUELLE : Attineos / usine de Verson (Bento)
-     ============================================================ -->
-<section class="section" id="mission" aria-labelledby="missionTitle">
-  <div class="container">
-    <header class="section__head">
-      <p class="eyebrow"><span class="eyebrow__num">01</span>Mission actuelle</p>
-      <h2 class="section__title" id="missionTitle">
-        En régie dans l'industrie,<br><span class="text-gradient">là où l'infra ne peut pas tomber.</span>
-      </h2>
-      <p class="section__lead">
-        Technicien Systèmes &amp; Réseaux en <b>CDI chez Attineos Infrastructures</b>, ESN caennaise structurée autour de trois pôles.
-        Je suis déployé en régie sur le site industriel d'un client à <b>Verson</b>, où j'interviens sur toute la chaîne :
-        du câble au contrôleur de domaine.
-      </p>
+      <label class="search" for="search">
+        <i data-i="search"></i>
+        <input id="search" type="search" placeholder="Chercher un projet, un outil : GLPI, VLAN, Docker…" autocomplete="off">
+        <kbd>/</kbd>
+      </label>
+      <a class="btn btn--sig btn--sm" href="CV_Enzo_MARECHAL.pdf" target="_blank" rel="noopener"><i data-i="download"></i><span>Mon CV</span></a>
+      <span class="live"><span class="lamp up"></span>en poste</span>
     </header>
 
-    <div class="bento" id="missionBento">
+    <main id="main">
 
-      <!-- Carte principale -->
-      <article class="card card--spot bento__item bento__item--hero tilt" data-tilt-max="4">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="mission-hero">
-          <div class="mission-hero__top">
-            <div class="mission-hero__logo">
-              <img src="attineos-logo.png" alt="Attineos Infrastructures" loading="lazy" onerror="this.closest('.mission-hero__logo').classList.add('is-missing')">
-              <span class="mission-hero__logo-fallback">attineos <small>INFRASTRUCTURES</small></span>
-            </div>
-            <span class="chip chip--live"><span class="pulse-dot pulse-dot--green"></span>En poste</span>
-          </div>
-          <h3 class="mission-hero__title">Administration système &amp; réseau d'un site de production</h3>
-          <p class="mission-hero__text">
-            Environnement industriel 24/7 : la moindre coupure réseau arrête une ligne de production.
-            Mon rôle est d'administrer, faire évoluer et sécuriser le SI du site, en lien direct avec les équipes
-            de production, la DSI client et le pôle Infrastructures d'Attineos.
-          </p>
-          <ul class="mission-hero__facts">
-            <li><span>Contrat</span><b>CDI</b></li>
-            <li><span>Mode</span><b>Régie client</b></li>
-            <li><span>Site</span><b>Usine · Verson (14)</b></li>
-            <li><span>Niveau</span><b>Support N2 / N3</b></li>
-          </ul>
-          <div class="mission-hero__poles">
-            <span class="pole">Applications</span>
-            <span class="pole">Cybersécurité</span>
-            <span class="pole pole--active">Infrastructures</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="card card--spot bento__item bento__item--tall tilt" data-tilt-max="6">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="card__icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="m9 9 2 2 4-4"/></svg></div>
-        <h3 class="card__title">Déploiement de postes MDT / WDS</h3>
-        <p class="card__text">Boot PXE, séquences de tâches MDT, injection de pilotes par modèle, configuration BIOS automatisée avec <b>HP BCU</b> et jonction au domaine sans intervention.</p>
-        <div class="mini-terminal" aria-hidden="true">
-          <div><span class="t-dim">PXE&gt;</span> DHCP 10.10.50.112 · WDS 10.10.50.10</div>
-          <div><span class="t-dim">MDT&gt;</span> TS «Win11-23H2-Prod» <span class="t-ok">running</span></div>
-          <div><span class="t-dim">BCU&gt;</span> SecureBoot=Enable · TPM=On</div>
-          <div class="mini-terminal__bar"><span style="--w:72%"></span></div>
-          <div><span class="t-dim">step</span> 14/19 Apply drivers HP EliteBook 840 G10</div>
-        </div>
-        <div class="tags"><span>MDT</span><span>WDS</span><span>PXE</span><span>HP BCU</span><span>PowerShell</span></div>
-      </article>
-
-      <article class="card card--spot bento__item tilt" data-tilt-max="6">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="card__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="17" r="2.5"/><circle cx="19" cy="17" r="2.5"/><path d="M12 10v3M12 13l-5 2.5M12 13l5 2.5"/></svg></div>
-        <h3 class="card__title">Active Directory &amp; GPO</h3>
-        <p class="card__text">Structure d'OU, délégation, groupes AGDLP, GPO de durcissement et de configuration des postes de production.</p>
-        <div class="tags"><span>AD DS</span><span>GPO</span><span>DNS</span><span>DHCP</span></div>
-      </article>
-
-      <article class="card card--spot bento__item tilt" data-tilt-max="6">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="card__icon"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.5"/></svg></div>
-        <h3 class="card__title">Gestion des secrets</h3>
-        <p class="card__text"><b>Vaultwarden</b> : coffres par équipe, partage contrôlé, fin des mots de passe dans des fichiers Excel.</p>
-        <div class="tags"><span>Vaultwarden</span><span>Docker</span><span>TLS</span></div>
-      </article>
-
-      <article class="card card--spot bento__item tilt" data-tilt-max="6">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div>
-        <h3 class="card__title">Téléphonie VoIP 3CX</h3>
-        <p class="card__text">Trunk SIP, provisioning des postes, files d'attente, VLAN voix dédié et QoS sur les switchs.</p>
-        <div class="tags"><span>3CX</span><span>SIP</span><span>QoS</span><span>LLDP-MED</span></div>
-      </article>
-
-      <article class="card card--spot bento__item bento__item--wide tilt" data-tilt-max="4">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="split">
+      <!-- ================= VUE D'ENSEMBLE ================= -->
+      <section class="page" id="apercu" data-title="Vue d'ensemble">
+        <div class="verdict reveal">
+          <span class="lamp up big pulse"></span>
           <div>
-            <div class="card__icon"><svg viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="6" rx="1.5"/><path d="M6 12h.01M9 12h.01M12 12h.01M15 12h.01"/><path d="M7 9V5M17 9V5M12 15v4"/></svg></div>
-            <h3 class="card__title">Architecture de switchs</h3>
-            <p class="card__text">Cœur L3, distribution, accès : trunks 802.1Q, agrégats LACP, Rapid-PVST, port-security, DHCP snooping et documentation de baie.</p>
-            <div class="tags"><span>Cisco IOS</span><span>VLAN</span><span>LACP</span><span>STP</span></div>
-          </div>
-          <div class="switch-viz" aria-hidden="true" id="switchViz"></div>
-        </div>
-      </article>
-
-      <article class="card card--spot bento__item tilt" data-tilt-max="6">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
-        <h3 class="card__title">RMM &amp; supervision</h3>
-        <p class="card__text">Inventaire, patch management, scripts à distance et alerting proactif avant que l'utilisateur ne s'en aperçoive.</p>
-        <div class="tags"><span>RMM</span><span>Zabbix</span><span>Alerting</span></div>
-      </article>
-
-      <article class="card card--spot bento__item tilt" data-tilt-max="6">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="card__icon"><svg viewBox="0 0 24 24"><path d="m8 6-6 6 6 6M16 6l6 6-6 6M14 4l-4 16"/></svg></div>
-        <h3 class="card__title">Automatisation</h3>
-        <p class="card__text">PowerShell pour l'AD et les postes, Ansible côté Linux : ce qui se répète deux fois devient un script.</p>
-        <div class="tags"><span>PowerShell</span><span>Ansible</span><span>Bash</span></div>
-      </article>
-
-      <article class="card card--spot bento__item tilt" data-tilt-max="6">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="card__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h3 class="card__title">Support N2 / N3</h3>
-        <p class="card__text">Diagnostic poussé, analyse de causes racines, escalade éditeurs et rédaction de procédures pour le N1.</p>
-        <div class="tags"><span>ITIL</span><span>RCA</span><span>Documentation</span></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     03 — PARCOURS : timeline animée au scroll
-     ============================================================ -->
-<section class="section section--alt" id="parcours" aria-labelledby="parcoursTitle">
-  <div class="container">
-    <header class="section__head">
-      <p class="eyebrow"><span class="eyebrow__num">02</span>Parcours</p>
-      <h2 class="section__title" id="parcoursTitle">
-        Du câble RJ45 à l'architecture.<br><span class="text-gradient">Une progression construite sur le terrain.</span>
-      </h2>
-    </header>
-
-    <div class="timeline" id="timeline">
-      <div class="timeline__rail" aria-hidden="true"><span class="timeline__progress" id="timelineProgress"></span></div>
-      <!-- Généré par app.js depuis PROFILE.timeline -->
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     04 — STACK : galaxie 3D de badges technologiques
-     ============================================================ -->
-<section class="section" id="stack" aria-labelledby="stackTitle">
-  <div class="container">
-    <header class="section__head section__head--split">
-      <div>
-        <p class="eyebrow"><span class="eyebrow__num">03</span>Stack technique</p>
-        <h2 class="section__title" id="stackTitle">
-          Les outils que j'utilise<br><span class="text-gradient">en production, pas seulement en TP.</span>
-        </h2>
-      </div>
-      <p class="section__lead">
-        Faites tourner la galaxie, survolez un badge pour voir le contexte d'usage, cliquez pour ouvrir
-        les procédures du wiki liées à cette technologie.
-      </p>
-    </header>
-
-    <div class="stack">
-      <div class="stack__stage card card--glass">
-        <canvas class="stack__canvas" id="stackCanvas" aria-label="Galaxie 3D des technologies maîtrisées"></canvas>
-        <div class="stack__fallback" id="stackFallback"></div>
-        <div class="stack__hud" aria-hidden="true">
-          <span>DRAG ↻ ROTATION</span>
-          <span>CLICK → WIKI</span>
-        </div>
-      </div>
-
-      <aside class="stack__panel card card--spot" id="stackPanel" aria-live="polite">
-        <div class="card__glow" aria-hidden="true"></div>
-        <div class="stack__panel-head">
-          <span class="stack__panel-mono" id="stackMono">PX</span>
-          <div>
-            <h3 id="stackName">Proxmox VE</h3>
-            <p id="stackCat">Virtualisation</p>
+            <h1>Enzo MARECHAL · <span class="sig-text">Technicien systèmes &amp; réseaux</span></h1>
+            <p class="muted">En poste chez <strong>Attineos</strong> · mission dans une usine à Verson · BTS SIO option SISR · Caen</p>
           </div>
         </div>
-        <p class="stack__panel-desc" id="stackDesc">Survolez une technologie dans la galaxie.</p>
-        <div class="stack__level">
-          <div class="stack__level-head"><span>Maîtrise</span><b id="stackLevelTxt">—</b></div>
-          <div class="stack__level-bar"><span id="stackLevelBar"></span></div>
-        </div>
-        <ul class="stack__uses" id="stackUses"></ul>
-        <div class="stack__panel-foot">
-          <span><b id="stackProj">0</b> projets</span>
-          <span><b id="stackProc">0</b> procédures</span>
-          <button class="btn btn--sm btn--ghost" id="stackGoWiki" type="button">Voir dans le wiki →</button>
-        </div>
-      </aside>
-    </div>
 
-    <div class="skills" id="skillsGrid">
-      <!-- Généré par app.js depuis SKILL_DOMAINS -->
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     05 — HOMELAB : architecture interactive SVG
-     ============================================================ -->
-<section class="section section--alt" id="homelab" aria-labelledby="homelabTitle">
-  <div class="container container--wide">
-    <header class="section__head section__head--split">
-      <div>
-        <p class="eyebrow"><span class="eyebrow__num">04</span>Architecture Homelab &amp; Environnement de Prod</p>
-        <h2 class="section__title" id="homelabTitle">
-          Un SI d'entreprise,<br><span class="text-gradient">reproduit et segmenté à la maison.</span>
-        </h2>
-      </div>
-      <p class="section__lead">
-        Cluster Proxmox VE à 3 nœuds, pfSense en haute disponibilité CARP, cœur de réseau Cisco et
-        5 VLANs isolés par une politique de filtrage stricte. Cliquez sur un équipement, filtrez par VLAN
-        ou activez un flux pour suivre les paquets.
-      </p>
-    </header>
-
-    <div class="lab">
-      <div class="lab__toolbar" role="toolbar" aria-label="Contrôles du schéma réseau">
-        <div class="lab__group" id="labVlanFilters" aria-label="Filtrer par VLAN">
-          <!-- Généré : boutons VLAN -->
-        </div>
-        <div class="lab__group lab__group--right">
-          <div class="segmented" role="radiogroup" aria-label="Mode de vue">
-            <button type="button" class="segmented__btn is-active" data-view="2d" role="radio" aria-checked="true">2D</button>
-            <button type="button" class="segmented__btn" data-view="iso" role="radio" aria-checked="false">3D iso</button>
-          </div>
-          <button type="button" class="icon-btn" id="labZoomIn" aria-label="Zoom avant">+</button>
-          <button type="button" class="icon-btn" id="labZoomOut" aria-label="Zoom arrière">−</button>
-          <button type="button" class="icon-btn" id="labReset" aria-label="Réinitialiser la vue">⟲</button>
-          <button type="button" class="icon-btn" id="labFullscreen" aria-label="Plein écran">⤢</button>
-        </div>
-      </div>
-
-      <div class="lab__flows" id="labFlows" aria-label="Flux réseau">
-        <!-- Généré : toggles de flux -->
-      </div>
-
-      <div class="lab__body">
-        <div class="lab__viewport" id="labViewport">
-          <div class="lab__scene" id="labScene">
-            <!-- SVG généré par app.js (buildHomelabSVG) -->
-          </div>
-          <div class="lab__minimap" id="labMinimap" aria-hidden="true"></div>
-          <div class="lab__hint" aria-hidden="true">Cliquez sur un équipement · Ctrl + molette pour zoomer · glisser pour déplacer</div>
-        </div>
-
-        <aside class="lab__panel" id="labPanel" aria-live="polite">
-          <div class="lab__panel-empty" id="labPanelEmpty">
-            <div class="lab__panel-icon">
-              <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M9 21H5a2 2 0 0 1-2-2v-4M15 21h4a2 2 0 0 0 2-2v-4"/><circle cx="12" cy="12" r="3"/></svg>
+        <div class="grid grid--hero">
+          <article class="panel profile reveal">
+            <div class="profile__photo">
+              <img src="enzo.jpeg" alt="Photo d'Enzo MARECHAL" width="400" height="400">
+              <span class="profile__status"><span class="lamp up"></span>Disponible pour échanger</span>
             </div>
-            <p>Sélectionnez un équipement du schéma pour afficher son rôle, son adressage, ses services et les procédures associées.</p>
-          </div>
-          <div class="lab__panel-detail" id="labPanelDetail" hidden></div>
-        </aside>
-      </div>
+            <div class="profile__body">
+              <h2>Bonjour, moi c'est Enzo.</h2>
+              <p>
+                J'ai 21 ans et je fais tourner l'informatique d'une usine : je prépare et je dépanne les postes,
+                je gère l'Active Directory, le réseau, la téléphonie et la supervision.
+                Et quand un outil me manque, je le construis : c'est comme ça qu'est né <a href="#netcockpit">NetCockpit</a>.
+              </p>
+              <div class="profile__btns">
+                <a class="btn btn--sig" href="#projets"><i data-i="folder"></i>Voir mes projets</a>
+                <a class="btn" href="#contact"><i data-i="mail"></i>Me contacter</a>
+              </div>
+            </div>
+          </article>
 
-      <div class="lab__tabs">
-        <div class="tabs" role="tablist" aria-label="Documentation réseau">
-          <button class="tabs__btn is-active" role="tab" aria-selected="true" aria-controls="tabIpam" id="tabIpamBtn" data-tab="tabIpam">Plan d'adressage &amp; VLANs</button>
-          <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tabFw" id="tabFwBtn" data-tab="tabFw">Matrice de flux pare-feu</button>
-          <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tabRules" id="tabRulesBtn" data-tab="tabRules">Règles pfSense</button>
-          <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="tabHw" id="tabHwBtn" data-tab="tabHw">Matériel &amp; ressources</button>
-          <span class="tabs__indicator" aria-hidden="true"></span>
+          <article class="panel reveal">
+            <header class="panel__head">
+              <h2>Route du parcours</h2>
+              <span class="muted">du lycée à mon poste actuel</span>
+            </header>
+            <div class="route" id="route">
+              <div class="route__node">
+                <span class="route__ring"><i data-i="cpu"></i></span>
+                <strong>Bac Pro SN</strong>
+                <small>Réseaux · 2023</small>
+              </div>
+              <div class="route__seg"><span>stages</span></div>
+              <div class="route__node">
+                <span class="route__ring"><i data-i="school"></i></span>
+                <strong>BTS SIO SISR</strong>
+                <small>AFTEC · 2024-26</small>
+              </div>
+              <div class="route__seg"><span>2 ans</span></div>
+              <div class="route__node">
+                <span class="route__ring"><i data-i="briefcase"></i></span>
+                <strong>Armatis</strong>
+                <small>Alternance</small>
+              </div>
+              <div class="route__seg"><span>CDI</span></div>
+              <div class="route__node is-now">
+                <span class="route__ring"><i data-i="building"></i></span>
+                <strong>Attineos</strong>
+                <small>Depuis 2026</small>
+              </div>
+            </div>
+            <p class="route__note muted">La ligne magenta, comme la route active d'un écran de cockpit : elle mène à mon poste actuel.</p>
+          </article>
         </div>
-        <div class="tabs__panel is-active" role="tabpanel" id="tabIpam" aria-labelledby="tabIpamBtn"></div>
-        <div class="tabs__panel" role="tabpanel" id="tabFw" aria-labelledby="tabFwBtn" hidden></div>
-        <div class="tabs__panel" role="tabpanel" id="tabRules" aria-labelledby="tabRulesBtn" hidden></div>
-        <div class="tabs__panel" role="tabpanel" id="tabHw" aria-labelledby="tabHwBtn" hidden></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ============================================================
-     06 — PROJETS : 15 projets d'infrastructure
-     ============================================================ -->
-<section class="section" id="projets" aria-labelledby="projetsTitle">
-  <div class="container">
-    <header class="section__head section__head--split">
-      <div>
-        <p class="eyebrow"><span class="eyebrow__num">05</span>Projets techniques</p>
-        <h2 class="section__title" id="projetsTitle">
-          15 projets d'infrastructure,<br><span class="text-gradient">documentés comme en production.</span>
-        </h2>
-      </div>
-      <p class="section__lead">
-        Chaque projet dispose de son schéma d'architecture, de ses choix techniques justifiés, des
-        étapes de mise en œuvre et des tests de validation. Cliquez sur une carte pour ouvrir le dossier complet.
-      </p>
-    </header>
-
-    <div class="filters" id="projectFilters" role="toolbar" aria-label="Filtrer les projets">
-      <!-- Généré -->
-    </div>
-
-    <div class="projects" id="projectsGrid">
-      <!-- Généré par app.js depuis PROJECTS -->
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     07 — WIKI : base de connaissances type IT-Connect
-     ============================================================ -->
-<section class="section section--alt section--wiki" id="wiki" aria-labelledby="wikiTitle">
-  <div id="wikiParticles" class="wiki-particles" aria-hidden="true"></div>
-  <div class="container">
-    <header class="section__head section__head--center">
-      <p class="eyebrow eyebrow--center"><span class="eyebrow__num">06</span>Base de connaissances</p>
-      <h2 class="section__title" id="wikiTitle">
-        Le wiki technique.<br><span class="text-gradient">Des procédures écrites de A à Z.</span>
-      </h2>
-      <p class="section__lead">
-        Contexte, topologie, prérequis, commandes exactes, fichiers de configuration complets et tests de validation.
-        Chaque procédure a été rédigée pour qu'un collègue puisse la rejouer sans moi.
-      </p>
-    </header>
-
-    <div class="wiki-stats" id="wikiStats">
-      <div class="wiki-stat"><b id="wsCount">0</b><span>procédures</span></div>
-      <div class="wiki-stat"><b id="wsTechs">0</b><span>technologies</span></div>
-      <div class="wiki-stat"><b id="wsMinutes">0</b><span>min de lecture</span></div>
-      <div class="wiki-stat"><b id="wsCode">0</b><span>blocs de code</span></div>
-    </div>
-
-    <div class="wiki-search card card--glass">
-      <div class="wiki-search__field">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <label class="sr-only" for="wikiSearch">Rechercher une procédure</label>
-        <input type="search" id="wikiSearch" placeholder="Rechercher : « GPO BitLocker », « CARP », « galera », « vlan trunk »…" autocomplete="off" spellcheck="false">
-        <kbd class="wiki-search__kbd">/</kbd>
-        <button type="button" class="wiki-search__clear" id="wikiClear" aria-label="Effacer la recherche" hidden>×</button>
-      </div>
-      <div class="wiki-search__row">
-        <div class="wiki-search__selects">
-          <label class="select">
-            <span class="sr-only">Catégorie</span>
-            <select id="wikiCategory"><option value="">Toutes les catégories</option></select>
-          </label>
-          <label class="select">
-            <span class="sr-only">Niveau</span>
-            <select id="wikiLevel">
-              <option value="">Tous niveaux</option>
-              <option value="Débutant">Débutant</option>
-              <option value="Intermédiaire">Intermédiaire</option>
-              <option value="Avancé">Avancé</option>
-              <option value="Expert">Expert</option>
-            </select>
-          </label>
-          <label class="select">
-            <span class="sr-only">Tri</span>
-            <select id="wikiSort">
-              <option value="relevance">Pertinence</option>
-              <option value="recent">Plus récentes</option>
-              <option value="short">Lecture courte</option>
-              <option value="long">Lecture longue</option>
-              <option value="alpha">A → Z</option>
-            </select>
-          </label>
-        </div>
-        <div class="segmented segmented--sm" role="radiogroup" aria-label="Affichage">
-          <button type="button" class="segmented__btn is-active" data-layout="grid" role="radio" aria-checked="true" aria-label="Grille">▦</button>
-          <button type="button" class="segmented__btn" data-layout="list" role="radio" aria-checked="false" aria-label="Liste">☰</button>
-        </div>
-      </div>
-      <div class="wiki-techs" id="wikiTechs" aria-label="Filtrer par technologie"></div>
-    </div>
-
-    <div class="wiki-meta">
-      <p id="wikiResultCount" aria-live="polite">—</p>
-      <button type="button" class="btn btn--link btn--sm" id="wikiReset" hidden>Réinitialiser les filtres</button>
-    </div>
-
-    <div class="wiki-grid" id="wikiGrid" data-layout="grid"></div>
-
-    <div class="wiki-empty" id="wikiEmpty" hidden>
-      <div class="wiki-empty__icon">∅</div>
-      <h3>Aucune procédure ne correspond.</h3>
-      <p>Essayez un autre terme, retirez un filtre ou ouvrez la palette avec <kbd><span class="kbd-mod">Ctrl</span>K</kbd>.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     08 — OBJECTIF : cycle ingénieur en alternance
-     ============================================================ -->
-<section class="section" id="objectif" aria-labelledby="objectifTitle">
-  <div class="container">
-    <div class="goal card card--spot">
-      <div class="card__glow" aria-hidden="true"></div>
-      <div class="goal__orbit" aria-hidden="true"><span></span><span></span><span></span></div>
-      <div class="goal__content">
-        <p class="eyebrow"><span class="eyebrow__num">07</span>Objectif</p>
-        <h2 class="section__title" id="objectifTitle">
-          Prochaine étape :<br><span class="text-gradient">le cycle ingénieur en alternance.</span>
-        </h2>
-        <p class="section__lead">
-          Je cherche une école d'ingénieurs et une entreprise d'accueil pour me spécialiser en
-          <b>Infrastructures</b>, <b>Cloud</b> et <b>Cybersécurité</b>. J'arrive avec de la production réelle,
-          de la rigueur documentaire et l'habitude des environnements où la disponibilité n'est pas négociable.
-        </p>
-        <div class="goal__grid">
-          <div class="goal__item">
-            <span class="goal__k">01</span>
-            <h3>Infrastructures</h3>
-            <p>Virtualisation, haute disponibilité, réseau d'entreprise, PRA/PCA.</p>
+        <div class="strip reveal" id="strip">
+          <div class="strip__cell s-up">
+            <span class="strip__label"><i data-i="building"></i>Poste actuel</span>
+            <strong>CDI</strong>
+            <span class="muted">Attineos · Infrastructures</span>
           </div>
-          <div class="goal__item">
-            <span class="goal__k">02</span>
-            <h3>Cloud</h3>
-            <p>IaC, conteneurs, architectures hybrides, automatisation des déploiements.</p>
+          <div class="strip__cell s-violet">
+            <span class="strip__label"><i data-i="briefcase"></i>Expérience</span>
+            <strong><span data-count="2">2</span> ans</strong>
+            <span class="muted">d'alternance + 4 stages</span>
           </div>
-          <div class="goal__item">
-            <span class="goal__k">03</span>
-            <h3>Cybersécurité</h3>
-            <p>Durcissement, détection (SIEM), gestion des identités, défense en profondeur.</p>
+          <div class="strip__cell s-magenta">
+            <span class="strip__label"><i data-i="folder"></i>Projets</span>
+            <strong data-count-projects>0</strong>
+            <span class="muted">entreprise, BTS, perso</span>
+          </div>
+          <div class="strip__cell s-info">
+            <span class="strip__label"><i data-i="radar"></i>Projet phare</span>
+            <strong>NetCockpit</strong>
+            <span class="muted">open source · MIT</span>
+          </div>
+          <div class="strip__cell s-warn">
+            <span class="strip__label"><i data-i="school"></i>Diplômes</span>
+            <strong>BTS SIO</strong>
+            <span class="muted">+ Bac Pro SN · PIX</span>
+          </div>
+          <div class="strip__cell s-up">
+            <span class="strip__label"><i data-i="pin"></i>Basé à</span>
+            <strong>Caen</strong>
+            <span class="muted">Normandie</span>
           </div>
         </div>
-        <ul class="goal__bring">
-          <li><b>Autonomie en production</b> — je gère seul un site industriel en régie.</li>
-          <li><b>Documentation</b> — chaque intervention devient une procédure réutilisable.</li>
-          <li><b>Automatisation</b> — PowerShell, Ansible, Bash dès qu'une tâche se répète.</li>
-          <li><b>Sécurité by design</b> — segmentation, moindre privilège, traçabilité.</li>
-        </ul>
-        <div class="hero__cta">
-          <a href="#contact" class="btn btn--primary magnetic"><span>Me proposer une alternance</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a href="CV_Enzo_MARECHAL.pdf" class="btn btn--ghost magnetic" download><span>Télécharger le CV</span></a>
+
+        <div class="grid grid--about">
+          <article class="panel reveal">
+            <header class="panel__head">
+              <h2>Qui je suis</h2>
+              <span class="muted">en quelques lignes</span>
+            </header>
+            <div class="prose">
+              <p>
+                L'informatique me plaît depuis le lycée, surtout tout ce qui touche aux <strong>réseaux et aux serveurs</strong> :
+                comprendre comment les machines communiquent, pourquoi une panne arrive, et comment la régler proprement.
+              </p>
+              <p>
+                Après un <strong>Bac Pro Systèmes Numériques</strong> option réseaux, j'ai fait un <strong>BTS SIO option SISR</strong>
+                à l'AFTEC de Caen, en alternance pendant deux ans chez <strong>Armatis</strong>. Depuis septembre 2026, je suis
+                <strong>technicien systèmes et réseaux en CDI chez Attineos</strong>, en mission chez un client industriel :
+                je fais partie de l'équipe informatique de l'usine.
+              </p>
+              <p>
+                À côté, je continue d'apprendre sur mon homelab Proxmox et sur Root-Me, et je développe mes propres outils
+                quand ceux du marché ne suffisent pas.
+              </p>
+            </div>
+            <div class="qualities">
+              <div><i data-i="check"></i><strong>Rigoureux</strong><span>Je vérifie, je documente, je prévois le retour arrière.</span></div>
+              <div><i data-i="users"></i><strong>À l'écoute</strong><span>J'explique simplement aux utilisateurs.</span></div>
+              <div><i data-i="search"></i><strong>Curieux</strong><span>Je veux comprendre la cause d'une panne.</span></div>
+              <div><i data-i="bolt"></i><strong>Débrouillard</strong><span>Quand un outil manque, je le construis.</span></div>
+            </div>
+          </article>
+
+          <article class="panel reveal">
+            <header class="panel__head">
+              <h2>Topologie de mes compétences</h2>
+              <span class="lamp up pulse"></span>
+            </header>
+            <div class="skilltopo" id="skillTopo" aria-label="Schéma de mes domaines de compétences"></div>
+          </article>
         </div>
-      </div>
+      </section>
+
+      <!-- ================= NETCOCKPIT ================= -->
+      <section class="page" id="netcockpit" data-title="Projet phare · NetCockpit">
+        <header class="page__head reveal">
+          <p class="eyebrow"><span class="badge b-magenta">Projet phare</span><span class="badge b-up">open source</span></p>
+          <h2>NetCockpit</h2>
+          <p class="lede">Toute l'infrastructure, en direct, dans un seul cockpit. Un outil que j'ai créé, déployé dans ma mission actuelle et sur mon homelab.</p>
+        </header>
+
+        <div class="nc reveal">
+          <div class="nc__viewer panel">
+            <div class="nc__tabs" role="tablist" aria-label="Captures de NetCockpit" id="ncTabs">
+              <button type="button" role="tab" aria-selected="true" data-shot="overview">Vue d'ensemble</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="topology">Topologie</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="switches">Switchs</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="vmware">VMware</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="device-ai">Analyse IA</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="overview-day-fr">Thème jour</button>
+            </div>
+            <figure class="nc__screen">
+              <img id="ncShot" src="img/netcockpit-overview.jpg" alt="NetCockpit : vue d'ensemble" width="1600" height="900">
+              <figcaption id="ncCaption">La vue d'ensemble : une phrase dit si tout va bien, la route vers Internet est tracée en magenta, la topologie est en direct.</figcaption>
+            </figure>
+          </div>
+
+          <div class="nc__side">
+            <article class="panel">
+              <header class="panel__head"><h3>Le problème</h3></header>
+              <p class="muted-2">
+                Dans beaucoup d'entreprises, le réseau est géré par un prestataire : l'équipe informatique n'a pas
+                d'accès administrateur aux switchs ni au pare-feu. Les outils habituels n'affichent alors qu'une liste
+                d'adresses IP, et le schéma réseau est un vieux fichier que personne ne met à jour.
+              </p>
+            </article>
+            <article class="panel">
+              <header class="panel__head"><h3>Ma solution</h3></header>
+              <ul class="ticks">
+                <li><strong>Topologie automatique</strong> : Internet → pare-feu → sites → switchs → serveurs → VM, mise à jour toutes les 15 s</li>
+                <li><strong>Qui est branché où</strong> : lecture CDP/LLDP via les ESXi et les serveurs, sans toucher aux switchs</li>
+                <li><strong>Pas de fausses alertes</strong> : un portable rentré chez lui est « absent », pas « en panne »</li>
+                <li><strong>Une seule chaîne d'alertes</strong> : Prometheus, Loki et Zabbix vers Telegram, Discord ou e-mail</li>
+                <li><strong>Diagnostic IA en option</strong>, avec un modèle local possible : rien ne sort du réseau</li>
+                <li><strong>Une seule commande</strong> pour tout installer : <code>./setup.sh</code></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="grid grid--3 nc__facts">
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="layers"></i>Technologies</h3></header>
+            <ul class="chips">
+              <li>Python</li><li>Docker Compose</li><li>Prometheus</li><li>Grafana</li><li>Loki</li><li>Alertmanager</li>
+              <li>Zabbix 7.0</li><li>SNMP</li><li>nmap</li><li>API vCenter</li><li>Grafana Alloy</li><li>JavaScript</li>
+            </ul>
+          </article>
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="building"></i>Où il tourne</h3></header>
+            <ul class="ticks">
+              <li>Dans ma mission actuelle, pour avoir une vue claire du parc et du réseau</li>
+              <li>Sur mon homelab Proxmox, où je teste chaque nouvelle version</li>
+              <li>En démo : un réseau simulé sur deux sites, sans rien scanner</li>
+            </ul>
+          </article>
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="star"></i>Ce que ça montre</h3></header>
+            <ul class="ticks">
+              <li>Partir d'un vrai besoin du terrain</li>
+              <li>Assembler des outils pro (Prometheus, Zabbix, Grafana) dans une solution complète</li>
+              <li>Documenter, publier et maintenir un projet open source</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="nc__cta reveal">
+          <a class="btn btn--sig" href="https://github.com/B2ZO0/netcockpit" target="_blank" rel="noopener"><i data-i="github"></i>Voir NetCockpit sur GitHub</a>
+          <span class="muted">Démo en une minute : <code>docker compose -f docker-compose.demo.yml up</code></span>
+        </div>
+      </section>
+
+      <!-- ================= ATTINEOS ================= -->
+      <section class="page" id="attineos" data-title="Mon poste · Attineos">
+        <header class="page__head reveal">
+          <p class="eyebrow"><span class="badge b-up"><span class="lamp up"></span>en poste</span><span class="badge b-src">CDI depuis septembre 2026</span></p>
+          <h2>Technicien systèmes &amp; réseaux chez Attineos</h2>
+          <p class="lede">En mission chez un client industriel : une usine à Verson (14).</p>
+        </header>
+
+        <div class="grid grid--company">
+          <article class="panel company reveal">
+            <div class="company__logo"><span>ATTINEOS</span></div>
+            <div>
+              <h3>L'entreprise</h3>
+              <p class="muted-2">
+                Attineos est une entreprise de services numériques (ESN) basée à Caen, avec trois métiers :
+                <strong>Applications</strong>, <strong>Cybersécurité</strong> et <strong>Infrastructures</strong>.
+                Je fais partie du pôle Infrastructures.
+              </p>
+              <div class="poles">
+                <span class="badge b-src">Applications</span>
+                <span class="badge b-src">Cybersécurité</span>
+                <span class="badge b-violet">Infrastructures</span>
+              </div>
+            </div>
+          </article>
+          <article class="panel reveal">
+            <h3>Ma mission</h3>
+            <p class="muted-2">
+              Je travaille directement sur le site du client, une <strong>usine à Verson</strong>, avec son équipe informatique.
+              Les utilisateurs sont dans les bureaux mais aussi en production : il faut intervenir vite et sans arrêter les lignes.
+              Les interventions se préparent à l'avance et se font souvent en dehors des heures de production.
+            </p>
+          </article>
+        </div>
+
+        <h3 class="subhead reveal">Ce que je fais au quotidien</h3>
+        <div class="grid grid--3">
+          <article class="panel task reveal"><span class="task__icon"><i data-i="monitor"></i></span><h4>Déploiement des postes</h4><p>Les PC démarrent sur le réseau et Windows s'installe tout seul (WDS + MDT), avec les bons pilotes. Les réglages BIOS des HP sont appliqués par script (HP BCU).</p></article>
+          <article class="panel task reveal"><span class="task__icon"><i data-i="users"></i></span><h4>Active Directory et GPO</h4><p>Comptes, unités d'organisation, groupes de droits, et stratégies de groupe pour les lecteurs réseau, les imprimantes et la sécurité.</p></article>
+          <article class="panel task reveal"><span class="task__icon"><i data-i="key"></i></span><h4>Coffre-fort Vaultwarden</h4><p>Les mots de passe de l'équipe sont rangés dans un coffre sécurisé, chacun n'accède qu'à ce qui le concerne.</p></article>
+          <article class="panel task reveal"><span class="task__icon"><i data-i="phone"></i></span><h4>Téléphonie IP 3CX</h4><p>Postes, groupes d'appel, files d'attente, et VLAN voix sur les switchs pour que les appels restent clairs.</p></article>
+          <article class="panel task reveal"><span class="task__icon"><i data-i="network"></i></span><h4>Réseau et baies</h4><p>Brassage, configuration des ports de switch et découpage du réseau en VLAN.</p></article>
+          <article class="panel task reveal"><span class="task__icon"><i data-i="tool"></i></span><h4>Maintenance et support N2/N3</h4><p>Suivi du parc avec l'outil RMM, supervision des serveurs, maintenance du matériel et support des équipes de l'usine.</p></article>
+        </div>
+        <p class="note reveal"><i data-i="lock"></i>Confidentialité du client : ni son nom, ni ses schémas, ni ses adresses ne sont publiés ici.</p>
+      </section>
+
+      <!-- ================= ARMATIS ================= -->
+      <section class="page" id="armatis" data-title="Alternance · Armatis">
+        <header class="page__head reveal">
+          <p class="eyebrow"><span class="badge b-info">alternance</span><span class="badge b-src">août 2024 → août 2026</span></p>
+          <h2>Technicien informatique chez Armatis</h2>
+          <p class="lede">Deux ans en alternance pendant mon BTS SIO, sur le site de Caen.</p>
+        </header>
+
+        <div class="grid grid--armatis">
+          <figure class="panel armatis__photo reveal"><img src="armatis-site.jpg" alt="Bâtiment Armatis" loading="lazy" width="1200" height="956"></figure>
+          <article class="panel reveal">
+            <p class="muted-2">
+              Armatis est l'un des leaders français de la relation client externalisée : le groupe gère les services clients
+              d'autres entreprises. Le site de Caen accueille plusieurs centaines de collaborateurs.
+            </p>
+            <p class="muted-2">
+              Je m'occupais du bon fonctionnement du parc : postes, téléphonie, réseau et serveurs. C'est là que j'ai appris
+              le métier sur le terrain.
+            </p>
+            <div class="kv">
+              <div><span>Secteur</span><strong>Relation client</strong></div>
+              <div><span>Site</span><strong>Caen · 500+ salariés</strong></div>
+              <div><span>Mon poste</span><strong>Technicien N1 / N2</strong></div>
+              <div><span>Durée</span><strong>2 ans</strong></div>
+            </div>
+          </article>
+        </div>
+
+        <h3 class="subhead reveal">Mes missions</h3>
+        <div class="grid grid--3">
+          <article class="panel task task--info reveal"><span class="task__icon"><i data-i="ticket"></i></span><h4>Support N1 et N2</h4><p>Tickets, aide sur place et à distance, escalade au niveau 3 si besoin.</p></article>
+          <article class="panel task task--info reveal"><span class="task__icon"><i data-i="monitor"></i></span><h4>Postes Windows 11</h4><p>Préparation pour les arrivées et les remplacements : outils métiers, téléphonie, domaine.</p></article>
+          <article class="panel task task--info reveal"><span class="task__icon"><i data-i="users"></i></span><h4>Active Directory</h4><p>Comptes, groupes, droits sur les partages, application des GPO.</p></article>
+          <article class="panel task task--info reveal"><span class="task__icon"><i data-i="network"></i></span><h4>Réseau et câblage</h4><p>Brassage, tests de connexion, vérification des ports et des VLAN.</p></article>
+          <article class="panel task task--info reveal"><span class="task__icon"><i data-i="phone"></i></span><h4>Téléphonie et outils métiers</h4><p>Postes IP des conseillers, incidents sur les outils métiers, lien avec les éditeurs.</p></article>
+          <article class="panel task task--info reveal"><span class="task__icon"><i data-i="tool"></i></span><h4>Maintenance matérielle</h4><p>Diagnostic, remplacement de pièces, stock et matériel reconditionné.</p></article>
+        </div>
+        <blockquote class="quote reveal">
+          « L'alternance m'a appris ce qu'on n'apprend pas en cours : gérer un parc de plusieurs centaines de postes,
+          traiter des incidents dans l'urgence et expliquer les choses simplement. C'est aussi là qu'est né mon projet
+          de supervision Zabbix + Grafana, puis l'envie d'aller plus loin avec NetCockpit. »
+        </blockquote>
+      </section>
+
+      <!-- ================= PARCOURS ================= -->
+      <section class="page" id="parcours" data-title="Parcours">
+        <header class="page__head reveal">
+          <h2>Formations et expériences</h2>
+          <p class="lede">Le journal de bord, du plus récent au plus ancien.</p>
+        </header>
+        <div class="grid grid--2">
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="briefcase"></i>Expériences</h3></header>
+            <ol class="log">
+              <li class="is-now"><span class="lamp up pulse"></span><div><time>Depuis sept. 2026 · CDI</time><strong>Technicien systèmes &amp; réseaux</strong><em>Attineos · mission chez un client industriel, Verson</em><p>Déploiement de postes, Active Directory, réseau, téléphonie, maintenance et support N2/N3.</p></div></li>
+              <li><span class="lamp info"></span><div><time>Août 2024 → août 2026 · alternance</time><strong>Technicien informatique</strong><em>Armatis · Caen</em><p>Support N1/N2, postes Windows 11, Active Directory, réseau et téléphonie.</p></div></li>
+              <li><span class="lamp off"></span><div><time>Mars → avril 2023 · stage</time><strong>Stagiaire informatique</strong><em>Chauvin-Arnoux Group · Reux</em><p>Chiffrement de disques, RAID, déploiement avec MDT, VLAN sur les switchs, support N1/N2.</p></div></li>
+              <li><span class="lamp off"></span><div><time>Nov. → déc. 2022 · stage</time><strong>Stagiaire informatique</strong><em>CC Cœur Côte Fleurie · Deauville</em><p>Installation de postes, brassage, installation de Zabbix pour superviser le réseau.</p></div></li>
+              <li><span class="lamp off"></span><div><time>Mai → juillet 2022 · stage</time><strong>Stagiaire</strong><em>Ville de Cabourg · FabLab</em><p>JavaScript, modélisation 2D/3D, découpe laser, accueil du public.</p></div></li>
+              <li><span class="lamp off"></span><div><time>Janv. → févr. 2022 · stage</time><strong>Stagiaire informatique</strong><em>LISI MEDICAL · Hérouville-Saint-Clair</em><p>Résolution de problèmes réseau et configuration de switchs.</p></div></li>
+            </ol>
+          </article>
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="school"></i>Formations</h3></header>
+            <ol class="log">
+              <li><span class="lamp violet"></span><div><time>2024 → 2026</time><strong>BTS SIO option SISR</strong><em>AFTEC · Caen · en alternance</em><p>Solutions d'infrastructure, systèmes et réseaux. Deux projets présentés à l'épreuve E6 : Ansible et Zabbix + Grafana.</p></div></li>
+              <li><span class="lamp violet"></span><div><time>2020 → 2023</time><strong>Bac Pro Systèmes Numériques, option RISC</strong><em>Lycée Charles Tellier · Condé-en-Normandie</em><p>Réseaux informatiques et systèmes communicants : câblage, baies, switchs et routeurs. Obtenu en 2023.</p></div></li>
+              <li><span class="lamp violet"></span><div><time>2023</time><strong>Certification PIX</strong><em>Compétences numériques</em></div></li>
+            </ol>
+            <div class="docs-mini">
+              <a href="CV_Enzo_MARECHAL.pdf" target="_blank" rel="noopener"><i data-i="file"></i>CV (PDF)</a>
+              <a href="Tableaudecompetence.pdf" target="_blank" rel="noopener"><i data-i="file"></i>Tableau de compétences</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= COMPÉTENCES ================= -->
+      <section class="page" id="competences" data-title="Compétences">
+        <header class="page__head reveal">
+          <h2>Compétences</h2>
+          <p class="lede">Ce que j'utilise en entreprise, en formation et sur mon homelab. Les voyants verts : ce que je pratique au quotidien.</p>
+        </header>
+        <div class="grid grid--3" id="skills"></div>
+        <article class="panel bloc reveal">
+          <header class="panel__head">
+            <h3>Référentiel BTS SIO · Bloc 1</h3>
+            <a class="btn btn--sm" href="Tableaudecompetence.pdf" target="_blank" rel="noopener"><i data-i="file"></i>Tableau de compétences</a>
+          </header>
+          <ol class="bloc__list">
+            <li><strong>Gérer le patrimoine informatique</strong><span>GLPI, RMM, NetCockpit, inventaire du parc</span></li>
+            <li><strong>Répondre aux incidents et aux demandes</strong><span>Support N1 à N3, diagnostic, supervision</span></li>
+            <li><strong>Développer la présence en ligne</strong><span>Ce portfolio, la page et la documentation de NetCockpit</span></li>
+            <li><strong>Travailler en mode projet</strong><span>Projets E6, NetCockpit publié en open source</span></li>
+            <li><strong>Mettre à disposition un service</strong><span>Postes, serveurs, Vaultwarden, 3CX</span></li>
+            <li><strong>Organiser son développement professionnel</strong><span>Veille, homelab, Root-Me</span></li>
+          </ol>
+        </article>
+      </section>
+
+      <!-- ================= PROJETS ================= -->
+      <section class="page" id="projets" data-title="Projets">
+        <header class="page__head reveal">
+          <h2>Projets</h2>
+          <p class="lede">En entreprise, pendant le BTS et sur mon homelab. Clique sur un projet pour ouvrir sa fiche.</p>
+        </header>
+        <div class="toolbar reveal">
+          <div class="seg" id="filters" role="group" aria-label="Filtrer les projets"></div>
+          <span class="muted" id="projCount"></span>
+        </div>
+        <div class="grid grid--3" id="projectsGrid"></div>
+        <p class="empty muted" id="projEmpty" hidden>Aucun projet ne correspond à cette recherche.</p>
+      </section>
+
+      <!-- ================= VEILLE ================= -->
+      <section class="page" id="veille" data-title="Veille technologique">
+        <header class="page__head reveal">
+          <h2>Veille technologique</h2>
+          <p class="lede">Une faille peut être publiée n'importe quel jour. Je suis deux sujets qui touchent directement mon travail.</p>
+        </header>
+        <div class="grid grid--3">
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="shield"></i>Cybersécurité</h3><span class="badge b-down">priorité</span></header>
+            <p class="muted-2">Failles connues (CVE), alertes de l'ANSSI et du CERT-FR, rançongiciels et hameçonnage. Le but : savoir quoi mettre à jour en premier et comment protéger le parc.</p>
+          </article>
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="server"></i>Administration système</h3></header>
+            <p class="muted-2">Windows Server, Windows 11, les mises à jour mensuelles de Microsoft (Patch Tuesday), Linux et la virtualisation. Le but : anticiper avant que ça arrive sur le parc.</p>
+          </article>
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="rss"></i>Mes sources</h3></header>
+            <ul class="sources">
+              <li><a href="https://www.cert.ssi.gouv.fr/" target="_blank" rel="noopener">CERT-FR</a></li>
+              <li><a href="https://cyber.gouv.fr/" target="_blank" rel="noopener">ANSSI</a></li>
+              <li><a href="https://www.it-connect.fr/" target="_blank" rel="noopener">IT-Connect</a></li>
+              <li><a href="https://www.lemagit.fr/" target="_blank" rel="noopener">LeMagIT</a></li>
+              <li><a href="https://msrc.microsoft.com/update-guide" target="_blank" rel="noopener">Microsoft · mises à jour</a></li>
+            </ul>
+          </article>
+        </div>
+        <article class="panel feeds reveal">
+          <header class="panel__head">
+            <h3><span class="lamp up pulse"></span>Fil en direct</h3>
+            <div class="seg seg--sm" id="feedTabs">
+              <button type="button" class="is-on" data-feed="cert">Alertes CERT-FR</button>
+              <button type="button" data-feed="itc">IT-Connect</button>
+            </div>
+          </header>
+          <ul class="feed" id="feedList"><li class="feed__msg">Chargement…</li></ul>
+        </article>
+      </section>
+
+      <!-- ================= DOCUMENTS & CONTACT ================= -->
+      <section class="page" id="contact" data-title="Contact">
+        <header class="page__head reveal">
+          <h2>Contact &amp; documents</h2>
+          <p class="lede">Une question sur un projet, sur NetCockpit ou sur mon parcours ? Écris-moi.</p>
+        </header>
+        <div class="grid grid--contact">
+          <article class="panel reveal">
+            <ul class="contact">
+              <li><span class="contact__ic"><i data-i="mail"></i></span><div><small>E-mail</small><a href="mailto:marechal.enzo27@gmail.com">marechal.enzo27@gmail.com</a></div><button class="icon-btn" type="button" data-copy="marechal.enzo27@gmail.com" aria-label="Copier l'e-mail"><i data-i="copy"></i></button></li>
+              <li><span class="contact__ic"><i data-i="phone"></i></span><div><small>Téléphone</small><a href="tel:+33782165772">07 82 16 57 72</a></div><button class="icon-btn" type="button" data-copy="07 82 16 57 72" aria-label="Copier le numéro"><i data-i="copy"></i></button></li>
+              <li><span class="contact__ic"><i data-i="pin"></i></span><div><small>Localisation</small><span>Caen, Normandie</span></div></li>
+            </ul>
+            <div class="socials">
+              <a href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261" target="_blank" rel="noopener"><i data-i="linkedin"></i>LinkedIn</a>
+              <a href="https://github.com/B2ZO0" target="_blank" rel="noopener"><i data-i="github"></i>GitHub</a>
+              <a href="https://www.root-me.org/B2ZO" target="_blank" rel="noopener"><i data-i="terminal"></i>Root-Me</a>
+            </div>
+            <div class="docs">
+              <a href="CV_Enzo_MARECHAL.pdf" target="_blank" rel="noopener"><span class="ft ft--pdf">PDF</span><span><strong>CV</strong><small>Parcours et compétences</small></span></a>
+              <a href="Tableaudecompetence.pdf" target="_blank" rel="noopener"><span class="ft ft--pdf">PDF</span><span><strong>Tableau de compétences</strong><small>Synthèse BTS SIO</small></span></a>
+              <a href="Ansible_E6.docx" download><span class="ft ft--doc">DOCX</span><span><strong>Dossier E6 · Ansible</strong><small>Déploiement sur Proxmox</small></span></a>
+              <a href="Grafana-Zabbix_E6.docx" download><span class="ft ft--doc">DOCX</span><span><strong>Dossier E6 · Zabbix</strong><small>Supervision + Grafana</small></span></a>
+            </div>
+          </article>
+          <form class="panel form reveal" id="contactForm" novalidate>
+            <header class="panel__head"><h3>Envoyer un message</h3></header>
+            <p class="muted">Le formulaire ouvre ta messagerie avec le message déjà rempli.</p>
+            <label><span>Nom</span><input type="text" name="nom" autocomplete="name" required></label>
+            <label><span>Sujet</span><input type="text" name="sujet" required></label>
+            <label><span>Message</span><textarea name="message" rows="5" required></textarea></label>
+            <p class="form__err" id="formError" role="alert"></p>
+            <button class="btn btn--sig" type="submit"><i data-i="send"></i>Envoyer</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span><span class="lamp up"></span>© 2026 Enzo MARECHAL · Technicien systèmes &amp; réseaux</span>
+      <span class="muted">Police B612 (licence OFL), comme dans NetCockpit · <a href="#apercu">Haut de page ↑</a></span>
+    </footer>
+  </div>
+
+  <!-- ================= FICHE PROJET ================= -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+      <button class="modal__close icon-btn" type="button" data-close aria-label="Fermer"><i data-i="x"></i></button>
+      <div id="modalContent"></div>
     </div>
   </div>
-</section>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- ============================================================
-     09 — CONTACT
-     ============================================================ -->
-<section class="section section--contact" id="contact" aria-labelledby="contactTitle">
-  <div id="contactParticles" class="contact-particles" aria-hidden="true"></div>
-  <div class="container">
-    <div class="contact">
-      <div class="contact__left">
-        <p class="eyebrow"><span class="eyebrow__num">08</span>Contact</p>
-        <h2 class="contact__title" id="contactTitle">Parlons <em class="serif">infrastructure</em>.</h2>
-        <p class="section__lead">Recruteur, école d'ingénieurs ou collègue technicien : je réponds rapidement.</p>
-        <button class="contact__email" id="copyEmail" type="button" data-email="marechal.enzo27@gmail.com">
-          <span class="contact__email-label">marechal.enzo27@gmail.com</span>
-          <span class="contact__email-action" id="copyEmailState">Copier</span>
-        </button>
-      </div>
-      <div class="contact__links">
-        <a class="contact-link card card--spot" href="mailto:marechal.enzo27@gmail.com">
-          <div class="card__glow" aria-hidden="true"></div>
-          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-          <span class="contact-link__body"><small>E-mail</small><b>marechal.enzo27@gmail.com</b></span>
-          <span class="contact-link__arrow">↗</span>
-        </a>
-        <a class="contact-link card card--spot" href="tel:+33782165772">
-          <div class="card__glow" aria-hidden="true"></div>
-          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
-          <span class="contact-link__body"><small>Téléphone</small><b>07 82 16 57 72</b></span>
-          <span class="contact-link__arrow">↗</span>
-        </a>
-        <a class="contact-link card card--spot" href="https://www.linkedin.com/in/marechal-enzo-7b9ba9261/" target="_blank" rel="noopener">
-          <div class="card__glow" aria-hidden="true"></div>
-          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></span>
-          <span class="contact-link__body"><small>LinkedIn</small><b>marechal-enzo</b></span>
-          <span class="contact-link__arrow">↗</span>
-        </a>
-        <a class="contact-link card card--spot" href="https://github.com/B2ZO0" target="_blank" rel="noopener">
-          <div class="card__glow" aria-hidden="true"></div>
-          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5a3 3 0 0 0-.9-2.3c3-.3 6-1.5 6-6.5a5 5 0 0 0-1.4-3.5 4.6 4.6 0 0 0-.1-3.5s-1.1-.3-3.6 1.4a12 12 0 0 0-6.4 0C6.1 1.4 5 1.7 5 1.7a4.6 4.6 0 0 0-.1 3.5A5 5 0 0 0 3.5 8.7c0 5 3 6.2 6 6.5a3 3 0 0 0-.9 2.3V21"/></svg></span>
-          <span class="contact-link__body"><small>GitHub</small><b>github.com/B2ZO0</b></span>
-          <span class="contact-link__arrow">↗</span>
-        </a>
-        <a class="contact-link card card--spot" href="https://www.root-me.org/B2ZO?lang=fr" target="_blank" rel="noopener">
-          <div class="card__glow" aria-hidden="true"></div>
-          <span class="contact-link__icon"><svg viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span>
-          <span class="contact-link__body"><small>Root-Me</small><b>root-me.org/B2ZO</b></span>
-          <span class="contact-link__arrow">↗</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     10 — DOCUMENTS / CV (volontairement discret)
-     ============================================================ -->
-<section class="docs" id="documents" aria-labelledby="docsTitle">
-  <div class="container">
-    <details class="docs__details">
-      <summary class="docs__summary">
-        <span id="docsTitle">Documents &amp; CV</span>
-        <span class="docs__hint">4 fichiers · PDF / DOCX</span>
-        <span class="docs__chev" aria-hidden="true">⌄</span>
-      </summary>
-      <ul class="docs__list">
-        <li><a href="CV_Enzo_MARECHAL.pdf" download><span class="docs__ext">PDF</span>Curriculum vitae — Enzo MARECHAL</a></li>
-        <li><a href="Tableaudecompetence.pdf" download><span class="docs__ext">PDF</span>Tableau de compétences</a></li>
-        <li><a href="Ansible_E6.docx" download><span class="docs__ext docs__ext--doc">DOCX</span>Dossier — Automatisation Ansible × Proxmox</a></li>
-        <li><a href="Grafana-Zabbix_E6.docx" download><span class="docs__ext docs__ext--doc">DOCX</span>Dossier — Supervision Zabbix + Grafana</a></li>
-      </ul>
-    </details>
-  </div>
-</section>
-
-</main>
-
-<footer class="footer">
-  <div class="container footer__inner">
-    <div class="footer__left">
-      <span class="footer__brand">Enzo<b>Marechal</b></span>
-      <span class="footer__copy">© <span id="year">2026</span> · Conçu et codé à la main · HTML, CSS, JavaScript, Three.js</span>
-    </div>
-    <div class="footer__right">
-      <span class="footer__status"><span class="pulse-dot pulse-dot--green"></span>Tous les systèmes sont opérationnels</span>
-      <span class="footer__uptime" id="footerUptime">uptime 00:00:00</span>
-      <button type="button" class="footer__top" id="backToTop" aria-label="Revenir en haut">↑</button>
-    </div>
-  </div>
-</footer>
-
-<!-- ============================================================
-     MODALE — Dossier projet
-     ============================================================ -->
-<div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" hidden>
-  <div class="modal__backdrop" data-close></div>
-  <div class="modal__panel modal__panel--project" tabindex="-1" data-lenis-prevent>
-    <header class="modal__header">
-      <div class="modal__crumbs"><span>Projets</span><span>/</span><span id="projectModalCrumb">—</span></div>
-      <div class="modal__actions">
-        <button type="button" class="icon-btn" id="projectPrev" aria-label="Projet précédent">←</button>
-        <button type="button" class="icon-btn" id="projectNext" aria-label="Projet suivant">→</button>
-        <button type="button" class="icon-btn" data-close aria-label="Fermer">✕</button>
-      </div>
-    </header>
-    <div class="modal__scroll" id="projectModalScroll">
-      <div class="project-detail" id="projectModalBody"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     MODALE — Lecteur de procédure (wiki)
-     ============================================================ -->
-<div class="modal modal--reader" id="wikiModal" role="dialog" aria-modal="true" aria-labelledby="wikiModalTitle" hidden>
-  <div class="modal__backdrop" data-close></div>
-  <div class="modal__panel modal__panel--reader" tabindex="-1">
-    <div class="reader__progress" aria-hidden="true"><span id="readerProgress"></span></div>
-    <header class="modal__header">
-      <div class="modal__crumbs"><span>Wiki</span><span>/</span><span id="wikiModalCrumb">—</span></div>
-      <div class="modal__actions">
-        <button type="button" class="icon-btn" id="readerToc" aria-label="Afficher le sommaire">☰</button>
-        <button type="button" class="icon-btn" id="readerFont" aria-label="Taille du texte">Aa</button>
-        <button type="button" class="icon-btn" id="readerLink" aria-label="Copier le lien de la procédure">🔗</button>
-        <button type="button" class="icon-btn" id="readerPrint" aria-label="Imprimer">⎙</button>
-        <button type="button" class="icon-btn" id="readerPrev" aria-label="Procédure précédente">←</button>
-        <button type="button" class="icon-btn" id="readerNext" aria-label="Procédure suivante">→</button>
-        <button type="button" class="icon-btn" data-close aria-label="Fermer">✕</button>
-      </div>
-    </header>
-    <div class="reader">
-      <aside class="reader__toc" id="readerTocPanel" data-lenis-prevent>
-        <p class="reader__toc-title">Sommaire</p>
-        <nav id="readerTocNav" aria-label="Sommaire de la procédure"></nav>
-        <div class="reader__toc-meta" id="readerTocMeta"></div>
-      </aside>
-      <article class="reader__main" id="readerScroll" data-lenis-prevent>
-        <div class="reader__content" id="readerContent"></div>
-      </article>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     PALETTE DE COMMANDES (Ctrl / ⌘ + K)
-     ============================================================ -->
-<div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Palette de commandes" hidden>
-  <div class="cmdk__backdrop" data-close></div>
-  <div class="cmdk__panel">
-    <div class="cmdk__input">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input type="text" id="cmdkInput" placeholder="Aller à une section, un projet, une procédure…" autocomplete="off" spellcheck="false" aria-controls="cmdkList" aria-autocomplete="list">
-      <kbd>Esc</kbd>
-    </div>
-    <ul class="cmdk__list" id="cmdkList" role="listbox" data-lenis-prevent></ul>
-    <div class="cmdk__foot">
-      <span><kbd>↑</kbd><kbd>↓</kbd> naviguer</span>
-      <span><kbd>↵</kbd> ouvrir</span>
-      <span><kbd>Esc</kbd> fermer</span>
-    </div>
-  </div>
-</div>
-
-<!-- Toasts -->
-<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
-
-<noscript>
-  <div class="noscript">JavaScript est désactivé : le schéma réseau, la 3D, les projets et le wiki nécessitent JavaScript.</div>
-</noscript>
-
-<!-- ============================================================
-     LIBRAIRIES (CDN) — toutes optionnelles : le site se dégrade proprement
-     ============================================================ -->
-<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/@tsparticles/slim@3.5.0/tsparticles.slim.bundle.min.js"></script>
-
-<!-- ============================================================
-     DONNÉES — générées aux étapes suivantes (absentes = ignorées)
-     ============================================================ -->
-<script defer src="data-projets.js"></script>
-<script defer src="data-procedures-1.js"></script>
-<script defer src="data-procedures-2.js"></script>
-<script defer src="data-procedures-3.js"></script>
-<script defer src="data-procedures-4.js"></script>
-<script defer src="data-procedures-5.js"></script>
-
-<!-- Application (module ES : Three.js est importé dynamiquement) -->
-<script type="module" src="app.js?v=4.0.0"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
