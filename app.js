@@ -210,126 +210,148 @@
   /* ---------------------------------------------------------
      Projets
      --------------------------------------------------------- */
+  var BLOCKS = [
+    { k: 'phare', title: 'Projet phare', sub: 'Mon outil open source' },
+    { k: 'entreprise', title: 'En entreprise', sub: 'Attineos, Armatis et mes stages' },
+    { k: 'bts', title: 'BTS SIO option SISR', sub: 'AFTEC Caen · 2024 → 2026' },
+    { k: 'bacpro', title: 'Bac Pro Systèmes Numériques option C (RISC)', sub: 'Lycée Charles Tellier · 2020 → 2023' },
+    { k: 'perso', title: 'Projets perso & homelab', sub: 'Ce que je construis chez moi' }
+  ];
   var GROUPS = [
     { k: 'all', label: 'Tous' },
-    { k: 'entreprise', label: 'En entreprise' },
+    { k: 'entreprise', label: 'Entreprise' },
     { k: 'bts', label: 'BTS SIO' },
-    { k: 'perso', label: 'Homelab & perso' }
+    { k: 'bacpro', label: 'Bac Pro SN' },
+    { k: 'perso', label: 'Perso & homelab' }
   ];
+  var B1 = {
+    patrimoine: 'Gérer le patrimoine informatique', incidents: 'Répondre aux incidents', service: 'Mettre à disposition des services',
+    projet: 'Travailler en mode projet', web: 'Développer la présence en ligne', dev: 'Organiser son développement professionnel'
+  };
+  var BAC = {
+    install: 'Installer et câbler un réseau', config: 'Configurer les équipements', recette: 'Tester et faire la recette',
+    depannage: 'Diagnostiquer et dépanner', doc: 'Documenter et présenter son travail'
+  };
+
   var PROJECTS = [
+    /* ===================== PROJET PHARE ===================== */
     {
-      id: 'netcockpit', c: 'netcockpit', g: ['entreprise', 'perso'], featured: true, icon: 'radar',
-      tag: 'Projet phare · open source', date: '2026 · en production dans ma mission et sur mon homelab',
+      id: 'netcockpit', block: 'phare', g: ['perso', 'entreprise'], featured: true, c: 'netcockpit', icon: 'radar',
+      tag: 'Projet phare · open source', date: '2026 · utilisé dans ma mission et sur mon homelab',
       title: 'NetCockpit : toute l\'infrastructure dans un seul cockpit',
       sum: "Un outil que j'ai créé : il découvre le réseau tout seul, dessine la topologie en direct, suit VMware et les switchs port par port, et regroupe toutes les alertes. Fait pour les équipes qui n'ont pas la main sur les switchs et le pare-feu.",
       img: 'img/netcockpit-topology.jpg', imgAlt: 'Topologie générée par NetCockpit',
       contexte: "Dans beaucoup d'entreprises, le réseau est géré par un prestataire : l'équipe informatique n'a pas d'accès administrateur sur les switchs ni sur le pare-feu. On se retrouve avec une liste d'adresses IP et un schéma réseau jamais à jour. J'ai voulu un outil qui croise tout ce à quoi on a accès pour reconstruire une vraie carte, en direct.",
       actions: [
         "Découverte du réseau : scan, noms DNS de l'Active Directory, NetBIOS, traceroute vers Internet",
-        "Topologie hiérarchique automatique (Internet → pare-feu → sites → switchs → serveurs → VM), mise à jour toutes les 15 secondes",
+        "Topologie automatique (Internet → pare-feu → sites → switchs → serveurs → VM), mise à jour toutes les 15 secondes",
         "Lecture des voisins CDP/LLDP via les ESXi et les serveurs, sans toucher aux switchs ; carte port par port avec un accès SNMP en lecture",
         "Installation et configuration automatiques de Prometheus, Loki, Alertmanager, Grafana (7 tableaux de bord) et Zabbix",
         "Environ 40 règles d'alerte prêtes à l'emploi, envoyées vers Telegram, Discord ou e-mail, sans doublons",
-        "Agents pour Windows et Linux installables en une ligne, diagnostic IA en option avec un modèle local",
-        "Interface en français et en anglais, thèmes jour et nuit, démo intégrée, documentation et intégration continue sur GitHub"
+        "Agents Windows et Linux installables en une ligne, diagnostic IA en option avec un modèle local",
+        "Interface en français et en anglais, thèmes jour et nuit, démo intégrée, documentation et tests automatiques sur GitHub"
       ],
       tools: ['Python', 'Docker Compose', 'Prometheus', 'Grafana', 'Loki', 'Zabbix', 'SNMP', 'JavaScript'],
-      result: "Une carte de l'infrastructure toujours à jour, une seule chaîne d'alertes, et un outil publié en open source que j'utilise au quotidien dans ma mission et sur mon homelab.",
-      skills: ['Gérer le patrimoine informatique', 'Répondre aux incidents', 'Travailler en mode projet', 'Développer la présence en ligne'],
+      result: "Une carte de l'infrastructure toujours à jour, une seule chaîne d'alertes, et un outil publié en open source que j'utilise au quotidien.",
+      skills: [B1.patrimoine, B1.incidents, B1.projet, B1.web],
       links: [{ href: 'https://github.com/B2ZO0/netcockpit', label: 'Voir sur GitHub', ic: 'github' }, { href: '#netcockpit', label: 'Captures', ic: 'radar', local: true }]
     },
+
+    /* ===================== ENTREPRISE ===================== */
     {
-      id: 'att-deploiement', c: 'attineos', g: ['entreprise'], icon: 'monitor', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
+      id: 'att-deploiement', block: 'entreprise', g: ['entreprise'], c: 'attineos', icon: 'monitor', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
       title: 'Déploiement automatique des postes (WDS, MDT, HP BCU)',
       sum: "Un PC démarre sur le réseau et ressort prêt : Windows, pilotes, applications, domaine et réglages du BIOS.",
       contexte: "Dans une usine, un poste en panne peut bloquer un atelier. Préparer un PC à la main prenait du temps et le résultat changeait selon la personne. Le serveur de déploiement prépare tous les postes de la même façon.",
-      actions: ["Démarrage des PC sur le réseau (PXE) grâce à WDS", "Installation automatique de Windows 11 avec une séquence de tâches MDT", "Pilotes rangés par modèle de PC", "Jonction automatique au domaine dans la bonne unité d'organisation", "Réglages BIOS des HP appliqués par script avec HP BCU", "Procédure écrite pour toute l'équipe"],
+      actions: ["Démarrage des PC sur le réseau (PXE) avec WDS", "Installation automatique de Windows 11 avec une séquence de tâches MDT", "Pilotes rangés par modèle de PC", "Jonction automatique au domaine dans la bonne unité d'organisation", "Réglages BIOS des HP appliqués par script avec HP BCU", "Procédure écrite pour toute l'équipe"],
       tools: ['WDS', 'MDT', 'Windows 11', 'HP BCU', 'PowerShell'],
       result: "Des postes prêts beaucoup plus vite, tous configurés pareil, sans réglage BIOS à la main.",
-      skills: ['Mettre à disposition des services', 'Gérer le patrimoine informatique']
+      skills: [B1.service, B1.patrimoine]
     },
     {
-      id: 'att-vaultwarden', c: 'attineos', g: ['entreprise'], icon: 'key', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
+      id: 'att-vaultwarden', block: 'entreprise', g: ['entreprise'], c: 'attineos', icon: 'key', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
       title: 'Coffre-fort de mots de passe Vaultwarden',
       sum: "Remplacer les mots de passe notés dans des fichiers par un coffre-fort sécurisé, en HTTPS, avec des accès par personne.",
       contexte: "Les mots de passe de l'équipe étaient répartis dans plusieurs fichiers : pas sûr, et impossible de savoir qui a accès à quoi. Vaultwarden est un coffre compatible avec les applications Bitwarden, hébergé en interne.",
       actions: ["Installation dans un conteneur Docker sur un serveur Debian", "Accès en HTTPS derrière un reverse proxy", "Comptes créés sur invitation uniquement", "Mots de passe rangés par collections (réseau, serveurs, applications…)", "Double authentification activée", "Sauvegarde automatique et restauration testée"],
       tools: ['Vaultwarden', 'Docker', 'Debian', 'HTTPS'],
       result: "Des mots de passe centralisés et protégés, et un accès qu'on retire en un clic.",
-      skills: ['Mettre à disposition des services']
+      skills: [B1.service]
     },
     {
-      id: 'att-3cx', c: 'attineos', g: ['entreprise'], icon: 'phone', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
+      id: 'att-3cx', block: 'entreprise', g: ['entreprise'], c: 'attineos', icon: 'phone', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
       title: 'Téléphonie IP 3CX et VLAN voix',
       sum: "Gérer le standard 3CX et faire passer la voix sur son propre VLAN pour des appels clairs.",
       contexte: "Le téléphone est très utilisé dans l'usine : production, maintenance, logistique, accueil. Les postes doivent marcher dès qu'on les branche et les appels ne doivent pas couper quand le réseau est chargé.",
       actions: ["Création et configuration des postes dans 3CX", "Groupes d'appel et files d'attente par service", "Horaires d'ouverture et renvois", "VLAN voix sur les ports des switchs (téléphone + PC sur la même prise)", "Priorité donnée à la voix (QoS)", "Sauvegardes et mises à jour du serveur"],
       tools: ['3CX', 'Téléphones IP', 'VLAN', 'QoS'],
       result: "Les téléphones prennent le bon réseau dès le branchement et les appels restent clairs.",
-      skills: ['Mettre à disposition des services', 'Répondre aux incidents']
+      skills: [B1.service, B1.incidents]
     },
     {
-      id: 'att-ad', c: 'attineos', g: ['entreprise'], icon: 'users', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
+      id: 'att-ad', block: 'entreprise', g: ['entreprise'], c: 'attineos', icon: 'users', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
       title: 'Organisation de l\'Active Directory et des GPO',
       sum: "Un annuaire clair, des droits donnés par groupes, et les bons réglages appliqués aux postes par GPO.",
       contexte: "Avec le temps, un annuaire devient désordonné. Le but : comprendre en quelques secondes ce qui s'applique à un poste ou à un utilisateur.",
       actions: ["Arborescence claire d'unités d'organisation (bureaux, ateliers, utilisateurs, groupes)", "Droits sur les partages donnés par groupes", "GPO pour les lecteurs réseau et les imprimantes", "GPO de sécurité, restrictions sur les postes d'atelier", "Tests sur quelques postes avant de généraliser", "Vérification avec gpresult et sauvegarde des GPO"],
       tools: ['Active Directory', 'GPO', 'Windows Server', 'PowerShell'],
       result: "Un annuaire lisible et des problèmes de GPO réglés en quelques minutes.",
-      skills: ['Gérer le patrimoine informatique', 'Mettre à disposition des services']
+      skills: [B1.patrimoine, B1.service]
     },
     {
-      id: 'att-zebra', c: 'attineos', g: ['entreprise'], icon: 'printer', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
+      id: 'att-zebra', block: 'entreprise', g: ['entreprise'], c: 'attineos', icon: 'printer', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
       title: 'Imprimantes thermiques Zebra et MPrint en production',
       sum: "Paramétrer et dépanner les imprimantes d'étiquettes des lignes de production.",
       contexte: "Sur les lignes, les étiquettes servent à identifier et suivre les produits : une imprimante en panne ralentit la production. Il faut des réglages identiques partout et un remplacement rapide.",
       actions: ["Adresse IP fixe et nommage clair pour chaque imprimante", "Installation des pilotes et des files d'impression", "Réglages identiques (vitesse, contraste, type d'étiquette)", "Calibrage après un changement de rouleau", "Fiche de remplacement rapide pour l'équipe"],
       tools: ['Zebra', 'MPrint', 'Impression réseau', 'Windows Server'],
       result: "Moins d'arrêts sur les lignes et des imprimantes remplacées rapidement.",
-      skills: ['Répondre aux incidents', 'Gérer le patrimoine informatique']
+      skills: [B1.incidents, B1.patrimoine]
     },
     {
-      id: 'arm-postes', c: 'armatis', g: ['entreprise'], icon: 'monitor', tag: 'Armatis · alternance', date: '2024 → 2026',
+      id: 'arm-postes', block: 'entreprise', g: ['entreprise'], c: 'armatis', icon: 'monitor', tag: 'Armatis · alternance', date: '2024 → 2026',
       title: 'Préparation et déploiement des postes Windows 11',
       sum: "Préparer les postes des nouveaux arrivants et remplacer le matériel des conseillers.",
       contexte: "Sur un site de plusieurs centaines de personnes, il y a sans cesse des arrivées, des départs et du matériel à remplacer. Les conseillers ont besoin d'un poste prêt tout de suite.",
       actions: ["Installation et configuration de Windows 11", "Outils métiers, téléphonie et bureautique", "Jonction au domaine et vérification des GPO", "Comptes dans l'Active Directory", "Remise du poste et explications à l'utilisateur", "Suivi du matériel et du stock"],
       tools: ['Windows 11', 'Active Directory', 'GPO', 'Téléphonie IP'],
       result: "Des postes prêts à l'emploi et une bonne connaissance du parc.",
-      skills: ['Mettre à disposition des services', 'Gérer le patrimoine informatique']
+      skills: [B1.service, B1.patrimoine]
     },
     {
-      id: 'arm-reseau', c: 'armatis', g: ['entreprise'], icon: 'cable', tag: 'Armatis · alternance', date: '2024 → 2026',
+      id: 'arm-reseau', block: 'entreprise', g: ['entreprise'], c: 'armatis', icon: 'cable', tag: 'Armatis · alternance', date: '2024 → 2026',
       title: 'Réseau du site : brassage, VLAN et dépannage',
       sum: "Brasser, vérifier les ports des switchs et trouver pourquoi un poste ou un téléphone n'a plus de réseau.",
       contexte: "Beaucoup d'incidents viennent du réseau : câble débranché, mauvais VLAN, prise non brassée. Il faut diagnostiquer vite pour que les conseillers reprennent leurs appels.",
       actions: ["Brassage dans la baie", "Tests de câbles et de connexion", "Vérification des ports et des VLAN", "Diagnostic avec ping, ipconfig, tracert", "Suivi avec l'équipe réseau si besoin"],
       tools: ['Switchs', 'VLAN', 'Câblage RJ45'],
       result: "Des incidents réseau réglés sur place, rapidement.",
-      skills: ['Répondre aux incidents']
+      skills: [B1.incidents]
     },
     {
-      id: 'stage-chauvin', c: 'stage', g: ['entreprise'], icon: 'shield', tag: 'Stage · Chauvin-Arnoux Group', date: 'Mars → avril 2023',
+      id: 'stage-chauvin', block: 'entreprise', g: ['entreprise'], c: 'stage', icon: 'shield', tag: 'Stage · Chauvin-Arnoux Group', date: 'Mars → avril 2023',
       title: 'Déploiement avec MDT, chiffrement de disques et RAID',
       sum: "Mon premier contact avec le déploiement automatique, le chiffrement des disques et les VLAN.",
-      contexte: "Stage de deux mois au service informatique de Chauvin-Arnoux Group, à Reux, pendant mon Bac Pro.",
+      contexte: "Stage de deux mois au service informatique de Chauvin-Arnoux Group, à Reux, pendant ma terminale de Bac Pro.",
       actions: ["Chiffrement et sécurisation des disques", "Mise en route d'un RAID", "Déploiement de postes avec MDT", "Configuration de VLAN sur les switchs", "Support N1 et N2"],
       tools: ['MDT', 'Chiffrement', 'RAID', 'VLAN'],
       result: "Une première vraie expérience qui m'a donné envie de continuer dans l'infrastructure.",
-      skills: ['Mettre à disposition des services']
+      skills: [BAC.config, BAC.depannage]
     },
     {
-      id: 'stage-ccf', c: 'stage', g: ['entreprise'], icon: 'chart', tag: 'Stage · CC Cœur Côte Fleurie', date: 'Nov. → déc. 2022',
+      id: 'stage-ccf', block: 'entreprise', g: ['entreprise'], c: 'stage', icon: 'chart', tag: 'Stage · CC Cœur Côte Fleurie', date: 'Nov. → déc. 2022',
       title: 'Installation de Zabbix pour superviser le réseau',
       sum: "Zabbix installé pour surveiller les équipements réseau de la communauté de communes.",
       contexte: "Stage de deux mois à Deauville. C'est ici que j'ai découvert la supervision, qui m'a mené à mon projet E6 puis à NetCockpit.",
       actions: ["Installation et configuration de Zabbix", "Ajout des équipements réseau", "Installation de postes", "Brassage de prises réseau"],
       tools: ['Zabbix', 'Linux', 'Réseau'],
       result: "Un outil de supervision en place, et le point de départ de mes projets de supervision.",
-      skills: ['Gérer le patrimoine informatique']
+      skills: [BAC.config, BAC.install]
     },
+
+    /* ===================== BTS SIO SISR ===================== */
     {
-      id: 'e6-ansible', c: 'bts', g: ['bts'], icon: 'cog', tag: 'BTS SIO · épreuve E6', date: 'BTS SIO · 2e année',
+      id: 'e6-ansible', block: 'bts', g: ['bts'], c: 'bts', icon: 'cog', tag: 'BTS SIO · épreuve E6', date: '2e année · 2025-2026',
       title: 'Déployer des serveurs avec Ansible sur Proxmox',
       sum: "Une seule commande pour installer et configurer trois serveurs de jeu Minecraft en même temps, sans rien faire à la main.",
       img: 'ansible-playbook.png', imgAlt: 'Exécution du playbook Ansible',
@@ -337,11 +359,11 @@
       actions: ["Trois machines virtuelles Debian sur Proxmox VE", "Ansible sur une machine de contrôle, connexion SSH par clé", "Inventaire des serveurs en YAML", "Playbook : Java, utilisateur dédié, fichiers, service", "Modules apt, user, copy et systemd", "Relancer le playbook ne change rien si tout est déjà en place"],
       tools: ['Ansible', 'Proxmox VE', 'Debian', 'SSH', 'YAML'],
       result: "Les trois serveurs installés en une commande, recréables à l'identique.",
-      skills: ['Mettre à disposition des services', 'Travailler en mode projet'],
+      skills: [B1.service, B1.projet],
       links: [{ href: 'Ansible_E6.docx', label: 'Dossier E6 (.docx)', ic: 'file', dl: true }]
     },
     {
-      id: 'e6-zabbix', c: 'bts', g: ['bts'], icon: 'chart', tag: 'BTS SIO · épreuve E6', date: 'BTS SIO · né d\'un besoin chez Armatis',
+      id: 'e6-zabbix', block: 'bts', g: ['bts'], c: 'bts', icon: 'chart', tag: 'BTS SIO · épreuve E6', date: '2e année · né d\'un besoin chez Armatis',
       title: 'Serveur de supervision Zabbix + Grafana',
       sum: "Surveiller les serveurs (processeur, mémoire, disque, réseau) et recevoir une alerte avant que la panne ne gêne les utilisateurs.",
       img: 'grafana-dashboard.png', imgAlt: 'Tableau de bord Grafana',
@@ -349,117 +371,290 @@
       actions: ["Zabbix 7.0 sur Debian 12 avec Apache, PHP et MariaDB", "Agent Zabbix sur les serveurs", "Collecte processeur, mémoire, disque et réseau", "Alertes sur seuil ou service arrêté", "Grafana connecté à Zabbix", "Tableaux de bord lisibles d'un coup d'œil"],
       tools: ['Zabbix 7.0', 'Grafana', 'Debian 12', 'MariaDB'],
       result: "Des serveurs surveillés en permanence et des alertes avant les utilisateurs.",
-      skills: ['Gérer le patrimoine informatique', 'Répondre aux incidents'],
+      skills: [B1.patrimoine, B1.incidents],
       links: [{ href: 'Grafana-Zabbix_E6.docx', label: 'Dossier E6 (.docx)', ic: 'file', dl: true }]
     },
     {
-      id: 'bts-glpi', c: 'bts', g: ['bts'], icon: 'list', tag: 'BTS SIO · atelier', date: 'BTS SIO',
+      id: 'bts-ad', block: 'bts', g: ['bts'], c: 'bts', icon: 'users', tag: 'BTS SIO · atelier', date: '1re année · 2024-2025',
+      title: 'Infrastructure Windows d\'une PME : AD, DNS, DHCP et GPO',
+      sum: "Monter de zéro le réseau Windows d'une PME fictive : domaine, services réseau, comptes et stratégies de groupe.",
+      contexte: "Premier gros atelier du BTS : une PME de 40 personnes réparties en services, avec un cahier des charges à respecter (nommage, droits, partages).",
+      actions: ["Installation de deux Windows Server en machines virtuelles", "Création du domaine Active Directory et du DNS", "DHCP avec réservations pour les imprimantes", "Unités d'organisation et groupes par service", "Création des comptes à partir d'un fichier CSV en PowerShell", "GPO : fond d'écran, lecteurs réseau, mot de passe, verrouillage"],
+      tools: ['Windows Server 2022', 'Active Directory', 'DNS', 'DHCP', 'GPO', 'PowerShell'],
+      result: "Un domaine complet et documenté, prêt à accueillir les postes clients.",
+      skills: [B1.service, B1.patrimoine]
+    },
+    {
+      id: 'bts-glpi', block: 'bts', g: ['bts'], c: 'bts', icon: 'list', tag: 'BTS SIO · atelier', date: '1re année · 2024-2025',
       title: 'Gestion de parc et tickets avec GLPI',
       sum: "GLPI sur Debian pour l'inventaire et les tickets, avec remontée automatique des postes.",
       contexte: "En atelier, il fallait un outil de gestion de parc et d'assistance comme en entreprise.",
       actions: ["Apache, PHP et MariaDB sur Debian", "Installation de GLPI, HTTPS, comptes par défaut changés", "Agent GLPI sur les postes pour l'inventaire automatique", "Connexion à l'Active Directory", "Catégories de tickets et test d'un parcours complet"],
       tools: ['GLPI', 'Debian', 'MariaDB', 'Active Directory'],
       result: "Un inventaire à jour sans saisie et un outil de tickets prêt à l'emploi.",
-      skills: ['Gérer le patrimoine informatique', 'Répondre aux incidents']
+      skills: [B1.patrimoine, B1.incidents]
     },
     {
-      id: 'bts-pfsense', c: 'bts', g: ['bts'], icon: 'shield', tag: 'BTS SIO · atelier', date: 'BTS SIO',
+      id: 'bts-pfsense', block: 'bts', g: ['bts'], c: 'bts', icon: 'shield', tag: 'BTS SIO · atelier', date: '1re année · 2024-2025',
       title: 'Pare-feu pfSense avec VLAN, portail captif et VPN',
       sum: "Séparer le réseau en VLAN derrière pfSense, filtrer, isoler les invités et donner un accès VPN.",
       contexte: "Sur la maquette, tout le monde pouvait parler à tout le monde. Le but : séparer les usages et n'autoriser que le nécessaire.",
       actions: ["pfSense en machine virtuelle", "VLAN administration, serveurs, DMZ, postes et invités", "Règles : tout bloqué sauf l'utile", "Portail captif pour les invités", "OpenVPN pour l'accès à distance", "Test de chaque règle"],
       tools: ['pfSense', 'VLAN', 'OpenVPN', 'Portail captif'],
       result: "Un réseau segmenté, des invités isolés et un accès distant sécurisé.",
-      skills: ['Mettre à disposition des services', 'Travailler en mode projet']
+      skills: [B1.service, B1.projet]
     },
     {
-      id: 'bts-wazuh', c: 'bts', g: ['bts'], icon: 'shield', tag: 'BTS SIO · atelier', date: 'BTS SIO',
+      id: 'bts-ipsec', block: 'bts', g: ['bts'], c: 'bts', icon: 'route', tag: 'BTS SIO · atelier', date: '2e année · 2025-2026',
+      title: 'Relier deux sites avec un VPN IPsec',
+      sum: "Faire communiquer le siège et une agence comme s'ils étaient sur le même réseau, à travers Internet et en chiffré.",
+      contexte: "La PME de l'atelier ouvre une agence : les salariés de l'agence doivent accéder aux serveurs du siège (AD, fichiers, GLPI).",
+      actions: ["Un pfSense sur chaque site", "Tunnel IPsec entre les deux (phases 1 et 2)", "Règles de filtrage sur le tunnel", "DNS de l'agence redirigé vers le contrôleur de domaine du siège", "Tests : ouverture de session, partages, coupure et reprise du tunnel"],
+      tools: ['pfSense', 'IPsec', 'Routage', 'Active Directory'],
+      result: "L'agence travaille sur les serveurs du siège de façon transparente et sécurisée.",
+      skills: [B1.service, B1.incidents]
+    },
+    {
+      id: 'bts-redondance', block: 'bts', g: ['bts'], c: 'bts', icon: 'network', tag: 'BTS SIO · atelier', date: '2e année · 2025-2026',
+      title: 'Réseau redondant : agrégation de liens et passerelle de secours',
+      sum: "Faire en sorte que la coupure d'un câble ou d'un équipement ne coupe pas le réseau.",
+      contexte: "Sur la maquette Cisco, un seul câble ou un seul routeur en panne suffisait à tout arrêter. Le but était de supprimer ces points uniques.",
+      actions: ["Deux switchs de cœur reliés par deux câbles agrégés (LACP)", "Spanning-tree réglé pour éviter les boucles", "Passerelle de secours avec HSRP entre deux routeurs", "Tests en débranchant les câbles et en éteignant un routeur", "Mesure du temps de coupure"],
+      tools: ['Cisco', 'LACP', 'Spanning-tree', 'HSRP', 'VLAN'],
+      result: "Un réseau qui continue de fonctionner quand un lien ou un routeur tombe.",
+      skills: [B1.service, B1.incidents]
+    },
+    {
+      id: 'bts-sauvegarde', block: 'bts', g: ['bts'], c: 'bts', icon: 'hdd', tag: 'BTS SIO · atelier', date: '2e année · 2025-2026',
+      title: 'Sauvegardes et plan de reprise d\'activité',
+      sum: "Mettre en place la règle 3-2-1 et prouver qu'on sait tout remettre en route après une panne.",
+      contexte: "Une sauvegarde qu'on n'a jamais testée ne vaut rien. L'atelier demandait une stratégie complète et un test de restauration chronométré.",
+      actions: ["Sauvegardes des VM avec Proxmox Backup Server", "Sauvegarde des postes et des fichiers sur un NAS", "Copie hors site d'une partie des sauvegardes", "Planification et rétention (jours, semaines, mois)", "Test de restauration complète d'un serveur", "Rédaction du plan de reprise d'activité"],
+      tools: ['Proxmox Backup Server', 'NAS', 'Règle 3-2-1', 'PRA'],
+      result: "Des sauvegardes vérifiées et un serveur restauré en suivant la procédure.",
+      skills: [B1.patrimoine, B1.incidents]
+    },
+    {
+      id: 'bts-wazuh', block: 'bts', g: ['bts'], c: 'bts', icon: 'shield', tag: 'BTS SIO · atelier', date: '2e année · 2025-2026',
       title: 'Détection d\'intrusions avec Wazuh',
       sum: "Centraliser les journaux de sécurité des serveurs Windows et Linux, et être alerté en cas d'attaque.",
       contexte: "Sur la maquette, les journaux étaient éparpillés et personne ne les lisait. Wazuh les rassemble et met en avant ce qui est anormal.",
       actions: ["Installation de Wazuh sur Debian", "Agents sur les serveurs Windows et Linux", "Journaux de sécurité Windows et Sysmon", "Alerte quand un compte est ajouté aux administrateurs du domaine", "Blocage automatique d'une attaque par force brute SSH", "Tests en provoquant chaque détection"],
       tools: ['Wazuh', 'Debian', 'Windows Server', 'Sysmon'],
       result: "Les événements de sécurité au même endroit et des alertes vérifiées.",
-      skills: ['Répondre aux incidents', 'Gérer le patrimoine informatique']
+      skills: [B1.incidents, B1.patrimoine]
     },
     {
-      id: 'bts-galera', c: 'bts', g: ['bts'], icon: 'database', tag: 'BTS SIO · atelier', date: 'BTS SIO',
+      id: 'bts-galera', block: 'bts', g: ['bts'], c: 'bts', icon: 'database', tag: 'BTS SIO · atelier', date: '2e année · 2025-2026',
       title: 'Base de données toujours disponible (MariaDB Galera)',
       sum: "Trois serveurs MariaDB qui restent identiques, pour qu'une application continue de marcher si un serveur tombe.",
       contexte: "Une seule base de données, c'est un seul point de panne. L'atelier portait sur la haute disponibilité.",
-      actions: ["MariaDB et Galera sur trois serveurs Debian", "Réplication entre les trois serveurs", "Une adresse unique pour l'application (HAProxy + keepalived)", "Tests : arrêt d'un serveur, coupure réseau, redémarrage complet", "Procédure de remise en route"],
+      actions: ["MariaDB et Galera sur trois serveurs Debian", "Réplication entre les trois serveurs", "Une adresse unique pour l'application (HAProxy)", "Tests : arrêt d'un serveur, coupure réseau, redémarrage complet", "Procédure de remise en route"],
       tools: ['MariaDB', 'Galera', 'HAProxy', 'Debian'],
       result: "L'application continue de fonctionner quand un serveur s'arrête.",
-      skills: ['Mettre à disposition des services', 'Travailler en mode projet']
+      skills: [B1.service, B1.projet]
     },
     {
-      id: 'perso-lab', c: 'perso', g: ['perso'], icon: 'server', tag: 'Homelab', date: 'En continu',
+      id: 'bts-web', block: 'bts', g: ['bts'], c: 'bts', icon: 'globe', tag: 'BTS SIO · atelier', date: '1re année · 2024-2025',
+      title: 'Serveur web sécurisé en DMZ',
+      sum: "Publier le site de la PME sur Internet sans mettre en danger le réseau interne.",
+      contexte: "Le site vitrine de la PME devait être accessible depuis Internet. Il fallait l'isoler dans une DMZ et le protéger correctement.",
+      actions: ["Serveur Debian avec Nginx dans la DMZ", "Certificat HTTPS et redirection du HTTP", "Redirection de port sur pfSense, aucun accès de la DMZ vers le LAN", "Utilisateur dédié, droits minimum sur les fichiers du site", "Fail2ban et mises à jour automatiques de sécurité"],
+      tools: ['Debian', 'Nginx', 'HTTPS', 'pfSense', 'Fail2ban'],
+      result: "Un site en ligne, en HTTPS, isolé du réseau interne.",
+      skills: [B1.web, B1.service]
+    },
+
+    /* ===================== BAC PRO SN option C (RISC) ===================== */
+    {
+      id: 'bac-chef-oeuvre', block: 'bacpro', g: ['bacpro'], c: 'bacpro', icon: 'star', tag: 'Bac Pro SN · chef-d\'œuvre', date: 'Première et terminale · 2021-2023',
+      title: 'Chef-d\'œuvre : le réseau complet d\'une petite entreprise',
+      sum: "Le projet de groupe sur deux ans : concevoir, câbler, configurer et présenter le réseau d'une entreprise fictive.",
+      contexte: "Le chef-d'œuvre est le grand projet du Bac Pro. Avec mon groupe, on a imaginé une petite entreprise de 15 personnes et on a construit son réseau de A à Z, puis on l'a présenté devant un jury.",
+      actions: ["Recueil du besoin et choix du matériel avec un budget", "Plan du réseau et plan d'adressage IP", "Câblage de la baie et des prises", "Configuration du switch, du routeur et de la borne Wi-Fi", "Serveur de fichiers et imprimante partagée", "Dossier technique et présentation orale"],
+      tools: ['Cisco', 'Câblage', 'Wi-Fi', 'Windows Server', 'Gestion de projet'],
+      result: "Un réseau qui fonctionne de bout en bout, présenté et défendu devant le jury.",
+      skills: [BAC.install, BAC.config, BAC.recette, BAC.doc]
+    },
+    {
+      id: 'bac-baie', block: 'bacpro', g: ['bacpro'], c: 'bacpro', icon: 'cable', tag: 'Bac Pro SN · TP', date: 'Seconde · 2020-2021',
+      title: 'Câblage d\'une baie de brassage et recette',
+      sum: "Monter une baie, poser et sertir les câbles, puis tester chaque lien avant la mise en service.",
+      contexte: "Premier gros TP de câblage : équiper une salle de six postes, de la baie jusqu'aux prises murales.",
+      actions: ["Montage de la baie : panneau de brassage, switch, passe-câbles", "Pose des câbles et raccordement des prises RJ45", "Sertissage selon la norme T568B", "Tests de continuité avec un testeur de câbles", "Étiquetage et cahier de recette"],
+      tools: ['Baie 19 pouces', 'RJ45', 'Testeur de câbles', 'Norme T568B'],
+      result: "Six prises fonctionnelles, étiquetées et validées par le cahier de recette.",
+      skills: [BAC.install, BAC.recette, BAC.doc]
+    },
+    {
+      id: 'bac-cisco', block: 'bacpro', g: ['bacpro'], c: 'bacpro', icon: 'network', tag: 'Bac Pro SN · TP', date: 'Première · 2021-2022',
+      title: 'Maquette Cisco : VLAN et routage',
+      sum: "Configurer des switchs et un routeur Cisco pour séparer le réseau en VLAN et les faire communiquer.",
+      contexte: "TP sur une maquette de trois switchs et un routeur : séparer l'administration, les élèves et les serveurs.",
+      actions: ["Configuration de base : nom, mots de passe, accès console", "Création des VLAN et affectation des ports", "Liaison entre switchs en trunk", "Routage entre les VLAN sur le routeur", "Sauvegarde des configurations et tests de ping"],
+      tools: ['Cisco IOS', 'VLAN', 'Trunk', 'Routage'],
+      result: "Trois réseaux séparés qui communiquent seulement par le routeur.",
+      skills: [BAC.config, BAC.recette]
+    },
+    {
+      id: 'bac-video', block: 'bacpro', g: ['bacpro'], c: 'bacpro', icon: 'monitor', tag: 'Bac Pro SN · TP', date: 'Première · 2021-2022',
+      title: 'Vidéosurveillance IP avec caméras PoE',
+      sum: "Installer des caméras IP alimentées par le câble réseau et un enregistreur, sur un réseau séparé.",
+      contexte: "Projet de mise en service d'un système de vidéosurveillance pour l'entrée d'un bâtiment fictif.",
+      actions: ["Choix et pose de trois caméras IP", "Alimentation par le switch PoE", "VLAN dédié aux caméras", "Configuration de l'enregistreur (NVR) et des plages d'enregistrement", "Accès à distance en lecture seule et test de relecture"],
+      tools: ['Caméras IP', 'PoE', 'NVR', 'VLAN'],
+      result: "Les trois caméras enregistrent et sont consultables, isolées du reste du réseau.",
+      skills: [BAC.install, BAC.config, BAC.recette]
+    },
+    {
+      id: 'bac-wifi', block: 'bacpro', g: ['bacpro'], c: 'bacpro', icon: 'radar', tag: 'Bac Pro SN · TP', date: 'Terminale · 2022-2023',
+      title: 'Wi-Fi avec un réseau personnel et un réseau invités',
+      sum: "Mettre en service une borne Wi-Fi avec deux réseaux séparés : un pour le personnel, un pour les visiteurs.",
+      contexte: "Les visiteurs devaient avoir Internet sans jamais voir les ordinateurs du personnel.",
+      actions: ["Installation et alimentation de la borne", "Deux réseaux Wi-Fi (SSID), chacun sur son VLAN", "Sécurité WPA2 pour le personnel", "Isolation du réseau invités", "Mesures de couverture dans les salles"],
+      tools: ['Borne Wi-Fi', 'WPA2', 'VLAN', 'PoE'],
+      result: "Deux Wi-Fi qui fonctionnent, et des invités isolés du réseau interne.",
+      skills: [BAC.config, BAC.recette]
+    },
+    {
+      id: 'bac-toip', block: 'bacpro', g: ['bacpro'], c: 'bacpro', icon: 'phone', tag: 'Bac Pro SN · TP', date: 'Terminale · 2022-2023',
+      title: 'Téléphonie IP avec Asterisk',
+      sum: "Installer un petit standard téléphonique sur Linux et faire sonner des téléphones IP.",
+      contexte: "Découverte de la téléphonie sur IP : remplacer un vieux standard par une solution logicielle.",
+      actions: ["Installation d'Asterisk sur Debian", "Création des comptes pour chaque poste", "Configuration des téléphones IP et d'un logiciel sur PC", "Appels entre postes et messagerie vocale", "Analyse des échanges avec Wireshark"],
+      tools: ['Asterisk', 'Debian', 'SIP', 'Wireshark'],
+      result: "Des appels entre postes et une messagerie vocale qui fonctionnent.",
+      skills: [BAC.install, BAC.config]
+    },
+    {
+      id: 'bac-serveur', block: 'bacpro', g: ['bacpro'], c: 'bacpro', icon: 'server', tag: 'Bac Pro SN · TP', date: 'Terminale · 2022-2023',
+      title: 'Premier serveur : domaine, DHCP et partage de fichiers',
+      sum: "Installer un Windows Server pour une salle de TP : comptes, adresses IP automatiques et dossiers partagés.",
+      contexte: "Ma première installation de serveur : une salle de 12 postes qui devait se connecter avec des comptes élèves.",
+      actions: ["Installation de Windows Server", "Domaine Active Directory et comptes élèves", "Serveur DHCP pour les adresses IP", "Dossier partagé par classe avec des droits", "Jonction des postes au domaine"],
+      tools: ['Windows Server', 'Active Directory', 'DHCP', 'Partages'],
+      result: "Les élèves se connectent avec leur compte et retrouvent leurs fichiers sur tous les postes.",
+      skills: [BAC.install, BAC.config]
+    },
+    {
+      id: 'bac-maintenance', block: 'bacpro', g: ['bacpro'], c: 'bacpro', icon: 'tool', tag: 'Bac Pro SN · atelier', date: 'Seconde → terminale · 2020-2023',
+      title: 'Atelier maintenance : diagnostic et réparation de PC',
+      sum: "Démonter, diagnostiquer et réparer des ordinateurs, puis réinstaller le système.",
+      contexte: "Tout au long du Bac Pro, on remettait en état des PC donnés au lycée pour les réutiliser.",
+      actions: ["Diagnostic des pannes (alimentation, mémoire, disque)", "Remplacement de composants", "Passage des disques durs vers des SSD", "Installation de Windows et des pilotes", "Fiche d'intervention pour chaque PC"],
+      tools: ['Matériel PC', 'SSD', 'Windows', 'Fiches d\'intervention'],
+      result: "Des PC remis en service et les bons réflexes de diagnostic.",
+      skills: [BAC.depannage, BAC.doc]
+    },
+
+    /* ===================== PERSO & HOMELAB ===================== */
+    {
+      id: 'perso-lab', block: 'perso', g: ['perso'], c: 'perso', icon: 'server', tag: 'Homelab', date: 'En continu',
       title: 'Mon homelab Proxmox',
       sum: "Un serveur Proxmox chez moi pour tester avant de faire en vrai : Active Directory, Linux, supervision, déploiement, NetCockpit.",
       contexte: "Pour progresser, il faut pouvoir casser et recommencer sans risque. Mon lab me sert à m'entraîner et à préparer chaque nouvelle version de NetCockpit.",
       actions: ["Proxmox VE sur un PC reconditionné", "VM Windows Server et Debian, domaine Active Directory de test", "Réseau découpé en VLAN derrière pfSense", "Sauvegardes avec Proxmox Backup Server", "Snapshots avant chaque test", "NetCockpit pour superviser tout le lab"],
       tools: ['Proxmox VE', 'pfSense', 'Windows Server', 'Debian', 'PBS'],
       result: "Un terrain d'entraînement complet, sans risque pour une vraie infrastructure.",
-      skills: ['Organiser son développement professionnel']
+      skills: [B1.dev]
     },
     {
-      id: 'perso-docker', c: 'perso', g: ['perso'], icon: 'box', tag: 'Homelab', date: 'En continu',
+      id: 'perso-docker', block: 'perso', g: ['perso'], c: 'perso', icon: 'box', tag: 'Homelab', date: 'En continu',
       title: 'Services auto-hébergés sous Docker',
       sum: "Quelques services perso dans des conteneurs, derrière Nginx Proxy Manager avec des certificats HTTPS automatiques.",
       contexte: "Je voulais apprendre Docker sur des services que j'utilise vraiment, proprement : un dossier par service et un seul point d'entrée en HTTPS.",
       actions: ["Un fichier Docker Compose par service", "Nginx Proxy Manager comme seul point d'entrée", "Certificats Let's Encrypt automatiques", "Interface d'administration accessible seulement en local", "Mises à jour des images après lecture des changements"],
       tools: ['Docker', 'Docker Compose', 'Nginx Proxy Manager', "Let's Encrypt"],
       result: "Des services propres, faciles à mettre à jour et à sauvegarder.",
-      skills: ['Mettre à disposition des services', 'Organiser son développement professionnel']
+      skills: [B1.service, B1.dev]
     },
     {
-      id: 'perso-fichiers', c: 'perso', g: ['perso'], icon: 'hdd', tag: 'Homelab', date: 'En continu',
+      id: 'perso-pihole', block: 'perso', g: ['perso'], c: 'perso', icon: 'shield', tag: 'Homelab', date: 'En continu',
+      title: 'Filtrage DNS de la maison avec Pi-hole',
+      sum: "Bloquer les publicités et les sites malveillants pour tous les appareils de la maison, sans rien installer dessus.",
+      contexte: "Un bon moyen de comprendre le DNS en pratique, avec un vrai bénéfice au quotidien.",
+      actions: ["Pi-hole dans un conteneur LXC", "Unbound pour résoudre les noms sans passer par un fournisseur", "Distribution du DNS par le DHCP", "Listes de blocage et liste blanche", "Statistiques et journal des requêtes"],
+      tools: ['Pi-hole', 'Unbound', 'DNS', 'LXC'],
+      result: "Moins de publicités et de traqueurs sur tout le réseau, et une bonne maîtrise du DNS.",
+      skills: [B1.dev]
+    },
+    {
+      id: 'perso-wireguard', block: 'perso', g: ['perso'], c: 'perso', icon: 'lock', tag: 'Homelab', date: 'En continu',
+      title: 'Accès à distance au lab avec WireGuard',
+      sum: "Me connecter à mon homelab depuis l'extérieur, en toute sécurité, sans ouvrir les interfaces d'administration sur Internet.",
+      contexte: "Je voulais administrer mon lab depuis mon téléphone ou un autre PC, sans exposer Proxmox ou pfSense.",
+      actions: ["Serveur WireGuard sur pfSense", "Une clé par appareil, révocable individuellement", "Accès limité au réseau d'administration", "Configuration par QR code sur le téléphone", "Tests de connexion en 4G"],
+      tools: ['WireGuard', 'pfSense', 'VPN'],
+      result: "Un accès distant simple et sécurisé, et aucun service d'administration exposé.",
+      skills: [B1.service, B1.dev]
+    },
+    {
+      id: 'perso-fichiers', block: 'perso', g: ['perso'], c: 'perso', icon: 'folder', tag: 'Homelab', date: 'En continu',
       title: 'Serveur de fichiers Windows (DFS, quotas, clichés)',
       sum: "Un serveur de fichiers comme en entreprise : partages par service, quotas, versions précédentes et droits par groupes.",
       contexte: "Pour bien comprendre les partages que je gère au travail, j'en ai monté un complet sur mon lab.",
       actions: ["Partages regroupés sous un seul chemin (DFS)", "Droits NTFS par groupes, chacun ne voit que ses dossiers", "Quotas par service avec FSRM", "Clichés instantanés pour restaurer un fichier", "Lecteurs connectés par GPO"],
       tools: ['Windows Server', 'DFS', 'FSRM', 'NTFS', 'GPO'],
       result: "Un serveur de fichiers propre et une restauration de fichier en quelques clics.",
-      skills: ['Mettre à disposition des services']
+      skills: [B1.service]
     },
     {
-      id: 'perso-portfolio', c: 'perso', g: ['perso'], icon: 'globe', tag: 'Projet perso · web', date: '2026',
+      id: 'perso-powershell', block: 'perso', g: ['perso'], c: 'perso', icon: 'terminal', tag: 'Projet perso · scripts', date: 'En continu',
+      title: 'Boîte à outils PowerShell',
+      sum: "Des petits scripts qui me font gagner du temps : création de comptes, inventaire des postes, nettoyage.",
+      contexte: "Dès qu'une tâche revient souvent, j'essaie de l'automatiser. J'ai regroupé mes scripts pour les réutiliser et les améliorer.",
+      actions: ["Création de comptes AD à partir d'un fichier CSV", "Inventaire des postes (modèle, numéro de série, espace disque) vers un CSV", "Liste des comptes inactifs à désactiver", "Nettoyage des fichiers temporaires", "Mode simulation avant chaque action"],
+      tools: ['PowerShell', 'Active Directory', 'CSV'],
+      result: "Des tâches de plusieurs minutes faites en quelques secondes, sans erreur de saisie.",
+      skills: [B1.patrimoine, B1.dev]
+    },
+    {
+      id: 'perso-rootme', block: 'perso', g: ['perso'], c: 'perso', icon: 'target', tag: 'Projet perso · sécurité', date: 'En continu',
+      title: 'Challenges de sécurité sur Root-Me',
+      sum: "M'entraîner à la cybersécurité de façon légale : réseau, web, systèmes, analyse de captures.",
+      contexte: "Pour bien protéger un système, il faut comprendre comment on l'attaque. Root-Me propose des challenges encadrés pour apprendre.",
+      actions: ["Challenges réseau : analyse de trames, protocoles", "Challenges web : failles courantes", "Challenges système : droits, services mal configurés", "Notes sur chaque technique apprise"],
+      tools: ['Root-Me', 'Wireshark', 'Linux', 'Burp Suite'],
+      result: "De meilleurs réflexes pour repérer une mauvaise configuration au travail.",
+      skills: [B1.dev],
+      links: [{ href: 'https://www.root-me.org/B2ZO', label: 'Mon profil Root-Me', ic: 'external' }]
+    },
+    {
+      id: 'perso-portfolio', block: 'perso', g: ['perso'], c: 'perso', icon: 'globe', tag: 'Projet perso · web', date: '2026',
       title: 'Ce portfolio, enzomarechal.fr',
       sum: "Le site que tu regardes : HTML, CSS et JavaScript sans framework, hébergé sur GitHub Pages avec mon nom de domaine.",
       contexte: "Je voulais un site à mon image, dans le même style que NetCockpit, qui fonctionne même sans connexion et sans dépendance externe.",
       actions: ["Pages en HTML, CSS et JavaScript, sans bibliothèque", "Thèmes jour et nuit, adapté au téléphone", "Hébergement GitHub Pages et nom de domaine personnel", "Fil de veille en direct (CERT-FR, IT-Connect)"],
       tools: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
       result: "Un portfolio rapide, lisible et facile à mettre à jour.",
-      skills: ['Développer la présence en ligne'],
+      skills: [B1.web],
       links: [{ href: 'https://github.com/B2ZO0/B2ZO0.github.io', label: 'Code source', ic: 'github' }]
-    },
-    {
-      id: 'bac-cisco', c: 'bacpro', g: ['perso'], icon: 'network', tag: 'Bac Pro SN · TP', date: '2020 → 2023',
-      title: 'Maquette réseau Cisco et câblage',
-      sum: "Câbler une baie, sertir des câbles RJ45, puis configurer switchs et routeur Cisco avec des VLAN.",
-      contexte: "Au Bac Pro, les TP partaient du physique (câbles, baie, prises) jusqu'à la configuration des équipements.",
-      actions: ["Montage et câblage d'une baie", "Sertissage RJ45 et tests de continuité", "VLAN sur des switchs Cisco", "Trunk et routage entre VLAN", "Mise en service d'une borne Wi-Fi"],
-      tools: ['Cisco', 'VLAN', 'Câblage RJ45', 'Wi-Fi'],
-      result: "Les bases du réseau, que j'utilise tous les jours.",
-      skills: ['Mettre à disposition des services']
     }
   ];
 
   var state = { group: 'all', q: '' };
 
+  function cardHTML(p) {
+    var shot = p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : '<span class="proj__glyph">' + icon(p.icon) + '</span>';
+    return '<article class="panel proj reveal c-' + p.c + (p.featured ? ' is-featured' : '') + '" tabindex="0" role="button" data-id="' + p.id + '" aria-label="' + esc('Ouvrir la fiche : ' + p.title) + '">' +
+      '<div class="proj__shot">' + shot + '<span class="proj__tag"><span class="lamp"></span>' + esc(p.tag) + '</span></div>' +
+      '<div class="proj__body"><span class="proj__date">' + esc(p.date) + '</span><h3>' + esc(p.title) + '</h3>' +
+      '<p class="proj__sum">' + esc(p.sum) + '</p>' +
+      '<ul class="proj__tools">' + p.tools.slice(0, p.featured ? 8 : 4).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div></article>';
+  }
+
   function renderProjects() {
-    var grid = $('#projectsGrid'), bar = $('#filters');
+    var wrap = $('#projectsGrid'), bar = $('#filters');
     bar.innerHTML = GROUPS.map(function (g, i) {
       var n = g.k === 'all' ? PROJECTS.length : PROJECTS.filter(function (p) { return p.g.indexOf(g.k) > -1; }).length;
       return '<button type="button" data-g="' + g.k + '" class="' + (i ? '' : 'is-on') + '" aria-pressed="' + (!i) + '">' + esc(g.label) + '<span>' + n + '</span></button>';
     }).join('');
-    grid.innerHTML = PROJECTS.map(function (p) {
-      var shot = p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : '<span class="proj__glyph">' + icon(p.icon) + '</span>';
-      return '<article class="panel proj reveal c-' + p.c + (p.featured ? ' is-featured' : '') + '" tabindex="0" role="button" data-id="' + p.id + '" aria-label="' + esc('Ouvrir la fiche : ' + p.title) + '">' +
-        '<div class="proj__shot">' + shot + '<span class="proj__tag"><span class="lamp"></span>' + esc(p.tag) + '</span></div>' +
-        '<div class="proj__body"><span class="proj__date">' + esc(p.date) + '</span><h3>' + esc(p.title) + '</h3>' +
-        '<p class="proj__sum">' + esc(p.sum) + '</p>' +
-        '<ul class="proj__tools">' + p.tools.slice(0, p.featured ? 8 : 4).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div></article>';
+    wrap.innerHTML = BLOCKS.map(function (b) {
+      var list = PROJECTS.filter(function (p) { return p.block === b.k; });
+      return '<div class="pblock" data-block="' + b.k + '">' +
+        '<h3 class="pblock__title"><span class="lamp ' + (b.k === 'phare' ? 'up pulse' : 'violet') + '"></span>' + esc(b.title) +
+        '<small>' + esc(b.sub) + '</small><span class="pblock__count">' + list.length + '</span></h3>' +
+        '<div class="grid grid--3">' + list.map(cardHTML).join('') + '</div></div>';
     }).join('');
     $$('[data-count-projects]').forEach(function (el) { el.setAttribute('data-count', PROJECTS.length); el.textContent = PROJECTS.length; });
 
@@ -470,11 +665,11 @@
       $$('button', bar).forEach(function (x) { x.classList.toggle('is-on', x === b); x.setAttribute('aria-pressed', x === b); });
       applyFilter();
     });
-    grid.addEventListener('click', function (e) {
+    wrap.addEventListener('click', function (e) {
       var c = e.target.closest('.proj');
       if (c) openProject(c.getAttribute('data-id'), c);
     });
-    grid.addEventListener('keydown', function (e) {
+    wrap.addEventListener('keydown', function (e) {
       var c = e.target.closest('.proj');
       if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openProject(c.getAttribute('data-id'), c); }
     });
@@ -491,6 +686,11 @@
       var show = okG && okQ;
       card.classList.toggle('is-hidden', !show);
       if (show) { shown++; card.classList.add('is-visible'); }
+    });
+    $$('.pblock').forEach(function (b) {
+      var n = $$('.proj:not(.is-hidden)', b).length;
+      b.hidden = n === 0;
+      $('.pblock__count', b).textContent = n;
     });
     $('#projCount').textContent = shown + ' projet' + (shown > 1 ? 's' : '') + (q ? ' pour « ' + state.q.trim() + ' »' : '');
     $('#projEmpty').hidden = shown > 0;
@@ -510,7 +710,7 @@
       '<section><h3><i data-i="list"></i>Ce que j\'ai fait</h3><ol class="mp__steps">' + p.actions.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ol></section>' +
       (p.img ? '<figure class="mp__img"><img src="' + esc(p.img) + '" alt="' + esc(p.imgAlt) + '" loading="lazy"><figcaption>' + esc(p.imgAlt) + '</figcaption></figure>' : '') +
       '<section class="mp__result"><h3><i data-i="check"></i>Le résultat</h3><p>' + esc(p.result) + '</p></section>' +
-      '<section><h3><i data-i="star"></i>Compétences BTS SIO mobilisées</h3><ul class="chips">' + p.skills.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></section>' +
+      '<section><h3><i data-i="star"></i>Compétences mobilisées</h3><ul class="chips">' + p.skills.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul></section>' +
       (p.links ? '<div class="mp__links">' + p.links.map(function (l) {
         var ext = /^https?:/.test(l.href);
         return '<a class="btn btn--sm' + (ext ? ' btn--sig' : '') + '" href="' + esc(l.href) + '"' + (l.dl ? ' download' : '') + (ext ? ' target="_blank" rel="noopener"' : '') + (l.local ? ' data-close' : '') + '><i data-i="' + l.ic + '"></i>' + esc(l.label) + '</a>';
