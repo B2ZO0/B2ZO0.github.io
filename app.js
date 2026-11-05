@@ -509,6 +509,54 @@
 
     /* ===================== PERSO & HOMELAB ===================== */
     {
+      id: 'perso-adaudit', block: 'perso', g: ['perso'], c: 'perso', icon: 'shield', tag: 'Projet perso · open source', date: '2026',
+      title: 'Audit Active Directory en un clic (ad-audit-report)',
+      sum: "Un script PowerShell en lecture seule qui donne un score à l'Active Directory et liste les comptes à risque, avec comment corriger, sur une seule page HTML.",
+      img: 'img/ad-audit-report.jpg', imgAlt: "Rapport d'audit Active Directory (domaine fictif de démonstration)",
+      contexte: "Avec le temps, un annuaire se remplit de comptes oubliés et d'administrateurs aux vieux mots de passe. Je voulais un bilan rapide, lisible par un responsable, sans installer de gros outil.",
+      actions: ["Comptes inactifs, mots de passe qui n'expirent jamais, comptes sans pré-authentification Kerberos", "Membres des groupes à privilèges trouvés par SID, donc dans toutes les langues de Windows", "Stratégie de mots de passe, krbtgt, systèmes plus supportés", "Rapport HTML en français ou en anglais, export CSV, mode démo", "Développé avec des outils d'assistance au code, testé à chaque modification sur PowerShell 5.1 et 7"],
+      tools: ['PowerShell', 'Active Directory', 'RSAT', 'HTML'],
+      result: "Un audit en une minute, sans rien modifier dans l'annuaire, et une liste claire de ce qu'il faut ranger en premier.",
+      skills: [B1.patrimoine, B1.dev],
+      links: [{ href: 'https://github.com/B2ZO0/ad-audit-report', label: 'Voir sur GitHub', ic: 'github' }]
+    },
+    {
+      id: 'perso-ansible-baseline', block: 'perso', g: ['perso'], c: 'perso', icon: 'cog', tag: 'Projet perso · open source', date: '2026',
+      title: 'Serveur Debian prêt pour la production avec Ansible',
+      sum: "Un rôle Ansible qui sécurise un serveur Debian ou Ubuntu en un passage : SSH, pare-feu, fail2ban, mises à jour automatiques, heure et journaux.",
+      img: 'img/ansible-debian-baseline.jpg', imgAlt: 'Ce que configure le rôle ansible-debian-baseline',
+      contexte: "Chaque nouveau serveur demande les mêmes étapes, et on en oublie toujours une à la main. Ce rôle prolonge mon projet Ansible du BTS.",
+      actions: ["SSH par clés uniquement, avec un garde-fou qui empêche de s'enfermer dehors", "Pare-feu nftables dans sa propre table, compatible avec Docker", "Fail2ban, mises à jour de sécurité automatiques, chrony, durcissement du noyau", "Agent NetCockpit en option", "Testé à chaque modification sur une vraie machine virtuelle, deux passages, zéro changement au second"],
+      tools: ['Ansible', 'Debian', 'nftables', 'fail2ban', 'GitHub Actions'],
+      result: "Un serveur sécurisé et identique aux autres en quelques minutes, et un rôle que je peux relancer sans risque.",
+      skills: [B1.service, B1.dev],
+      links: [{ href: 'https://github.com/B2ZO0/ansible-debian-baseline', label: 'Voir sur GitHub', ic: 'github' }]
+    },
+    {
+      id: 'perso-netconfig', block: 'perso', g: ['perso'], c: 'perso', icon: 'hdd', tag: 'Projet perso · open source', date: '2026',
+      title: 'Sauvegarde des configurations réseau dans Git',
+      sum: "Un outil Python qui sauvegarde chaque nuit les configurations Cisco, FortiGate et UniFi, et garde l'historique de chaque changement dans Git.",
+      img: 'img/netconfig-backup.jpg', imgAlt: 'Sortie de netconfig-backup avec le diff Git d\'un switch (démo)',
+      contexte: "« Qui a changé le switch, et qu'est-ce qu'il y avait avant ? » Sans sauvegarde, personne ne sait. Je voulais une réponse simple, sans un après-midi d'installation.",
+      actions: ["Cisco en SSH, FortiGate par l'API, UniFi par le contrôleur, et tout équipement SSH", "Un fichier par équipement, un commit seulement quand quelque chose change vraiment", "Secrets masqués dans Git, copies restaurables à part", "Notification Telegram ou webhook en cas de changement ou d'échec", "Tests sur un FortiGate, un contrôleur UniFi et un switch Cisco simulés"],
+      tools: ['Python', 'Git', 'SSH', 'API REST', 'Cisco', 'FortiGate', 'UniFi'],
+      result: "L'historique complet du réseau, et la possibilité de voir en une commande ce qui a changé.",
+      skills: [B1.patrimoine, B1.incidents, B1.dev],
+      links: [{ href: 'https://github.com/B2ZO0/netconfig-backup', label: 'Voir sur GitHub', ic: 'github' }]
+    },
+    {
+      id: 'perso-proxmox-lab', block: 'perso', g: ['perso'], c: 'perso', icon: 'layers', tag: 'Projet perso · open source', date: '2026',
+      title: 'Lab Proxmox complet avec Terraform',
+      sum: "Une commande pour créer un lab de test sur Proxmox : des VM Debian prêtes, Docker, NetCockpit déjà installé et un inventaire Ansible.",
+      img: 'img/proxmox-lab-terraform.jpg', imgAlt: 'Le lab par défaut créé par proxmox-lab-terraform',
+      contexte: "Monter un lab à la main prend une soirée et on n'ose plus le casser. Avec Terraform, le lab devient une liste dans un fichier : on le crée, on le casse, on le recrée.",
+      actions: ["Modèle Debian 12 cloud-init créé par un script", "VM décrites dans une simple liste : rôle, taille, adresse", "Comptes et clés SSH par cloud-init, Docker et NetCockpit selon le rôle", "Inventaire Ansible généré pour enchaîner avec mon rôle Debian", "Tests automatiques avec Terraform et OpenTofu, sans serveur Proxmox"],
+      tools: ['Terraform', 'OpenTofu', 'Proxmox VE', 'cloud-init', 'Ansible'],
+      result: "Un lab jetable et reproductible, idéal pour apprendre et pour tester avant la production.",
+      skills: [B1.service, B1.dev],
+      links: [{ href: 'https://github.com/B2ZO0/proxmox-lab-terraform', label: 'Voir sur GitHub', ic: 'github' }]
+    },
+    {
       id: 'perso-lab', block: 'perso', g: ['perso'], c: 'perso', icon: 'server', tag: 'Homelab', date: 'En continu',
       title: 'Mon homelab Proxmox',
       sum: "Un serveur Proxmox chez moi pour tester avant de faire en vrai : Active Directory, Linux, supervision, déploiement, NetCockpit.",
@@ -559,14 +607,16 @@
       skills: [B1.service]
     },
     {
-      id: 'perso-powershell', block: 'perso', g: ['perso'], c: 'perso', icon: 'terminal', tag: 'Projet perso · scripts', date: 'En continu',
-      title: 'Boîte à outils PowerShell',
-      sum: "Des petits scripts qui me font gagner du temps : création de comptes, inventaire des postes, nettoyage.",
-      contexte: "Dès qu'une tâche revient souvent, j'essaie de l'automatiser. J'ai regroupé mes scripts pour les réutiliser et les améliorer.",
-      actions: ["Création de comptes AD à partir d'un fichier CSV", "Inventaire des postes (modèle, numéro de série, espace disque) vers un CSV", "Liste des comptes inactifs à désactiver", "Nettoyage des fichiers temporaires", "Mode simulation avant chaque action"],
-      tools: ['PowerShell', 'Active Directory', 'CSV'],
-      result: "Des tâches de plusieurs minutes faites en quelques secondes, sans erreur de saisie.",
-      skills: [B1.patrimoine, B1.dev]
+      id: 'perso-powershell', block: 'perso', g: ['perso'], c: 'perso', icon: 'terminal', tag: 'Projet perso · open source', date: '2026',
+      title: 'Boîte à outils PowerShell (sysadmin-toolbox)',
+      sum: "Un module PowerShell avec les commandes que j'utilise chaque semaine : disques, redémarrages en attente, services, admins locaux, ports, certificats, mots de passe.",
+      img: 'img/sysadmin-toolbox.jpg', imgAlt: 'Commandes de sysadmin-toolbox dans un terminal (lab de test)',
+      contexte: "Dès qu'une tâche revient souvent, j'essaie de l'automatiser. J'ai regroupé mes scripts dans un vrai module, propre et testé, pour les réutiliser et les partager.",
+      actions: ["12 commandes : Get-DiskReport, Get-PendingReboot, Get-ServiceHealth, Test-PortConnection, Get-CertificateExpiry…", "Fonctionne en local ou à distance, sur Windows PowerShell 5.1 et PowerShell 7", "Un rapport HTML pour la sortie de n'importe quelle commande", "Mots de passe tirés par un générateur cryptographique", "Tests Pester sur Windows et Linux à chaque modification"],
+      tools: ['PowerShell', 'CIM / WMI', 'Pester', 'GitHub Actions'],
+      result: "Des vérifications de plusieurs minutes faites en quelques secondes, et un rapport prêt à envoyer.",
+      skills: [B1.patrimoine, B1.dev],
+      links: [{ href: 'https://github.com/B2ZO0/sysadmin-toolbox', label: 'Voir sur GitHub', ic: 'github' }]
     },
     {
       id: 'perso-rootme', block: 'perso', g: ['perso'], c: 'perso', icon: 'target', tag: 'Projet perso · sécurité', date: 'En continu',
