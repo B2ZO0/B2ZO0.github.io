@@ -289,6 +289,24 @@
       skills: [B1.service, B1.patrimoine]
     },
     {
+      id: 'att-rallumage', block: 'entreprise', g: ['entreprise'], c: 'attineos', icon: 'terminal', tag: 'Attineos · mission en usine', date: '2026',
+      title: 'Des postes qui se rallument tout seuls',
+      sum: "Des utilisateurs me signalaient que leurs postes éteints le soir étaient rallumés le matin. Je ne voyais rien : j'ai écrit un script de diagnostic et de correction à distance.",
+      contexte: "Plusieurs utilisateurs m'ont informé que leur poste se rallumait automatiquement après l'arrêt. Le problème, c'est que de mon côté je ne voyais rien : aucune alerte, et ça n'arrivait jamais pendant que je regardais. Un poste peut se rallumer pour beaucoup de raisons, cachées à des endroits différents.",
+      actions: [
+        "Script PowerShell exécuté à distance, en silence : aucune fenêtre ni redémarrage chez l'utilisateur",
+        "Diagnostic d'abord, sans rien modifier : dernière source de réveil, minuteurs, périphériques autorisés à réveiller le poste",
+        "Lecture des événements des 7 derniers jours : qui a demandé l'arrêt (1074), arrêts brutaux (41), réveils",
+        "Vérification du démarrage rapide, du redémarrage après plantage et du réveil par la maintenance automatique",
+        "Correction sur demande seulement, effective au prochain arrêt : chaque cause désactivée, sans couper le réseau",
+        "Script généralisé ensuite dans ma boîte à outils open source (Get-WakeReport et Disable-AutoWake)"
+      ],
+      tools: ['PowerShell', 'WinRM', 'powercfg', 'Registre', "Observateur d'événements"],
+      result: "Un diagnostic complet de plusieurs postes en quelques secondes, sans déranger les utilisateurs, et des corrections appliquées en silence.",
+      skills: [B1.incidents, B1.dev],
+      links: [{ href: 'https://github.com/B2ZO0/sysadmin-toolbox/blob/main/docs/rallumage-auto.md', label: 'Voir sur GitHub', ic: 'github' }]
+    },
+    {
       id: 'stage-chauvin', block: 'entreprise', g: ['entreprise'], c: 'stage', icon: 'shield', tag: 'Stage · Chauvin-Arnoux Group', date: 'Mars → avril 2023',
       title: 'Déploiement avec MDT, chiffrement de disques et RAID',
       sum: "Mon premier contact avec le déploiement automatique, le chiffrement des disques et les VLAN.",
