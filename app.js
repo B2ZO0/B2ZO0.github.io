@@ -113,7 +113,7 @@
     { t: 'Déploiement & parc', ic: 'hdd', d: "Préparer les postes en série et tenir le parc à jour.", l: ['Serveur MDT et boot réseau (WDS)', 'Pilotes par modèle de PC', 'Réglages BIOS HP avec HP BCU', 'Migrations de logiciels', 'Inventaire avec GLPI', 'Outil RMM'] },
     { t: 'Réseau', ic: 'network', d: "Câbler, brasser, configurer les switchs et séparer le réseau.", l: ['Câblage et brassage en baie', 'Configuration de switchs', 'VLAN', 'Routage', 'Wi-Fi', 'Pare-feu pfSense et VPN'] },
     { t: 'Maintenance & support', ic: 'tool', d: "Faire en sorte que les utilisateurs puissent travailler.", l: ['Support utilisateurs N1 à N3', 'Diagnostic et remplacement de matériel', 'Arrivées et départs (comptes, postes, téléphone 3CX)', 'Gestion des tickets', 'Rédaction de procédures'] },
-    { t: 'Sécurité', ic: 'shield', d: "Réduire les risques au quotidien, sans compliquer la vie des utilisateurs.", l: ['Gestionnaire de mots de passe (Vaultwarden)', 'GPO de sécurité', 'Droits au plus juste', 'Sauvegardes et restauration', 'Veille CERT-FR', 'Root-Me'] },
+    { t: 'Sécurité', ic: 'shield', d: "Réduire les risques au quotidien, sans compliquer la vie des utilisateurs.", l: ['Gestionnaire de mots de passe (Vaultwarden)', 'Sensibilisation RGPD', 'GPO de sécurité', 'Droits au plus juste', 'Sauvegardes et restauration', 'Veille CERT-FR', 'Root-Me'] },
     { t: 'Linux, virtualisation & supervision', ic: 'server', d: "Monter des serveurs et des VM, et les surveiller.", l: ['Debian', 'Proxmox VE', 'Docker', 'Zabbix et Grafana', 'Ansible (bases)', 'VMware ESXi et Hyper-V (notions)'] }
   ];
   function renderSkills() {
