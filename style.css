@@ -545,6 +545,7 @@ main { padding: 0 28px; max-width: 1360px; margin: 0 auto; }
 
 /* ---------- badges de formation ---------- */
 .extras { margin-top: 18px; align-items: stretch; }
+.extras > .school { align-items: center; }
 .extras .school + .school { margin-top: 0; }
 .extras__badge { width: 84px; height: auto; flex: none; border-radius: 12px; }
 .extras__txt { margin-top: 6px; font-size: 13.5px; }
