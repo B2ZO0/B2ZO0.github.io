@@ -109,12 +109,12 @@
      violet = en atelier / homelab)
      --------------------------------------------------------- */
   var SKILLS = [
-    { t: 'Systèmes Windows', ic: 'monitor', d: "Installer, configurer et dépanner les postes et les serveurs Windows.", l: ['Windows 10 et 11', 'Windows Server', 'Active Directory : comptes, groupes, droits', 'GPO : mise en place et dépannage', 'DNS et DHCP', 'PowerShell (scripts simples)'] },
-    { t: 'Déploiement & parc', ic: 'hdd', d: "Préparer les postes en série et tenir le parc à jour.", l: ['Serveur MDT et boot réseau (WDS)', 'Pilotes par modèle de PC', 'Réglages BIOS HP avec HP BCU', 'Migrations de logiciels', 'Inventaire avec GLPI', 'Outil RMM'] },
-    { t: 'Réseau', ic: 'network', d: "Câbler, brasser, configurer les switchs et séparer le réseau.", l: ['Câblage et brassage en baie', 'Configuration de switchs', 'VLAN', 'Routage', 'Wi-Fi', 'Pare-feu pfSense et VPN'] },
-    { t: 'Maintenance & support', ic: 'tool', d: "Faire en sorte que les utilisateurs puissent travailler.", l: ['Support utilisateurs N1 à N3', 'Diagnostic et remplacement de matériel', 'Arrivées et départs (comptes, postes, téléphone 3CX)', 'Gestion des tickets', 'Rédaction de procédures'] },
-    { t: 'Sécurité', ic: 'shield', d: "Réduire les risques au quotidien, sans compliquer la vie des utilisateurs.", l: ['Gestionnaire de mots de passe (Vaultwarden)', 'Sensibilisation RGPD', 'GPO de sécurité', 'Droits au plus juste', 'Sauvegardes et restauration', 'Veille CERT-FR', 'Root-Me'] },
-    { t: 'Linux, virtualisation & supervision', ic: 'server', d: "Monter des serveurs et des VM, et les surveiller.", l: ['Debian', 'Proxmox VE', 'Docker', 'Zabbix et Grafana', 'Ansible (bases)', 'VMware ESXi et Hyper-V (notions)'] }
+    { t: 'Systèmes Windows', ic: 'monitor', d: "Administrer un domaine et les serveurs Windows.", l: ['Windows Server 2019 / 2022', 'Active Directory DS', 'DNS et DHCP', 'Stratégies de groupe (GPO)', 'Déploiement WDS / MDT', 'Windows 10 / 11'] },
+    { t: 'Systèmes Linux', ic: 'terminal', d: "Installer, configurer et sécuriser des serveurs Linux.", l: ['Debian / Ubuntu Server', 'Apache, Nginx, MariaDB', 'SSH et gestion des droits', 'systemd et journaux', 'Durcissement (Fail2ban, pare-feu)'] },
+    { t: 'Réseau', ic: 'network', d: "Concevoir, configurer et dépanner un réseau d'entreprise.", l: ['Switching Cisco : VLAN, trunk 802.1Q, STP', 'Routage inter-VLAN et statique', 'Agrégation de liens (LACP)', 'Wi-Fi', 'Câblage cuivre et fibre', 'Diagnostic : ping, tracert, Wireshark'] },
+    { t: 'Sécurité & pare-feu', ic: 'shield', d: "Filtrer, segmenter et protéger l'infrastructure.", l: ['Pare-feu pfSense', 'VPN : OpenVPN, WireGuard, IPsec', 'Segmentation et règles de filtrage', 'SIEM Wazuh', 'Gestion des mots de passe (Vaultwarden)', 'Sensibilisation RGPD'] },
+    { t: 'Virtualisation & conteneurs', ic: 'box', d: "Héberger et sauvegarder des serveurs virtuels.", l: ['VMware ESXi / vSphere', 'Proxmox VE (VM et LXC)', 'Hyper-V', 'Docker et Docker Compose', 'Proxmox Backup Server'] },
+    { t: 'Automatisation & supervision', ic: 'cog', d: "Automatiser les tâches répétitives et surveiller l'infrastructure.", l: ['Ansible', 'Terraform', 'PowerShell', 'Bash', 'Zabbix et Grafana', 'Prometheus', 'GLPI'] }
   ];
   function renderSkills() {
     var box = $('#skills');
@@ -130,10 +130,10 @@
      Bulles de compétences
      --------------------------------------------------------- */
   var BUBBLES = [
-    ['Active Directory', 3, 'violet'], ['GPO', 3, 'magenta'], ['Déploiement MDT', 3, 'violet'], ['Maintenance', 3, 'up'],
-    ['Réseau & VLAN', 3, 'info'], ['Support N1-N3', 2, 'up'], ['Windows Server', 2, 'violet'], ['Vaultwarden', 2, 'magenta'],
-    ['Migrations', 2, 'up'], ['Câblage & baies', 2, 'info'], ['Matériel', 1, 'up'], ['PowerShell', 1, 'violet'],
-    ['Proxmox', 1, 'info'], ['Debian', 1, 'info'], ['Zabbix', 1, 'magenta'], ['Sauvegardes', 1, 'up']
+    ['Active Directory', 3, 'violet'], ['Switching Cisco', 3, 'info'], ['Windows Server', 3, 'violet'], ['Supervision', 3, 'magenta'],
+    ['Routage', 3, 'info'], ['Pare-feu', 2, 'magenta'], ['Linux Debian', 3, 'up'], ['VMware ESXi', 2, 'violet'],
+    ['Proxmox', 2, 'up'], ['Ansible', 2, 'up'], ['PowerShell', 2, 'violet'], ['VPN', 2, 'magenta'],
+    ['Terraform', 1, 'up'], ['Bash', 1, 'up'], ['Docker', 1, 'info'], ['VLAN', 1, 'info'], ['Zabbix', 1, 'magenta'], ['Grafana', 1, 'magenta']
   ];
   function drawSkillTopo() {
     var box = $('#skillTopo');
@@ -998,6 +998,37 @@
     }
   }
 
+  /* ---------------------------------------------------------
+     Micro-icônes néon sur les côtés (grands écrans seulement)
+     --------------------------------------------------------- */
+  function initLeds() {
+    if (reduce) return;
+    var GL = ['server', 'network', 'shield', 'terminal', 'cpu', 'database', 'lock', 'radar', 'cog', 'box', 'rss', 'route'];
+    var layer = document.createElement('div');
+    layer.className = 'leds';
+    layer.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(layer);
+    var main = $('main');
+    function spawn() {
+      if (document.hidden || layer.childElementCount >= 5) return;
+      var r = main.getBoundingClientRect();
+      var railW = $('#rail').getBoundingClientRect().right;
+      var left = r.left - railW, right = window.innerWidth - r.right;
+      if (left < 70 && right < 70) return;
+      var side = left >= 70 && (right < 70 || Math.random() < 0.5) ? 'l' : 'r';
+      var room = side === 'l' ? left : right;
+      var size = 13 + Math.round(Math.random() * 7);
+      var x = side === 'l' ? railW + 16 + Math.random() * (room - size - 32) : r.right + 16 + Math.random() * (room - size - 32);
+      var el = document.createElement('span');
+      el.className = Math.random() < 0.3 ? 'led led--dot' : 'led';
+      if (el.className === 'led') el.innerHTML = icon(GL[Math.floor(Math.random() * GL.length)]);
+      el.style.cssText = 'left:' + x.toFixed(0) + 'px;top:' + (8 + Math.random() * 84).toFixed(1) + 'vh;width:' + size + 'px;height:' + size + 'px;animation-duration:' + (3.8 + Math.random() * 2.4).toFixed(1) + 's';
+      el.addEventListener('animationend', function () { el.remove(); });
+      layer.appendChild(el);
+    }
+    setInterval(spawn, 1300);
+  }
+
   function initFilterLinks() {
     $$('[data-filter]').forEach(function (a) {
       a.addEventListener('click', function () {
@@ -1159,6 +1190,7 @@
     initSearch();
     initFilterLinks();
     initAnimations();
+    initLeds();
     initNetCockpit();
     initReveal();
     initCounters();
