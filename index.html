@@ -14,7 +14,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=20261106b">
+  <link rel="stylesheet" href="style.css?v=20261110a">
   <script>
     (function () {
       try {
@@ -35,6 +35,7 @@
     </a>
     <nav class="rail__nav" id="railNav">
       <a href="#apercu" data-tip="Vue d'ensemble"><i data-i="grid"></i><span>Vue d'ensemble</span></a>
+      <a href="#netcockpit" data-tip="NetCockpit"><i data-i="radar"></i><span>NetCockpit</span></a>
       <a href="#attineos" data-tip="Mon poste"><i data-i="building"></i><span>Mon poste</span></a>
       <a href="#armatis" data-tip="Alternance"><i data-i="briefcase"></i><span>Alternance</span></a>
       <a href="#parcours" data-tip="Expériences"><i data-i="route"></i><span>Expériences</span></a>
@@ -42,7 +43,6 @@
       <a href="#competences" data-tip="Compétences"><i data-i="layers"></i><span>Compétences</span></a>
       <a href="#veille" data-tip="Veille technologique"><i data-i="rss"></i><span>Veille</span></a>
       <a href="#projets" data-tip="Projets"><i data-i="folder"></i><span>Projets</span></a>
-      <a href="#netcockpit" data-tip="NetCockpit"><i data-i="radar"></i><span>NetCockpit</span></a>
       <a href="#contact" data-tip="Contact"><i data-i="mail"></i><span>Contact</span></a>
     </nav>
     <div class="rail__bottom">
@@ -76,7 +76,8 @@
         <div class="verdict reveal">
           <span class="lamp up big pulse"></span>
           <div>
-            <h1>Enzo MARECHAL · <span class="sig-text" id="typeRole" data-text="Technicien systèmes &amp; réseaux">Technicien systèmes &amp; réseaux</span></h1>
+            <h1>Enzo MARECHAL</h1>
+            <p class="verdict__role">Technicien systèmes &amp; réseaux</p>
             <p class="muted">En poste chez <strong>Attineos</strong> · mission dans une usine à Verson · BTS SIO SISR · Bac Pro SN option C · Caen</p>
           </div>
         </div>
@@ -96,7 +97,8 @@
                 des stratégies de groupe.
               </p>
               <div class="profile__btns">
-                <a class="btn btn--sig" href="#projets"><i data-i="folder"></i>Voir mes projets</a>
+                <a class="btn btn--sig" href="#netcockpit"><i data-i="radar"></i>Voir NetCockpit</a>
+                <a class="btn" href="#projets"><i data-i="folder"></i>Tous mes projets</a>
                 <a class="btn" href="#contact"><i data-i="mail"></i>Me contacter</a>
               </div>
             </div>
@@ -176,7 +178,7 @@
             </header>
             <div class="prose">
               <p>
-                Passionné d'informatique depuis le lycée, je me suis orienté vers l'<strong>infrastructure</strong> :
+                Dès le lycée, je me suis orienté vers l'<strong>infrastructure</strong> :
                 les réseaux, les serveurs et tout ce qui permet aux utilisateurs de travailler sans se poser de questions.
               </p>
               <p>
@@ -190,12 +192,11 @@
                 plus complets. En dehors du travail, je continue de me former sur mon homelab et grâce à ma veille technologique.
               </p>
             </div>
-            <div class="qualities">
-              <div><i data-i="check"></i><strong>Rigoureux</strong><span>Je vérifie, je documente, je prévois le retour arrière.</span></div>
-              <div><i data-i="users"></i><strong>À l'écoute</strong><span>J'explique simplement aux utilisateurs.</span></div>
-              <div><i data-i="search"></i><strong>Curieux</strong><span>Je veux comprendre la cause d'une panne.</span></div>
-              <div><i data-i="bolt"></i><strong>Motivé</strong><span>J'aime apprendre et prendre de nouveaux sujets.</span></div>
-            </div>
+            <ul class="habits">
+              <li><i data-i="check"></i>Je vérifie, je documente, je prévois le retour arrière.</li>
+              <li><i data-i="users"></i>J'explique simplement aux utilisateurs.</li>
+              <li><i data-i="search"></i>Je veux comprendre la cause d'une panne.</li>
+            </ul>
           </article>
 
           <article class="panel reveal">
@@ -205,6 +206,85 @@
             </header>
             <div class="skilltopo" id="skillTopo" aria-label="Schéma de mes domaines de compétences"></div>
           </article>
+        </div>
+      </section>
+
+      <!-- ================= NETCOCKPIT ================= -->
+      <section class="page" id="netcockpit" data-title="Projet perso · NetCockpit">
+        <header class="page__head reveal">
+          <p class="eyebrow"><span class="badge b-magenta">Projet perso</span><span class="badge b-up">open source</span></p>
+          <h2>NetCockpit</h2>
+          <p class="lede">Un tableau de bord qui affiche le réseau et les alertes au même endroit. Un projet perso né d'un besoin rencontré sur le terrain, que j'utilise sur mon homelab et dans ma mission.</p>
+        </header>
+
+        <div class="nc reveal">
+          <div class="nc__viewer panel">
+            <div class="nc__tabs" role="tablist" aria-label="Captures de NetCockpit" id="ncTabs">
+              <button type="button" role="tab" aria-selected="true" data-shot="overview">Vue d'ensemble</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="topology">Topologie</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="switches">Switchs</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="vmware">VMware</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="device-ai">Analyse IA</button>
+              <button type="button" role="tab" aria-selected="false" data-shot="overview-day-fr">Thème jour</button>
+            </div>
+            <figure class="nc__screen">
+              <img id="ncShot" src="img/netcockpit-overview.jpg" alt="NetCockpit : vue d'ensemble" width="1600" height="900">
+              <figcaption id="ncCaption">La vue d'ensemble : une phrase dit si tout va bien, la route vers Internet est tracée en magenta, la topologie est en direct.</figcaption>
+            </figure>
+          </div>
+
+          <div class="nc__side">
+            <article class="panel">
+              <header class="panel__head"><h3>Le besoin</h3></header>
+              <p class="muted-2">
+                Dans beaucoup d'entreprises, le réseau est géré par un prestataire : l'équipe informatique n'a pas
+                d'accès administrateur aux switchs ni au pare-feu. Les outils habituels n'affichent alors qu'une liste
+                d'adresses IP, et le schéma réseau est un vieux fichier que personne ne met à jour.
+              </p>
+            </article>
+            <article class="panel">
+              <header class="panel__head"><h3>Ce que fait l'outil</h3></header>
+              <ul class="ticks">
+                <li><strong>Topologie automatique</strong> : Internet → pare-feu → sites → switchs → serveurs → VM, mise à jour toutes les 15 s</li>
+                <li><strong>Qui est branché où</strong> : lecture CDP/LLDP via les ESXi et les serveurs, sans toucher aux switchs</li>
+                <li><strong>Pas de fausses alertes</strong> : un portable rentré chez lui est « absent », pas « en panne »</li>
+                <li><strong>Une seule chaîne d'alertes</strong> : Prometheus, Loki et Zabbix vers Telegram, Discord ou e-mail</li>
+                <li><strong>Diagnostic IA en option</strong>, avec un modèle local possible : rien ne sort du réseau</li>
+                <li><strong>Une seule commande</strong> pour tout installer : <code>./setup.sh</code></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="grid grid--3 nc__facts">
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="layers"></i>Technologies</h3></header>
+            <ul class="chips">
+              <li>Python</li><li>Docker Compose</li><li>Prometheus</li><li>Grafana</li><li>Loki</li><li>Alertmanager</li>
+              <li>Zabbix 7.0</li><li>SNMP</li><li>nmap</li><li>API vCenter</li><li>Grafana Alloy</li><li>JavaScript</li>
+            </ul>
+          </article>
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="building"></i>Mon rôle</h3></header>
+            <ul class="ticks">
+              <li>Définir le besoin à partir de ce que je vis en mission</li>
+              <li>Choisir et assembler les outils : Prometheus, Grafana, Zabbix, Docker</li>
+              <li>Tester sur mon homelab, corriger, puis l'utiliser en mission</li>
+            </ul>
+          </article>
+          <article class="panel reveal">
+            <header class="panel__head"><h3><i data-i="star"></i>Ce que j'en retiens</h3></header>
+            <ul class="ticks">
+              <li>Comment Prometheus, Grafana et Zabbix fonctionnent ensemble</li>
+              <li>Tester et valider chaque fonction sur un lab avant de l'utiliser en vrai</li>
+              <li>Documenter un projet pour que d'autres puissent l'utiliser</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="nc__cta reveal">
+          <a class="btn btn--sig" href="https://github.com/B2ZO0/netcockpit" target="_blank" rel="noopener"><i data-i="github"></i>Voir NetCockpit sur GitHub</a>
+          <span class="muted">Démo en une minute : <code>docker compose -f docker-compose.demo.yml up</code></span>
         </div>
       </section>
 
@@ -524,85 +604,6 @@
         <p class="empty muted" id="projEmpty" hidden>Aucun projet ne correspond à cette recherche.</p>
       </section>
 
-      <!-- ================= NETCOCKPIT ================= -->
-      <section class="page" id="netcockpit" data-title="Projet perso · NetCockpit">
-        <header class="page__head reveal">
-          <p class="eyebrow"><span class="badge b-magenta">Projet perso</span><span class="badge b-up">open source</span></p>
-          <h2>NetCockpit</h2>
-          <p class="lede">Un tableau de bord qui affiche le réseau et les alertes au même endroit. Un projet perso né d'un besoin rencontré sur le terrain, que j'utilise sur mon homelab et dans ma mission.</p>
-        </header>
-
-        <div class="nc reveal">
-          <div class="nc__viewer panel">
-            <div class="nc__tabs" role="tablist" aria-label="Captures de NetCockpit" id="ncTabs">
-              <button type="button" role="tab" aria-selected="true" data-shot="overview">Vue d'ensemble</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="topology">Topologie</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="switches">Switchs</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="vmware">VMware</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="device-ai">Analyse IA</button>
-              <button type="button" role="tab" aria-selected="false" data-shot="overview-day-fr">Thème jour</button>
-            </div>
-            <figure class="nc__screen">
-              <img id="ncShot" src="img/netcockpit-overview.jpg" alt="NetCockpit : vue d'ensemble" width="1600" height="900">
-              <figcaption id="ncCaption">La vue d'ensemble : une phrase dit si tout va bien, la route vers Internet est tracée en magenta, la topologie est en direct.</figcaption>
-            </figure>
-          </div>
-
-          <div class="nc__side">
-            <article class="panel">
-              <header class="panel__head"><h3>Le besoin</h3></header>
-              <p class="muted-2">
-                Dans beaucoup d'entreprises, le réseau est géré par un prestataire : l'équipe informatique n'a pas
-                d'accès administrateur aux switchs ni au pare-feu. Les outils habituels n'affichent alors qu'une liste
-                d'adresses IP, et le schéma réseau est un vieux fichier que personne ne met à jour.
-              </p>
-            </article>
-            <article class="panel">
-              <header class="panel__head"><h3>Ce que fait l'outil</h3></header>
-              <ul class="ticks">
-                <li><strong>Topologie automatique</strong> : Internet → pare-feu → sites → switchs → serveurs → VM, mise à jour toutes les 15 s</li>
-                <li><strong>Qui est branché où</strong> : lecture CDP/LLDP via les ESXi et les serveurs, sans toucher aux switchs</li>
-                <li><strong>Pas de fausses alertes</strong> : un portable rentré chez lui est « absent », pas « en panne »</li>
-                <li><strong>Une seule chaîne d'alertes</strong> : Prometheus, Loki et Zabbix vers Telegram, Discord ou e-mail</li>
-                <li><strong>Diagnostic IA en option</strong>, avec un modèle local possible : rien ne sort du réseau</li>
-                <li><strong>Une seule commande</strong> pour tout installer : <code>./setup.sh</code></li>
-              </ul>
-            </article>
-          </div>
-        </div>
-
-        <div class="grid grid--3 nc__facts">
-          <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="layers"></i>Technologies</h3></header>
-            <ul class="chips">
-              <li>Python</li><li>Docker Compose</li><li>Prometheus</li><li>Grafana</li><li>Loki</li><li>Alertmanager</li>
-              <li>Zabbix 7.0</li><li>SNMP</li><li>nmap</li><li>API vCenter</li><li>Grafana Alloy</li><li>JavaScript</li>
-            </ul>
-          </article>
-          <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="building"></i>Mon rôle</h3></header>
-            <ul class="ticks">
-              <li>Définir le besoin à partir de ce que je vis en mission</li>
-              <li>Choisir et assembler les outils : Prometheus, Grafana, Zabbix, Docker</li>
-              <li>Tester sur mon homelab, corriger, puis l'utiliser en mission</li>
-            </ul>
-          </article>
-          <article class="panel reveal">
-            <header class="panel__head"><h3><i data-i="star"></i>Ce que j'en retiens</h3></header>
-            <ul class="ticks">
-              <li>Comment Prometheus, Grafana et Zabbix fonctionnent ensemble</li>
-              <li>Tester et valider chaque fonction sur un lab avant de l'utiliser en vrai</li>
-              <li>Documenter un projet pour que d'autres puissent l'utiliser</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="nc__cta reveal">
-          <a class="btn btn--sig" href="https://github.com/B2ZO0/netcockpit" target="_blank" rel="noopener"><i data-i="github"></i>Voir NetCockpit sur GitHub</a>
-          <span class="muted">Démo en une minute : <code>docker compose -f docker-compose.demo.yml up</code></span>
-        </div>
-      </section>
-
       <!-- ================= DOCUMENTS & CONTACT ================= -->
       <section class="page" id="contact" data-title="Contact">
         <header class="page__head reveal">
@@ -656,6 +657,6 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="app.js?v=20261106b"></script>
+  <script src="app.js?v=20261110a"></script>
 </body>
 </html>
