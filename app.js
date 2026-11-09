@@ -973,60 +973,6 @@
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-    if (reduce) return;
-
-    if (window.matchMedia('(hover: hover)').matches) {
-      document.addEventListener('pointermove', function (e) {
-        var p = e.target.closest && e.target.closest('.panel');
-        if (!p) return;
-        var r = p.getBoundingClientRect();
-        p.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-        p.style.setProperty('--my', (e.clientY - r.top) + 'px');
-      }, { passive: true });
-    }
-
-    var role = $('#typeRole');
-    if (role) {
-      var text = role.getAttribute('data-text'), i = 0;
-      role.textContent = '';
-      role.classList.add('is-typing');
-      setTimeout(function step() {
-        role.textContent = text.slice(0, ++i);
-        if (i < text.length) setTimeout(step, 45);
-        else setTimeout(function () { role.classList.remove('is-typing'); }, 1600);
-      }, 400);
-    }
-  }
-
-  /* ---------------------------------------------------------
-     Micro-icônes néon sur les côtés (grands écrans seulement)
-     --------------------------------------------------------- */
-  function initLeds() {
-    if (reduce) return;
-    var GL = ['server', 'network', 'shield', 'terminal', 'cpu', 'database', 'lock', 'radar', 'cog', 'box', 'rss', 'route'];
-    var layer = document.createElement('div');
-    layer.className = 'leds';
-    layer.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(layer);
-    var main = $('main');
-    function spawn() {
-      if (document.hidden || layer.childElementCount >= 5) return;
-      var r = main.getBoundingClientRect();
-      var railW = $('#rail').getBoundingClientRect().right;
-      var left = r.left - railW, right = window.innerWidth - r.right;
-      if (left < 70 && right < 70) return;
-      var side = left >= 70 && (right < 70 || Math.random() < 0.5) ? 'l' : 'r';
-      var room = side === 'l' ? left : right;
-      var size = 13 + Math.round(Math.random() * 7);
-      var x = side === 'l' ? railW + 16 + Math.random() * (room - size - 32) : r.right + 16 + Math.random() * (room - size - 32);
-      var el = document.createElement('span');
-      el.className = Math.random() < 0.3 ? 'led led--dot' : 'led';
-      if (el.className === 'led') el.innerHTML = icon(GL[Math.floor(Math.random() * GL.length)]);
-      el.style.cssText = 'left:' + x.toFixed(0) + 'px;top:' + (8 + Math.random() * 84).toFixed(1) + 'vh;width:' + size + 'px;height:' + size + 'px;animation-duration:' + (3.8 + Math.random() * 2.4).toFixed(1) + 's';
-      el.addEventListener('animationend', function () { el.remove(); });
-      layer.appendChild(el);
-    }
-    setInterval(spawn, 1300);
   }
 
   function initFilterLinks() {
@@ -1064,35 +1010,6 @@
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
     });
-  }
-
-  /* ---------------------------------------------------------
-     Apparition au défilement + compteurs
-     --------------------------------------------------------- */
-  function initReveal() {
-    var items = $$('.reveal');
-    if (reduce || !('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('is-visible'); }); return; }
-    var io = new IntersectionObserver(function (en) {
-      en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('is-visible'); io.unobserve(x.target); } });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.04 });
-    items.forEach(function (el, i) { el.style.transitionDelay = (i % 3) * 60 + 'ms'; io.observe(el); });
-  }
-  function initCounters() {
-    if (reduce || !('IntersectionObserver' in window)) return;
-    var io = new IntersectionObserver(function (en) {
-      en.forEach(function (x) {
-        if (!x.isIntersecting) return;
-        io.unobserve(x.target);
-        var el = x.target, end = +el.getAttribute('data-count'), t0 = null;
-        (function step(t) {
-          if (!t0) t0 = t;
-          var k = Math.min(1, (t - t0) / 900);
-          el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
-          if (k < 1) requestAnimationFrame(step);
-        })(performance.now());
-      });
-    });
-    $$('[data-count]').forEach(function (el) { io.observe(el); });
   }
 
   /* ---------------------------------------------------------
@@ -1190,10 +1107,7 @@
     initSearch();
     initFilterLinks();
     initAnimations();
-    initLeds();
     initNetCockpit();
-    initReveal();
-    initCounters();
     initFeeds();
     initContact();
     applyFilter();
