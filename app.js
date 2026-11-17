@@ -158,6 +158,7 @@
     var tabs = $$('#ncTabs button');
     var img = $('#ncShot');
     var cap = $('#ncCaption');
+    if (!img) return;
     tabs.forEach(function (b) {
       b.addEventListener('click', function () {
         var k = b.getAttribute('data-shot');
@@ -188,7 +189,6 @@
      Projets
      --------------------------------------------------------- */
   var BLOCKS = [
-    { k: 'phare', title: 'À la une', sub: 'Mon projet perso open source' },
     { k: 'entreprise', title: 'En entreprise', sub: 'Ma mission chez Attineos et mes stages' },
     { k: 'bts', title: 'BTS SIO option SISR', sub: 'AFTEC Caen · 2024 → 2026' },
     { k: 'bacpro', title: 'Bac Pro Systèmes Numériques option C (RISC)', sub: 'Lycée Charles Tellier · 2020 → 2023' },
@@ -213,24 +213,23 @@
   var PROJECTS = [
     /* ===================== PROJET PHARE ===================== */
     {
-      id: 'netcockpit', block: 'phare', g: ['perso', 'entreprise'], featured: true, c: 'netcockpit', icon: 'radar',
-      tag: 'Projet perso · open source', date: '2026 · homelab et mission',
-      title: 'NetCockpit : un tableau de bord de supervision du réseau',
-      sum: "Un tableau de bord de supervision : il découvre les équipements du réseau, affiche une carte en direct et regroupe les alertes. Je l'utilise sur mon homelab et dans ma mission.",
+      id: 'netcockpit', block: 'perso', g: ['perso'], c: 'perso', icon: 'radar',
+      tag: 'Projet perso · homelab', date: '2026',
+      title: 'NetCockpit : un tableau de bord de supervision',
+      sum: "Un tableau de bord monté surtout pour mon homelab : il découvre les équipements du réseau, affiche une carte en direct et regroupe les alertes. En entreprise, je l'ai installé en local pour superviser les serveurs.",
       img: 'img/netcockpit-topology.jpg', imgAlt: 'Carte du réseau affichée par NetCockpit (données de démonstration)',
-      contexte: "Dans beaucoup d'entreprises, le réseau est géré par un prestataire et l'équipe informatique n'a pas accès aux switchs. Résultat : pas de schéma à jour et peu de visibilité. Je voulais un outil qui rassemble ce à quoi on a accès. J'ai assemblé des outils open source reconnus, puis je l'ai testé sur mon homelab avant de l'utiliser en mission.",
+      contexte: "Je voulais une vue d'ensemble de mon homelab : quels équipements sont branchés, lesquels sont en panne, et toutes les alertes au même endroit. J'ai assemblé des outils open source reconnus et je l'ai testé sur mon lab. En entreprise, je l'ai installé en local, sur le réseau interne, pour superviser les serveurs.",
       actions: [
-        "Définir le besoin à partir de ce que je vis en mission",
-        "Choisir les briques : Prometheus, Grafana, Loki, Zabbix, Alertmanager, le tout sous Docker",
-        "Développer l'interface et les scripts d'installation, avec des outils d'assistance au code",
-        "Tester sur mon homelab Proxmox, puis sur le réseau de ma mission",
-        "Vérifier que la carte du réseau et les alertes correspondent à la réalité",
+        "Définir le besoin : une carte du réseau et des alertes centralisées",
+        "Assembler les briques open source : Prometheus, Grafana, Loki et Zabbix, sous Docker",
+        "Tester et ajuster sur mon homelab Proxmox",
+        "L'installer en local en entreprise pour superviser les serveurs",
         "Rédiger la documentation et publier le projet sur GitHub"
       ],
-      tools: ['Docker Compose', 'Prometheus', 'Grafana', 'Zabbix', 'Loki', 'SNMP', 'Python'],
-      result: "Un outil qui me donne une vue d'ensemble du réseau et des alertes au même endroit. Surtout, j'ai beaucoup appris sur la supervision en le testant.",
-      skills: [B1.patrimoine, B1.incidents, B1.projet, B1.dev],
-      links: [{ href: 'https://github.com/B2ZO0/netcockpit', label: 'Voir sur GitHub', ic: 'github' }, { href: '#netcockpit', label: 'Captures', ic: 'radar', local: true }]
+      tools: ['Docker Compose', 'Prometheus', 'Grafana', 'Zabbix', 'Loki', 'SNMP'],
+      result: "Une vue d'ensemble de mon lab et des serveurs, avec les alertes au même endroit. J'ai surtout beaucoup appris sur la supervision.",
+      skills: [B1.patrimoine, B1.incidents, B1.dev],
+      links: [{ href: 'https://github.com/B2ZO0/netcockpit', label: 'Voir sur GitHub', ic: 'github' }]
     },
 
     /* ===================== ENTREPRISE ===================== */
@@ -254,7 +253,7 @@
       skills: [B1.service, B1.patrimoine]
     },
     {
-      id: 'att-vaultwarden', block: 'entreprise', g: ['entreprise'], c: 'attineos', icon: 'key', tag: 'Attineos · mission en usine', date: 'Depuis 2026',
+      id: 'att-vaultwarden', block: 'entreprise', g: ['entreprise'], c: 'attineos', icon: 'key', tag: 'Attineos · mission en usine', date: 'Depuis 2026 · en cours',
       title: 'Vaultwarden : faire la guerre aux post-it',
       sum: "Mettre en place un gestionnaire de mots de passe sur le réseau pour que les utilisateurs arrêtent de noter leurs mots de passe sur des post-it.",
       contexte: "Comme dans beaucoup d'entreprises, on trouvait des mots de passe sur des post-it collés aux écrans, dans des carnets ou des fichiers Excel. C'est un vrai risque de sécurité. L'idée : donner aux utilisateurs un outil simple pour ranger leurs mots de passe, et les inciter à l'utiliser.",
@@ -268,7 +267,7 @@
         "Petit guide utilisateur et accompagnement des premiers utilisateurs"
       ],
       tools: ['Vaultwarden', 'Bitwarden', 'Docker', 'Linux', 'HTTPS'],
-      result: "Les utilisateurs ont un vrai outil pour leurs mots de passe, et les post-it disparaissent petit à petit des écrans.",
+      result: "Projet en cours : les coffres et les groupes sont en place, et les utilisateurs sont équipés petit à petit.",
       skills: [B1.service, B1.incidents]
     },
     {
@@ -307,20 +306,20 @@
       links: [{ href: 'https://github.com/B2ZO0/sysadmin-toolbox/blob/main/docs/rallumage-auto.md', label: 'Voir sur GitHub', ic: 'github' }]
     },
     {
-      id: 'stage-chauvin', block: 'entreprise', g: ['entreprise'], c: 'stage', icon: 'shield', tag: 'Stage · Chauvin-Arnoux Group', date: 'Mars → avril 2023',
-      title: 'Déploiement avec MDT, chiffrement de disques et RAID',
-      sum: "Mon premier contact avec le déploiement automatique, le chiffrement des disques et les VLAN.",
-      contexte: "Stage de deux mois au service informatique de Chauvin-Arnoux Group, à Reux, pendant ma terminale de Bac Pro.",
-      actions: ["Chiffrement et sécurisation des disques", "Mise en route d'un RAID", "Déploiement de postes avec MDT", "Configuration de VLAN sur les switchs", "Support N1 et N2"],
-      tools: ['MDT', 'Chiffrement', 'RAID', 'VLAN'],
-      result: "Une première vraie expérience qui m'a donné envie de continuer dans l'infrastructure.",
-      skills: [BAC.config, BAC.depannage]
+      id: 'stage-chauvin', block: 'entreprise', g: ['entreprise'], c: 'stage', icon: 'shield', tag: 'Stage · Chauvin Arnoux', date: '2023',
+      title: 'Chiffrement Cryhod, déploiement MDT et switchs',
+      sum: "Mise en place du chiffrement des postes avec Cryhod, déploiement automatisé avec MDT et configuration de switchs.",
+      contexte: "Stage au service informatique de Chauvin Arnoux, à Reux, pendant ma terminale de Bac Pro.",
+      actions: ["Mise en place du chiffrement des postes avec Cryhod", "Rédaction de la documentation du chiffrement", "Déploiement automatisé de postes via MDT", "Routage et configuration de switchs (VLAN, ports, diagnostics)", "Support N1 et N2"],
+      tools: ['Cryhod', 'MDT', 'Switchs', 'VLAN'],
+      result: "Une première vraie expérience en service informatique, qui m'a donné envie de continuer dans l'infrastructure.",
+      skills: [BAC.config, BAC.doc]
     },
     {
-      id: 'stage-ccf', block: 'entreprise', g: ['entreprise'], c: 'stage', icon: 'chart', tag: 'Stage · CC Cœur Côte Fleurie', date: 'Nov. → déc. 2022',
+      id: 'stage-ccf', block: 'entreprise', g: ['entreprise'], c: 'stage', icon: 'chart', tag: 'Stage · CC Cœur Côte Fleurie', date: '2023',
       title: 'Installation de Zabbix pour superviser le réseau',
       sum: "Zabbix installé pour surveiller les équipements réseau de la communauté de communes.",
-      contexte: "Stage de deux mois à Deauville. C'est ici que j'ai découvert la supervision, qui m'a mené à mon projet de BTS présenté au jury, puis à NetCockpit.",
+      contexte: "Stage de deux mois à Deauville. C'est ici que j'ai découvert la supervision, qui m'a mené à mon projet de BTS présenté au jury.",
       actions: ["Installation et configuration de Zabbix", "Ajout des équipements réseau", "Installation de postes", "Brassage de prises réseau"],
       tools: ['Zabbix', 'Linux', 'Réseau'],
       result: "Un outil de supervision en place, et le point de départ de mes projets de supervision.",
@@ -393,16 +392,6 @@
       skills: [B1.service, B1.incidents]
     },
     {
-      id: 'bts-redondance', block: 'bts', g: ['bts'], c: 'bts', icon: 'network', tag: 'BTS SIO · atelier', date: '2e année · 2025-2026',
-      title: 'Réseau redondant : agrégation de liens et passerelle de secours',
-      sum: "Faire en sorte que la coupure d'un câble ou d'un équipement ne coupe pas le réseau.",
-      contexte: "Sur la maquette Cisco, un seul câble ou un seul routeur en panne suffisait à tout arrêter. Le but était de supprimer ces points uniques.",
-      actions: ["Deux switchs de cœur reliés par deux câbles agrégés (LACP)", "Spanning-tree réglé pour éviter les boucles", "Passerelle de secours avec HSRP entre deux routeurs", "Tests en débranchant les câbles et en éteignant un routeur", "Mesure du temps de coupure"],
-      tools: ['Cisco', 'LACP', 'Spanning-tree', 'HSRP', 'VLAN'],
-      result: "Un réseau qui continue de fonctionner quand un lien ou un routeur tombe.",
-      skills: [B1.service, B1.incidents]
-    },
-    {
       id: 'bts-sauvegarde', block: 'bts', g: ['bts'], c: 'bts', icon: 'hdd', tag: 'BTS SIO · atelier', date: '2e année · 2025-2026',
       title: 'Sauvegardes et plan de reprise d\'activité',
       sum: "Mettre en place la règle 3-2-1 et prouver qu'on sait tout remettre en route après une panne.",
@@ -414,12 +403,12 @@
     },
     {
       id: 'bts-wazuh', block: 'bts', g: ['bts'], c: 'bts', icon: 'shield', tag: 'BTS SIO · atelier', date: '2e année · 2025-2026',
-      title: 'Détection d\'intrusions avec Wazuh',
-      sum: "Centraliser les journaux de sécurité des serveurs Windows et Linux, et être alerté en cas d'attaque.",
-      contexte: "Sur la maquette, les journaux étaient éparpillés et personne ne les lisait. Wazuh les rassemble et met en avant ce qui est anormal.",
-      actions: ["Installation de Wazuh sur Debian", "Agents sur les serveurs Windows et Linux", "Journaux de sécurité Windows et Sysmon", "Alerte quand un compte est ajouté aux administrateurs du domaine", "Blocage automatique d'une attaque par force brute SSH", "Tests en provoquant chaque détection"],
-      tools: ['Wazuh', 'Debian', 'Windows Server', 'Sysmon'],
-      result: "Les événements de sécurité au même endroit et des alertes vérifiées.",
+      title: 'Installation du SIEM Wazuh',
+      sum: "Installer Wazuh et y relier les serveurs Windows et Linux de la maquette pour centraliser leurs journaux de sécurité.",
+      contexte: "Sur la maquette, les journaux de sécurité étaient éparpillés sur chaque serveur. Wazuh les rassemble au même endroit.",
+      actions: ["Installation de Wazuh sur un serveur Debian", "Installation des agents sur les serveurs Windows et Linux", "Vérification de la remontée des journaux dans le tableau de bord", "Premiers tests : échecs de connexion, ajout d'un compte administrateur"],
+      tools: ['Wazuh', 'Debian', 'Windows Server', 'Linux'],
+      result: "Les journaux de sécurité des serveurs de la maquette arrivent au même endroit.",
       skills: [B1.incidents, B1.patrimoine]
     },
     {
@@ -496,11 +485,11 @@
     },
     {
       id: 'bac-toip', block: 'bacpro', g: ['bacpro'], c: 'bacpro', icon: 'phone', tag: 'Bac Pro SN · TP', date: 'Terminale · 2022-2023',
-      title: 'Téléphonie IP avec Asterisk',
-      sum: "Installer un petit standard téléphonique sur Linux et faire sonner des téléphones IP.",
-      contexte: "Découverte de la téléphonie sur IP : remplacer un vieux standard par une solution logicielle.",
-      actions: ["Installation d'Asterisk sur Debian", "Création des comptes pour chaque poste", "Configuration des téléphones IP et d'un logiciel sur PC", "Appels entre postes et messagerie vocale", "Analyse des échanges avec Wireshark"],
-      tools: ['Asterisk', 'Debian', 'SIP', 'Wireshark'],
+      title: 'Téléphonie IP : mise en place d\'un standard',
+      sum: "Installer un standard téléphonique logiciel gratuit sur un serveur et faire sonner des téléphones IP.",
+      contexte: "Découverte de la téléphonie sur IP : remplacer un standard classique par une solution logicielle gratuite.",
+      actions: ["Installation d'un logiciel de standard téléphonique gratuit (IPBX) sur un serveur", "Création des comptes pour chaque poste", "Configuration des téléphones IP", "Appels entre postes et messagerie vocale", "Tests et dépannage des appels"],
+      tools: ['Téléphonie IP', 'IPBX', 'SIP', 'Téléphones IP'],
       result: "Des appels entre postes et une messagerie vocale qui fonctionnent.",
       skills: [BAC.install, BAC.config]
     },
@@ -595,16 +584,6 @@
       skills: [B1.service, B1.dev]
     },
     {
-      id: 'perso-pihole', block: 'perso', g: ['perso'], c: 'perso', icon: 'shield', tag: 'Homelab', date: 'En continu',
-      title: 'Filtrage DNS de la maison avec Pi-hole',
-      sum: "Bloquer les publicités et les sites malveillants pour tous les appareils de la maison, sans rien installer dessus.",
-      contexte: "Un bon moyen de comprendre le DNS en pratique, avec un vrai bénéfice au quotidien.",
-      actions: ["Pi-hole dans un conteneur LXC", "Unbound pour résoudre les noms sans passer par un fournisseur", "Distribution du DNS par le DHCP", "Listes de blocage et liste blanche", "Statistiques et journal des requêtes"],
-      tools: ['Pi-hole', 'Unbound', 'DNS', 'LXC'],
-      result: "Moins de publicités et de traqueurs sur tout le réseau, et une bonne maîtrise du DNS.",
-      skills: [B1.dev]
-    },
-    {
       id: 'perso-wireguard', block: 'perso', g: ['perso'], c: 'perso', icon: 'lock', tag: 'Homelab', date: 'En continu',
       title: 'Accès à distance au lab avec WireGuard',
       sum: "Me connecter à mon homelab depuis l'extérieur, en toute sécurité, sans ouvrir les interfaces d'administration sur Internet.",
@@ -663,9 +642,9 @@
   /* Détails complémentaires de chaque projet : objectif, difficultés rencontrées, ce que j'en retiens */
   var DETAILS = {
     'netcockpit': {
-      obj: "Avoir une vue claire du réseau et des alertes au même endroit, même sans accès administrateur aux switchs.",
-      diff: [["Les appareils éteints le soir (portables) remontaient comme « en panne » et noyaient les vraies alertes.", "Faire la différence entre « absent » (en gris) et « en panne » (en rouge), réservé aux serveurs et équipements importants."], ["La première version consommait trop de ressources sur une petite machine virtuelle.", "Réglage de la fréquence de collecte et de la durée de conservation des données."]],
-      learn: "Comment Prometheus, Grafana et Zabbix fonctionnent ensemble, et l'importance de tester sur un lab avant de déployer."
+      obj: "Avoir une vue d'ensemble de mon lab, puis des serveurs en entreprise, avec les alertes au même endroit.",
+      diff: [["Les appareils éteints le soir remontaient comme « en panne » et noyaient les vraies alertes.", "Faire la différence entre « absent » (en gris) et « en panne » (en rouge), réservé aux serveurs."], ["La première version consommait trop de ressources sur une petite machine virtuelle.", "Réglage de la fréquence de collecte et de la durée de conservation des données."]],
+      learn: "Comment Prometheus, Grafana et Zabbix fonctionnent ensemble, et l'importance de tester sur un lab avant d'installer en entreprise."
     },
     'att-deploiement': {
       obj: "Installer un poste complet sans intervention, de la même façon à chaque fois.",
@@ -684,8 +663,8 @@
     },
     'stage-chauvin': {
       obj: "Découvrir le travail d'un service informatique en entreprise et participer aux tâches courantes.",
-      diff: [["Comprendre le fonctionnement du RAID avant de le mettre en place.", "Explications du tuteur et tests sur un poste de démonstration avant la vraie machine."]],
-      learn: "L'importance de protéger les données (chiffrement, RAID) et mes premiers pas dans le déploiement automatique."
+      diff: [["Comprendre le chiffrement Cryhod avant de le mettre en place sur des postes utilisés.", "Tests sur un poste de démonstration et documentation pas à pas, relue avec mon tuteur."]],
+      learn: "L'importance de protéger les données des postes, et mes premiers pas dans le déploiement automatique."
     },
     'stage-ccf': {
       obj: "Mettre en place un outil pour surveiller les équipements réseau de la collectivité.",
@@ -722,20 +701,15 @@
       diff: [["Le tunnel ne montait pas.", "Les paramètres de chiffrement n'étaient pas identiques des deux côtés : alignement des deux configurations."], ["L'ouverture de session était lente à l'agence.", "Le DNS de l'agence ne pointait pas vers le contrôleur de domaine du siège."]],
       learn: "Un VPN entre deux sites doit avoir exactement les mêmes réglages des deux côtés, et le DNS compte autant que le tunnel."
     },
-    'bts-redondance': {
-      obj: "Supprimer les points uniques de panne du réseau de la maquette.",
-      diff: [["L'ajout du deuxième câble entre les switchs créait une boucle.", "Configuration de l'agrégation de liens pour que les deux câbles soient vus comme un seul."]],
-      learn: "Le spanning-tree protège des boucles, et la redondance se teste en débranchant vraiment les câbles."
-    },
     'bts-sauvegarde': {
       obj: "Avoir des sauvegardes fiables et savoir remettre un serveur en route après une panne.",
       diff: [["La première restauration a pris beaucoup plus de temps que prévu.", "Procédure réécrite étape par étape et nouveau test chronométré."]],
       learn: "Une sauvegarde n'est fiable que si on a déjà testé la restauration."
     },
     'bts-wazuh': {
-      obj: "Rassembler les journaux de sécurité et être alerté en cas de comportement anormal.",
-      diff: [["Le serveur Wazuh s'arrêtait seul faute de mémoire.", "Augmentation de la mémoire de la machine virtuelle et réglage de la mémoire allouée."], ["Beaucoup trop d'alertes peu utiles au début.", "Tri sur une semaine et relèvement du niveau des alertes envoyées par e-mail."]],
-      learn: "Un SIEM demande du réglage : sans tri, les vraies alertes sont noyées."
+      obj: "Centraliser les journaux de sécurité des serveurs de la maquette.",
+      diff: [["Le serveur Wazuh s'arrêtait seul faute de mémoire.", "Augmentation de la mémoire de la machine virtuelle."]],
+      learn: "Ce qu'est un SIEM et pourquoi centraliser les journaux de sécurité."
     },
     'bts-galera': {
       obj: "Qu'une application continue de fonctionner quand un serveur de base de données s'arrête.",
@@ -775,7 +749,7 @@
     'bac-toip': {
       obj: "Comprendre le fonctionnement de la téléphonie sur IP.",
       diff: [["Les appels passaient mais sans le son dans un sens.", "Ouverture des bons ports sur le pare-feu de la maquette."]],
-      learn: "Comment un appel passe sur le réseau, et l'utilité de Wireshark pour comprendre un problème."
+      learn: "Comment un appel passe sur le réseau, du téléphone jusqu'au standard."
     },
     'bac-serveur': {
       obj: "Permettre aux élèves de se connecter avec leur compte sur tous les postes de la salle.",
@@ -796,11 +770,6 @@
       obj: "Apprendre Docker avec des services que j'utilise vraiment.",
       diff: [["Un service restait accessible sans passer par le proxy.", "Suppression de la publication directe du port : tout passe par Nginx Proxy Manager."]],
       learn: "Organiser ses conteneurs proprement et ne rien exposer sans raison."
-    },
-    'perso-pihole': {
-      obj: "Filtrer les publicités et les sites dangereux pour tous les appareils de la maison.",
-      diff: [["Un site utile était bloqué par erreur.", "Ajout à la liste blanche."]],
-      learn: "Le fonctionnement du DNS au quotidien."
     },
     'perso-wireguard': {
       obj: "Administrer mon lab depuis l'extérieur sans rien exposer.",
@@ -1029,6 +998,12 @@
     setInterval(spawn, 1300);
   }
 
+  function initProjectButtons() {
+    $$('[data-open-project]').forEach(function (b) {
+      b.addEventListener('click', function () { openProject(b.getAttribute('data-open-project'), b); });
+    });
+  }
+
   function initFilterLinks() {
     $$('[data-filter]').forEach(function (a) {
       a.addEventListener('click', function () {
@@ -1189,6 +1164,7 @@
     initNav();
     initSearch();
     initFilterLinks();
+    initProjectButtons();
     initAnimations();
     initLeds();
     initNetCockpit();
